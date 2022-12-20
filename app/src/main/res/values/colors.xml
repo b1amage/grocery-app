@@ -12,4 +12,5 @@
     <color name="primary_10">#E8F9F2</color>
     <color name="secondary">#FFB800</color>
     <color name="tertiary_dark">#FF03DAC5</color>
+    <color name="tertiary_gray">#A3A9AF</color>
 </resources>
