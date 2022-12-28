@@ -12,8 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
+       
         <activity
-            android:name=".activities.Dashboard"
+            android:name=".activity.SplashActivity"
             android:exported="true">
             <meta-data
                 android:name="android.app.lib_name"
@@ -23,11 +24,18 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        <activity
+            android:name=".activity.Dashboard"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
         </activity>
+        
         <activity
             android:name=".Preview"
             android:exported="false">
-
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />

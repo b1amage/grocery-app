@@ -2,70 +2,99 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp">
 
     <TextView
         android:id="@+id/text_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+
         android:layout_centerHorizontal="true"
-        android:text="Sign in to your account"
-        android:layout_marginTop="300dp"
+        android:layout_marginTop="200dp"
+
         android:textStyle="bold"
         android:textSize="20dp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:text="Sign in to your account"/>
 
     <TextView
         android:id="@+id/text_email"
-        android:layout_below="@+id/text_signin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Email"
+
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
+        android:layout_below="@+id/text_signin"
+
         android:textStyle="bold"
         android:textSize="15dp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:text="Email"/>
     
     <EditText
         android:id="@+id/edittext_email"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edittext"
-        android:layout_below="@+id/text_email"
-        android:hint="Email or Phone Number"
         android:padding="15dp"
+        android:background="@drawable/rounded_edittext"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/text_email"
+
         android:textSize="15dp"
         android:textColor="#e5e5e5"
-        android:layout_marginTop="5dp"/>
+        android:hint="Email or Phone Number"/>
 
     <TextView
         android:id="@+id/text_password"
-        android:layout_below="@+id/edittext_email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Password"
+
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_email"
+
         android:textStyle="bold"
         android:textSize="15dp"
-        android:textColor="#000000"/>
+        android:textColor="#000000"
+        android:text="Password"/>
 
-    <EditText
+    <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/edittext_password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/rounded_edittext"
-        android:layout_below="@+id/text_password"
         android:hint="Password"
-        android:padding="15dp"
-        android:textSize="15dp"
-        android:textColor="#e5e5e5"
-        android:layout_marginTop="5dp"/>
+        app:endIconMode="password_toggle"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/text_password"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
+
+            android:textSize="15dp" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 
 
+    <Button
+        android:id="@+id/button_signin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#19C179"
 
+        android:layout_below="@id/edittext_password"
+        android:layout_marginTop="20dp"
 
+        android:text="Sign in"/>
 
 </RelativeLayout>
