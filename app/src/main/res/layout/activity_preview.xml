@@ -18,6 +18,8 @@
 
         <include layout="@layout/text" android:id="@+id/title" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="30dp"/>
         <include layout="@layout/text" android:id="@+id/text" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="30dp"/>
+        <include layout="@layout/input" android:id="@+id/input" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="30dp" />
+            />
     </LinearLayout>
 
 </ScrollView>

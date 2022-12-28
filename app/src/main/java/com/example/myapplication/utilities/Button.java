@@ -1,6 +1,7 @@
 package com.example.myapplication.utilities;
 
 import android.app.Activity;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.view.View;
@@ -31,11 +32,14 @@ public class Button {
         buttonText = button.findViewById(R.id.button_text);
     }
 
+    private ColorStateList setColor(int color){
+        return ContextCompat.getColorStateList(this.activity.getApplicationContext(), color);
+    }
     // custom active button
     public void createActiveButton(String text, View.OnClickListener onClickFunction){
         getButtonElement();
 
-        button.setBackgroundTintList(ContextCompat.getColorStateList(this.activity.getApplicationContext(), R.color.primary_100));
+        button.setBackgroundTintList(setColor(R.color.primary_100));
         buttonIcon.setVisibility(View.GONE);
         buttonText.setTextColor(Color.WHITE);
         buttonText.setText(text);
