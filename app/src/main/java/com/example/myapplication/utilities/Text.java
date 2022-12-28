@@ -2,6 +2,7 @@ package com.example.myapplication.utilities;
 
 import android.app.Activity;
 import android.graphics.Typeface;
+import android.view.Gravity;
 import android.widget.TextView;
 
 public class Text {
@@ -18,12 +19,13 @@ public class Text {
         this.text = this.activity.findViewById(textId);
     }
 
-    public void createTitle(int size, String title, int textColor){
+    public void createTitle(int size, String title, int textColor, int textAlign){
         getTextElement();
 
         text.setText(title);
         text.setTextColor(text.getResources().getColor(textColor));
         text.setTextSize(size);
+        text.setGravity(textAlign);
     }
 
     public void createText(int size, String title, int textColor){
