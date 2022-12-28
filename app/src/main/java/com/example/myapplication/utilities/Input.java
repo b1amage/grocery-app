@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.Gravity;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -35,7 +36,7 @@ public class Input {
     // custom input
     public void createInput(String title, int size, int labelColor,String placeholder){
         getInputElement();
-        label.createTitle(size,title, labelColor);
+        label.createTitle(size,title, labelColor, Gravity.START);
         inputText.setHint(placeholder);
         drawable.setStroke(5, inputText.getResources().getColor(R.color.tertiary_gray)); // set stroke width and stroke color
 
