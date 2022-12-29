@@ -9,19 +9,27 @@
     android:paddingHorizontal="20dp"
     android:paddingVertical="12dp"
     android:background="@drawable/navbutton_shape"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:id="@+id/categoryContainer">
 
-    <ImageView
-        android:id="@+id/categoryIcon"
+    <com.google.android.flexbox.FlexboxLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
-        android:src="@drawable/ic_back"/>
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/categoryIcon"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_maxHeight="40dp"
+            app:layout_maxWidth="40dp"
+
+            android:src="@drawable/logo_icon"/>
+    </com.google.android.flexbox.FlexboxLayout>
+
     <TextView
         android:id="@+id/categoryTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingVertical="20dp"
+        android:paddingVertical="8dp"
         android:text="Text"
         android:gravity="center"
         android:textColor="@color/black"/>
