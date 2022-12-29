@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Toast;
 
@@ -36,7 +37,7 @@ public class Preview extends AppCompatActivity {
         navButton.createNavbarButton(R.drawable.ic_back, "Back", navButtonClick());
         iconButton.createButton(R.drawable.ic_back, buttonClick());
 
-        title.createTitle(32, "Title", R.color.primary_100);
+        title.createTitle(32, "Title", R.color.primary_100, Gravity.START);
         text.createText(16, "Text", R.color.tertiary_gray);
 
         input.createInput("Label", 20, R.color.primary_100, "Type something here...");
