@@ -14,7 +14,7 @@
         android:src="@drawable/logo"/>
 
     <TextView
-        android:id="@+id/text_signin"
+        android:id="@+id/text_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -25,7 +25,7 @@
         android:textStyle="bold"
         android:textSize="20dp"
         android:textColor="#000000"
-        android:text="Sign in to your account"/>
+        android:text="Sign up for free"/>
 
     <TextView
         android:id="@+id/text_email"
@@ -34,13 +34,13 @@
 
         android:layout_marginTop="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/text_signin"
+        android:layout_below="@+id/text_signup"
 
         android:textStyle="bold"
         android:textSize="15dp"
         android:textColor="#000000"
         android:text="Email"/>
-    
+
     <EditText
         android:id="@+id/edittext_email"
         android:layout_width="match_parent"
@@ -92,31 +92,54 @@
             android:hint="Password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/text_confirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_password"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Confirm Password"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/text_confirmPassword"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
+
+            android:textSize="15dp"
+            android:hint="Password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
     <Button
-        android:id="@+id/button_signin"
+        android:id="@+id/button_signup"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="#19C179"
 
-        android:layout_below="@id/edittext_password"
+        android:layout_below="@id/edittext_confirmPassword"
         android:layout_marginTop="20dp"
 
-        android:text="Sign in"/>
-
-    <TextView
-        android:id="@+id/text_forgot"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-
-        android:layout_below="@id/button_signin"
-        android:layout_marginTop="20dp"
-
-        android:textSize="16dp"
-        android:textColor="#19C179"
-        android:textStyle="bold"
-        android:text="Forgot the password?"/>
+        android:text="Sign up"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -125,16 +148,16 @@
         android:layout_centerHorizontal="true"
 
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp">
+        android:layout_marginBottom="40dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
-            android:text="Don't have an account?"/>
+            android:text="Already have an account?"/>
 
         <TextView
-            android:id="@+id/text_signup"
+            android:id="@+id/text_signin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
 
@@ -142,6 +165,6 @@
 
             android:textStyle="bold"
             android:textColor="#19C179"
-            android:text="Sign up"/>
+            android:text="Sign in"/>
     </LinearLayout>
 </RelativeLayout>
