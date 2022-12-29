@@ -22,8 +22,8 @@
 - Contributor: Trieu Hoang Khang (s3878466)
 
 ### Project Information
-- Project name: Fitness Application
-- Purpose: Manage the calories in-out of a person base on their goal
+- Project name: GRMIT Application
+- Purpose: Shopping
 - Functionalities: Get user initial information (name, age, body indexes, gender, goal), Calculate the time working out (various kind of sport), Calculate calories in (meal recommendation), Calculate BMI, TDEE.
 - Technologies used: Java (jdk16)
 
