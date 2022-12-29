@@ -33,14 +33,22 @@
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
-        
+
         <activity
-            android:name=".Preview"
+            android:name=".activity.MainActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
+        
+<!--        <activity-->
+<!--            android:name=".Preview"-->
+<!--            android:exported="false">-->
+<!--            <meta-data-->
+<!--                android:name="android.app.lib_name"-->
+<!--                android:value="" />-->
+<!--        </activity>-->
     </application>
 
 </manifest>
