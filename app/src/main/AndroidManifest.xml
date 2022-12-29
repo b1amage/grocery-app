@@ -19,6 +19,7 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -27,7 +28,7 @@
         </activity>
 
         <activity
-            android:name=".activities.Dashboard"
+            android:name=".activity.Dashboard"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

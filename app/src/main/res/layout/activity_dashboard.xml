@@ -5,16 +5,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:flexWrap="wrap"
-    app:justifyContent="space_around"
+    android:orientation="vertical"
     >
+
+    <include layout="@layout/action_bar" android:id="@+id/actionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" />
 
     <GridView
         android:id="@+id/categoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="6dp"
+        android:horizontalSpacing="12dp"
         android:numColumns="2"
-        android:verticalSpacing="6dp"
+        android:listSelector="@color/white"
+        android:verticalSpacing="12dp"
+        android:layout_marginVertical="20dp"
+        android:layout_marginHorizontal="20dp"
         />
 </LinearLayout>
