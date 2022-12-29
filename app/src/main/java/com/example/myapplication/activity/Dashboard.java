@@ -1,5 +1,6 @@
-package com.example.myapplication.activities;
+package com.example.myapplication.activity;
 
+import com.example.myapplication.components.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.example.myapplication.content.Categories;
 public class Dashboard extends AppCompatActivity {
     private GridView categoryGridView;
     private Categories categories = new Categories();
+    private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +24,7 @@ public class Dashboard extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
+        actionBar.createActionBar("Dashboard");
         categoryGridView = findViewById(R.id.categoryList);
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories.getCategories());
         categoryGridView.setAdapter(categoryAdapter);

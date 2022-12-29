@@ -9,9 +9,11 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_100">#19C179</color>
+    <color name="primary_30">#C4F4DB</color>
     <color name="primary_10">#E8F9F2</color>
     <color name="neutral"> #F4F6F9</color>
     <color name="secondary">#FFB800</color>
     <color name="tertiary_dark">#FF03DAC5</color>
     <color name="tertiary_gray">#A3A9AF</color>
+
 </resources>
