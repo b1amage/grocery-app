@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="20dp">
+
+    <Button
+        android:id="@+id/icon_button"
+        android:layout_width="40dp"
+        android:layout_height="50dp"
+
+        android:backgroundTint="@android:color/transparent"
+
+        android:text="<"
+        android:textSize="20dp"
+        android:textColor="@color/black"/>
+
+    <TextView
+        android:id="@+id/text_signup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp"
+
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:textColor="#000000"
+        android:text="Fill in your bio"/>
+
+    <TextView
+        android:id="@+id/text_email"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/text_signup"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Email"/>
+
+    <EditText
+        android:id="@+id/edittext_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/rounded_edittext"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/text_email"
+
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:hint="Email or Phone Number"/>
+
+    <TextView
+        android:id="@+id/text_password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_email"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Password"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_password"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/text_password"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
+
+            android:textSize="15dp"
+            android:hint="Password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/text_confirmPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_password"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Confirm Password"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/edittext_confirmPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:endIconMode="password_toggle"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/text_confirmPassword"
+
+        app:boxStrokeWidth="0dp"
+        app:boxStrokeWidthFocused="0dp">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp"
+            android:inputType="textPassword"
+            android:background="@drawable/rounded_edittext"
+
+            android:textSize="15dp"
+            android:hint="Password"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/button_signup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+        android:backgroundTint="#19C179"
+
+        android:layout_below="@id/edittext_confirmPassword"
+        android:layout_marginTop="20dp"
+
+        android:text="Sign up"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
+
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="40dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Already have an account?"/>
+
+        <TextView
+            android:id="@+id/text_signin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_marginLeft="5dp"
+
+            android:textStyle="bold"
+            android:textColor="#19C179"
+            android:text="Sign in"/>
+    </LinearLayout>
+</RelativeLayout>
+
