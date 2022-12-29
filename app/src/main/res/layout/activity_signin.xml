@@ -92,6 +92,28 @@
             android:hint="Password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <LinearLayout
+        android:id="@+id/remember_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+
+        android:layout_below="@id/edittext_password">
+
+        <CheckBox
+            android:id="@+id/checkbox_remember"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+
+            android:textColor="#000000"
+            android:text="Remember me"/>
+    </LinearLayout>
+
     <Button
         android:id="@+id/button_signin"
         android:layout_width="match_parent"
@@ -99,8 +121,7 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="#19C179"
 
-        android:layout_below="@id/edittext_password"
-        android:layout_marginTop="20dp"
+        android:layout_below="@id/remember_me"
 
         android:text="Sign in"/>
 
