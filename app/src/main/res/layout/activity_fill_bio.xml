@@ -8,17 +8,16 @@
     <LinearLayout
         android:id="@+id/fill_bio"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/icon_button"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+        <ImageButton
+            android:id="@+id/button_goback"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
-            android:backgroundTint="#4FE58A"
 
-            android:text="a"
-            android:textSize="20dp"
-            android:textColor="@color/black"/>
+            android:src="@drawable/ic_back"
+            android:backgroundTint="@color/primary_30"/>
 
         <TextView
             android:id="@+id/text_signup"
