@@ -107,7 +107,7 @@
         android:text="Confirm Password"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_confirmPassword"
+        android:id="@+id/confirmPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="password_toggle"
@@ -119,6 +119,7 @@
         app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_confirmPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -136,7 +137,7 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="#19C179"
 
-        android:layout_below="@id/edittext_confirmPassword"
+        android:layout_below="@id/confirmPassword"
         android:layout_marginTop="20dp"
 
         android:text="Sign up"/>
