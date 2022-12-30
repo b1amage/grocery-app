@@ -4,7 +4,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:minHeight="200dp"
+    android:minHeight="208dp"
     android:gravity="center"
     android:paddingHorizontal="20dp"
     android:paddingVertical="12dp"
@@ -21,7 +21,6 @@
             android:layout_height="match_parent"
             app:layout_maxHeight="40dp"
             app:layout_maxWidth="40dp"
-
             android:src="@drawable/logo_icon"/>
     </com.google.android.flexbox.FlexboxLayout>
 

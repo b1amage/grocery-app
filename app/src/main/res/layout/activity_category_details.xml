@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.CategoryDetails"
+    android:orientation="vertical">
+    <include layout="@layout/action_bar" android:id="@+id/detailsActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" />
+    <include layout="@layout/search_bar" android:id="@+id/dashboardSearchBar" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginBottom="28dp">
+        <ListView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:listSelector="@color/white"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="24dp"
+            android:id="@+id/categoryItemList"/>
+    </LinearLayout>
+</LinearLayout>

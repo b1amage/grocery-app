@@ -8,6 +8,8 @@ import android.widget.Spinner;
 
 import com.example.myapplication.R;
 
+import com.example.myapplication.R;
+
 public class FillBioActivity extends AppCompatActivity {
 
     @Override
