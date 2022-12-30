@@ -2,15 +2,22 @@
 <com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
-    <ImageView
-        android:id="@+id/actionBarButton"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:id="@+id/actionBarButtonContainer"
         app:layout_maxWidth="40dp"
         app:layout_maxHeight="40dp"
-        android:src="@drawable/logo_icon"/>
+        >
+        <ImageView
+            android:id="@+id/actionBarButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_back" />
+    </LinearLayout>
 
     <include layout="@layout/text" android:id="@+id/actionBarTitle" android:layout_width="match_parent" android:layout_height="match_parent" app:layout_alignSelf="center" android:layout_marginHorizontal="16dp"/>
 </com.google.android.flexbox.FlexboxLayout>

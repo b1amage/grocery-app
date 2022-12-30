@@ -24,7 +24,7 @@ public class Dashboard extends AppCompatActivity {
             getSupportActionBar().hide();
         }
 
-        actionBar.createActionBar("Dashboard");
+        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryGridView = findViewById(R.id.categoryList);
         CategoryAdapter categoryAdapter = new CategoryAdapter(this, categories.getCategories());
         categoryGridView.setAdapter(categoryAdapter);

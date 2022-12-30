@@ -12,7 +12,7 @@
 
         android:backgroundTint="@android:color/transparent"
 
-        android:text="<"
+        android:text="Back"
         android:textSize="20dp"
         android:textColor="@color/black"/>
 

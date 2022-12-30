@@ -1,6 +1,7 @@
 package com.example.myapplication.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +15,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.CategoryDetails;
+import com.example.myapplication.activity.Dashboard;
 import com.example.myapplication.model.Category;
 
 import java.util.ArrayList;
@@ -40,7 +43,10 @@ public class CategoryAdapter extends ArrayAdapter<Category> {
         listItemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
+//                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), CategoryDetails.class);
+                intent.putExtra("actionBarTitle", categoryTitle.getText().toString());
+                getContext().startActivity(intent);
             }
         });
 

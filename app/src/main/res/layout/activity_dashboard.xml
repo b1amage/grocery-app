@@ -10,15 +10,21 @@
 
     <include layout="@layout/action_bar" android:id="@+id/actionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" />
 
-    <GridView
-        android:id="@+id/categoryList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:horizontalSpacing="12dp"
-        android:numColumns="2"
-        android:listSelector="@color/white"
-        android:verticalSpacing="12dp"
-        android:layout_marginVertical="20dp"
-        android:layout_marginHorizontal="20dp"
-        />
+        android:gravity="center"
+        >
+        <GridView
+            android:id="@+id/categoryList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:horizontalSpacing="12dp"
+            android:numColumns="2"
+            android:listSelector="@color/white"
+            android:verticalSpacing="12dp"
+            android:layout_margin="20dp"
+            />
+    </LinearLayout>
+
 </LinearLayout>
