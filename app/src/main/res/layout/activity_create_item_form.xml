@@ -111,5 +111,5 @@
             android:paddingHorizontal="24dp"/>
     </LinearLayout>
 
-    <include layout="@layout/button" android:id="@+id/submitButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_margin="24dp" />
+    <include layout="@layout/button" android:id="@+id/submitButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginVertical="48dp" />
 </LinearLayout>
