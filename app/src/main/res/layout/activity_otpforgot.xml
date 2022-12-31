@@ -6,7 +6,7 @@
     android:padding="20dp">
 
     <LinearLayout
-        android:id="@+id/email_verify"
+        android:id="@+id/forgot_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center">
@@ -29,7 +29,7 @@
             android:textStyle="bold"
             android:textSize="20dp"
             android:textColor="#000000"
-            android:text="Email verification"/>
+            android:text="Forgot password"/>
 
     </LinearLayout>
 
@@ -130,6 +130,7 @@
             android:textStyle="bold"
             android:textColor="@color/primary_100"
             android:textSize="14dp"/>
+
     </LinearLayout>
 
     <Button
