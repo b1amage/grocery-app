@@ -12,6 +12,7 @@ public class Categories {
         categories.add(new Category(R.drawable.tech, "Technology"));
         categories.add(new Category(R.drawable.furniture, "Furniture "));
         categories.add(new Category(R.drawable.clothes, "Clothes"));
+        categories.add(new Category(R.drawable.orders, "Orders"));
         categories.add(new Category(R.drawable.voucher, "Voucher"));
         categories.add(new Category(R.drawable.logo_icon, "Information"));
     }
