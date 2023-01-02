@@ -22,7 +22,7 @@
         </activity>   
         
         <activity
-            android:name=".ResetFinishedActivity"
+            android:name=".activity.ResetFinishedActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -30,7 +30,7 @@
         </activity>
         
         <activity
-            android:name=".NewPasswordAcitivty"
+            android:name=".activity.NewPasswordAcitivty"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -38,7 +38,7 @@
         </activity>
         
         <activity
-            android:name=".OTPForgotActivity"
+            android:name=".activity.OTPForgotActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -46,14 +46,14 @@
         </activity>
         
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".activity.ForgotPasswordActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".RegisterFinishedActivity"
+            android:name=".activity.RegisterFinishedActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
