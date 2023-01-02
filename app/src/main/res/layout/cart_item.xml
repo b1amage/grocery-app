@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingVertical="12dp"
+    android:elevation="4dp"
+    android:background="@drawable/rounded_lg">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dummy_item"
+        android:id="@+id/cart_item_img"
+        android:layout_centerVertical="true"
+        />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/cart_item_img"
+        android:layout_marginLeft="24dp"
+        android:layout_centerVertical="true"
+        android:id="@+id/cart_item_info"
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fresh Spinach"
+            android:id="@+id/cart_item_name"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/cart_item_name"
+            android:text="Lovy Grocery"
+            android:layout_marginTop="4dp"
+            android:id="@+id/cart_item_category"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="$12"
+            android:textColor="@color/primary_100"
+            android:textStyle="bold"
+            android:layout_centerVertical="true"
+            android:textSize="16dp"
+            android:layout_below="@+id/cart_item_category"
+            android:id="@+id/cart_item_price"/>
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/cart_quantity_ctn"
+        android:layout_toRightOf="@+id/cart_item_info"
+        android:layout_marginLeft="50dp"
+        android:layout_centerVertical="true">
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/remove"
+            android:background="@drawable/rounded"
+            android:backgroundTint="@color/primary_10"
+            android:id="@+id/cart_item_minus_btn"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/cart_item_minus_btn"
+            android:text="1"
+            android:layout_centerVertical="true"
+            android:textSize="18dp"
+            android:textColor="@color/black"
+            android:layout_marginHorizontal="8dp"
+            android:id="@+id/cart_item_quantity"/>
+
+        <ImageButton
+            android:layout_centerVertical="true"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:src="@drawable/plus"
+            android:background="@drawable/rounded"
+            android:backgroundTint="@color/primary_100"
+            android:id="@+id/cart_item_plus_btn"
+            android:layout_toRightOf="@+id/cart_item_quantity"/>
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>
