@@ -2,12 +2,10 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -18,15 +16,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class ViewAllItemActivity extends AppCompatActivity {
 
-    private ListView listView;
     private List<Item> itemList;
-    private TextView seeAllText;
+    private ListView listView;
+
 
     private void initUIComponents() {
-        listView = findViewById(R.id.item_listview);
-        seeAllText = findViewById(R.id.see_all_txt);
+        listView = findViewById(R.id.view_all_list_view);
     }
 
     private void initMockData() {
@@ -36,7 +33,12 @@ public class MainActivity extends AppCompatActivity {
                         new Item(2, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
                         new Item(3, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
                         new Item(4, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(5, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12)
+                        new Item(5, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
+                        new Item(6, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
+                        new Item(7, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
+                        new Item(8, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
+                        new Item(9, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
+                        new Item(10, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12)
                 )
         );
     }
@@ -48,17 +50,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
-            }
-        });
-    }
-
-    private void setViewAllTextListener() {
-        seeAllText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, ViewAllItemActivity.class);
-                startActivityForResult(intent, 100);
+                Toast.makeText(ViewAllItemActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -66,11 +58,10 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_view_all_item);
 
         initUIComponents();
         initMockData();
         setUpListView();
-        setViewAllTextListener();
     }
 }
