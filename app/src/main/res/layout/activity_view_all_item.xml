@@ -18,14 +18,14 @@
             android:src="@drawable/arr_back"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/primary_10"
-            android:id="@+id/back_btn"/>
+            android:id="@+id/view_all_back_btn"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@id/back_btn"
+            android:layout_toRightOf="@id/view_all_back_btn"
             android:text="Popular Grocery"
             android:textColor="@color/black"
             android:textSize="26dp"

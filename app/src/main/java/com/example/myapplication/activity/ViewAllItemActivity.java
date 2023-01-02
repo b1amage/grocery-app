@@ -2,9 +2,11 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -20,10 +22,12 @@ public class ViewAllItemActivity extends AppCompatActivity {
 
     private List<Item> itemList;
     private ListView listView;
+    private ImageButton backBtn;
 
 
     private void initUIComponents() {
         listView = findViewById(R.id.view_all_list_view);
+        backBtn = findViewById(R.id.view_all_back_btn);
     }
 
     private void initMockData() {
@@ -55,6 +59,17 @@ public class ViewAllItemActivity extends AppCompatActivity {
         });
     }
 
+    private void setBackButtonListener() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewAllItemActivity.this, MainActivity.class);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -63,5 +78,6 @@ public class ViewAllItemActivity extends AppCompatActivity {
         initUIComponents();
         initMockData();
         setUpListView();
+        setBackButtonListener();
     }
 }
