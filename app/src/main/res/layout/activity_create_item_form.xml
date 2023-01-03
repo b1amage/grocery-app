@@ -1,116 +1,174 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CreateItemForm"
-    android:orientation="vertical"
     >
 
-    <include layout="@layout/action_bar" android:id="@+id/itemFormActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" />
-
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:id="@+id/inputItemName"
-        android:layout_marginHorizontal="24dp">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <include layout="@layout/action_bar" android:id="@+id/itemFormActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Item name"
-            android:padding="24dp"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
-
-        <EditText
-            android:id="@+id/inputItemText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Item name ..."
-            android:background="@drawable/button_shape"
-            android:paddingHorizontal="24dp"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/inputItemImage"
+            android:layout_marginHorizontal="24dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/inputShopName"
-        android:layout_marginHorizontal="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Image"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Place"
-            android:padding="24dp"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
+            <ImageButton
+                android:background="@drawable/dashed_stroke"
+                android:id="@+id/uploadImageButton"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:src="@drawable/add"
+                android:layout_gravity="center"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/inputShopText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Shop name ..."
-            android:background="@drawable/button_shape"
-            android:paddingHorizontal="24dp"
-            />
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/inputItemDescription"
+            android:layout_marginHorizontal="24dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/inputItemPrice"
-        android:layout_marginHorizontal="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Item name"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Price"
-            android:padding="24dp"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
+            <EditText
+                android:id="@+id/inputItemDescriptionText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Item name ..."
+                android:background="@drawable/button_shape"
+                android:paddingHorizontal="24dp"/>
+        </LinearLayout>
 
-        <EditText
-            android:id="@+id/inputPriceText"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="USD"
-            android:background="@drawable/button_shape"
-            android:paddingHorizontal="24dp"/>
-    </LinearLayout>
+            android:orientation="vertical"
+            android:id="@+id/inputItemName"
+            android:layout_marginHorizontal="24dp">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:id="@+id/inputItemImage"
-        android:layout_marginHorizontal="24dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Description"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
 
-        <TextView
-            android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/inputItemText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Describe the item"
+                android:background="@drawable/button_shape"
+                android:paddingHorizontal="24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Image"
-            android:padding="24dp"
-            android:textStyle="bold"
-            android:textSize="16dp"
-            android:textColor="@color/black"/>
+            android:orientation="vertical"
+            android:id="@+id/inputItemPrice"
+            android:layout_marginHorizontal="24dp">
 
-        <ImageButton
-            android:background="@drawable/dashed_stroke"
-            android:id="@+id/uploadImageButton"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/add"
-            android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
 
+            <EditText
+                android:id="@+id/inputPriceText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E.g: 10000"
+                android:background="@drawable/button_shape"
+                android:paddingHorizontal="24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/inputItemCategory"
+            android:layout_marginHorizontal="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Category"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/inputItemCategoryText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E.g: Drink"
+                android:background="@drawable/button_shape"
+                android:paddingHorizontal="24dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:id="@+id/inputItemQuantity"
+            android:layout_marginHorizontal="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Quantity"
+                android:paddingHorizontal="24dp"
+                android:paddingVertical="12dp"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:textColor="@color/black"/>
+
+            <EditText
+                android:id="@+id/inputItemQuantityText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="E.g: 100"
+                android:background="@drawable/button_shape"
+                android:paddingHorizontal="24dp"/>
+        </LinearLayout>
+
+        <include layout="@layout/button" android:id="@+id/submitButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginVertical="48dp" />
     </LinearLayout>
-
-    <include layout="@layout/button" android:id="@+id/submitButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginVertical="48dp" />
-</LinearLayout>
+</ScrollView>

@@ -16,33 +16,37 @@ import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
 
-public class StoreForm extends AppCompatActivity {
+public class VoucherForm extends AppCompatActivity {
+    private ActionBar voucherFormActionBar = new ActionBar(R.id.voucherFormActionBar, this);
+    private Button voucherFormButton = new Button(R.id.voucherSubmitButton, this);
 
-    private ActionBar storeFormActionBar = new ActionBar(R.id.storeFormActionBar, this);
-    private Button storeFormButton = new Button(R.id.storeFormButton, this);
-    private ImageButton uploadImageButton;
-
-
-    private EditText inputAddressText;
-    private EditText inputLatitudeText;
-    private EditText inputLongitudeText;
+    private EditText inputVoucherCodeText;
+    private EditText inputVoucherTitleText;
+    private EditText inputVoucherDescriptionText;
+    private EditText inputVoucherTypeDiscountText;
+    private EditText inputVoucherValueText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_store_form);
+        setContentView(R.layout.activity_voucher_form);
 
-        storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
-        storeFormButton.createActiveButton("Create", onSubmitFormClick());
+        voucherFormActionBar.createActionBar("Create voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
+        voucherFormButton.createActiveButton("Create", onSubmitFormClick());
 
 //        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
-        inputAddressText = findViewById(R.id.inputAddressText);
-        inputLatitudeText = findViewById(R.id.inputLatitudeText);
-        inputLongitudeText = findViewById(R.id.inputLongitudeText);
+        inputVoucherCodeText = findViewById(R.id.inputVoucherCodeText);
+        inputVoucherTitleText = findViewById(R.id.inputVoucherTitleText);
+        inputVoucherDescriptionText = findViewById(R.id.inputVoucherDescriptionText);
+        inputVoucherTypeDiscountText = findViewById(R.id.inputVoucherTypeDiscountText);
+        inputVoucherValueText = findViewById(R.id.inputVoucherValueText);
 
-        inputAddressText.addTextChangedListener(getInputValue(inputAddressText));
-        inputLatitudeText.addTextChangedListener(getInputValue(inputLatitudeText));
-        inputLongitudeText.addTextChangedListener(getInputValue(inputLongitudeText));
+        inputVoucherCodeText.addTextChangedListener(getInputValue(inputVoucherCodeText));
+        inputVoucherTitleText.addTextChangedListener(getInputValue(inputVoucherTitleText));
+        inputVoucherDescriptionText.addTextChangedListener(getInputValue(inputVoucherDescriptionText));
+        inputVoucherTypeDiscountText.addTextChangedListener(getInputValue(inputVoucherTypeDiscountText));
+        inputVoucherValueText.addTextChangedListener(getInputValue(inputVoucherValueText));
+
     }
 
     private TextWatcher getInputValue(EditText editText){
@@ -76,7 +80,7 @@ public class StoreForm extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(StoreForm.this, "Create", Toast.LENGTH_LONG).show();
+                Toast.makeText(VoucherForm.this, "Create", Toast.LENGTH_LONG).show();
             }
         };
     }
