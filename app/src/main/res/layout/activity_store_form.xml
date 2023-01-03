@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.StoreForm"
+    android:orientation="vertical">
+
+    <include layout="@layout/action_bar" android:id="@+id/storeFormActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginBottom="24dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/inputItemName"
+        android:layout_marginHorizontal="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Address"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/inputAddressText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="18 Huynh Van Banh, 14, Phu Nhuan"
+            android:background="@drawable/button_shape"
+            android:paddingHorizontal="24dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/inputShopName"
+        android:layout_marginHorizontal="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Latitude"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/inputLatitudeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:background="@drawable/button_shape"
+            android:paddingHorizontal="24dp"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:id="@+id/inputItemPrice"
+        android:layout_marginHorizontal="24dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Longitude"
+            android:paddingHorizontal="24dp"
+            android:paddingVertical="12dp"
+            android:textStyle="bold"
+            android:textSize="16dp"
+            android:textColor="@color/black"/>
+
+        <EditText
+            android:id="@+id/inputLongitudeText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:background="@drawable/button_shape"
+            android:paddingHorizontal="24dp"/>
+    </LinearLayout>
+
+    <include layout="@layout/button" android:id="@+id/storeFormButton" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginVertical="48dp" />
+</LinearLayout>
