@@ -2,8 +2,6 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activity.CategoryDetails;
-import com.example.myapplication.activity.Dashboard;
-import com.example.myapplication.model.Category;
 import com.example.myapplication.model.Item;
-import com.example.myapplication.utilities.ColorTransparentUtils;
 
 import java.util.ArrayList;
 
@@ -43,7 +37,7 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
         View listItemView = convertView;
         if (listItemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_item, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
         }
 
         Item item = (Item) getItem(position);
