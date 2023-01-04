@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/items"
+        android:icon="@drawable/food"
+        android:title="Items"
+    />
+
+    <item
+        android:id="@+id/vouchers"
+        android:icon="@drawable/voucher"
+        android:title="Vouchers" />
+
+    <item
+        android:id="@+id/orders"
+        android:icon="@drawable/orders"
+        android:title="Orders" />
+
+    <item
+        android:id="@+id/store"
+        android:icon="@drawable/shop"
+        android:title="Stores" />
+</menu>
