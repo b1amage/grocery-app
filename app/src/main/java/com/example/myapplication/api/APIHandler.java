@@ -77,6 +77,7 @@ public class APIHandler {
         error.printStackTrace();
         if (checkUnexpectedError(error)) {
             listener.onError(error.getMessage(), error.networkResponse.statusCode);
+            return;
         }
         NetworkResponse networkResponse = error.networkResponse;
         if (networkResponse != null && networkResponse.data != null) {
@@ -98,10 +99,6 @@ public class APIHandler {
 
     private boolean checkUnexpectedError(VolleyError error) {
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
-            return true;
-        } else if (error instanceof AuthFailureError) {
-            return true;
-        } else if (error instanceof ServerError) {
             return true;
         } else if (error instanceof NetworkError) {
             return true;
