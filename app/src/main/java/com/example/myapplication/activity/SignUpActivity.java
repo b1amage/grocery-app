@@ -36,8 +36,6 @@ public class SignUpActivity extends AppCompatActivity {
         edittext_password = (TextInputEditText) findViewById(R.id.edittext_password);
         edittext_confirmPassword = (TextInputEditText) findViewById(R.id.edittext_confirmPassword);
 
-
-
         button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -54,12 +52,12 @@ public class SignUpActivity extends AppCompatActivity {
                 (new APIHandler(SignUpActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
                     @Override
                     public void onError(String message, int statusCode) {
-                        Toast.makeText(SignUpActivity.this, message + " " + statusCode, Toast.LENGTH_SHORT).show();
+                        System.out.println(message + statusCode);
                     }
 
                     @Override
                     public void onResponse(JSONObject response) throws JSONException {
-                        Toast.makeText(SignUpActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
+                       Toast.makeText(SignUpActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }
