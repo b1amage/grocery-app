@@ -5,22 +5,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:padding="20dp">
 
-    <ImageView
-        android:id="@+id/logo"
-        android:layout_width="180dp"
-        android:layout_height="180dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:src="@drawable/logo"/>
-
     <TextView
         android:id="@+id/text_signup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/logo"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
 
         android:textStyle="bold"
         android:textSize="20dp"
@@ -32,9 +23,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/text_signup"
+        android:layout_below="@id/text_signup"
 
         android:textStyle="bold"
         android:textSize="15dp"
@@ -53,14 +44,14 @@
 
         android:textSize="15dp"
         android:textColor="#000000"
-        android:hint="Email or Phone Number"/>
+        android:hint="Email"/>
 
     <TextView
         android:id="@+id/text_password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
         android:layout_below="@+id/edittext_email"
 
@@ -70,7 +61,7 @@
         android:text="Password"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_password"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="password_toggle"
@@ -82,6 +73,7 @@
         app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
@@ -97,9 +89,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:layout_marginLeft="10dp"
-        android:layout_below="@+id/edittext_password"
+        android:layout_below="@+id/password"
 
         android:textStyle="bold"
         android:textSize="15dp"
@@ -130,6 +122,90 @@
             android:hint="Password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
+    <TextView
+        android:id="@+id/text_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/confirmPassword"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Full name"/>
+
+    <EditText
+        android:id="@+id/edittext_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:background="@drawable/rounded_edittext"
+
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/text_name"
+
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:hint="Full name"/>
+
+    <TextView
+        android:id="@+id/text_phone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_name"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Phone number"/>
+
+    <EditText
+        android:id="@+id/edittext_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+
+        android:layout_below="@+id/text_phone"
+        android:layout_marginTop="5dp"
+
+        android:hint="Phone number"
+        android:padding="15dp"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
+    <TextView
+        android:id="@+id/text_address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@+id/edittext_phone"
+
+        android:textStyle="bold"
+        android:textSize="15dp"
+        android:textColor="#000000"
+        android:text="Address"/>
+
+    <EditText
+        android:id="@+id/edittext_address"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/rounded_edittext"
+
+        android:layout_below="@+id/text_address"
+        android:layout_marginTop="5dp"
+
+        android:hint="Address"
+        android:padding="15dp"
+        android:textColor="#000000"
+        android:textSize="15dp" />
+
     <Button
         android:id="@+id/button_signup"
         android:layout_width="match_parent"
@@ -137,10 +213,10 @@
         android:background="@drawable/rounded_edittext"
         android:backgroundTint="#19C179"
 
-        android:layout_below="@id/confirmPassword"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
+        android:layout_below="@id/edittext_address"
 
-        android:text="Sign up"/>
+        android:text="Sign Up"/>
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -149,7 +225,7 @@
         android:layout_centerHorizontal="true"
 
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="40dp">
+        android:layout_marginBottom="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -169,3 +245,4 @@
             android:text="Sign in"/>
     </LinearLayout>
 </RelativeLayout>
+

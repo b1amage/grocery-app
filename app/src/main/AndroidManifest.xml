@@ -116,13 +116,6 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.FillBioActivity"
-            android:exported="false">
-            <meta-data
-                android:name="android.app.lib_name"
-                android:value="" />
-        </activity>
-        <activity
             android:name=".activity.SignUpActivity"
             android:exported="false">
             <meta-data
