@@ -53,8 +53,8 @@ public class SignUpActivity extends AppCompatActivity {
                 }
                 (new APIHandler(SignUpActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
                     @Override
-                    public void onError(String message) {
-                        Toast.makeText(SignUpActivity.this, message, Toast.LENGTH_SHORT).show();
+                    public void onError(String message, int statusCode) {
+                        Toast.makeText(SignUpActivity.this, message + " " + statusCode, Toast.LENGTH_SHORT).show();
                     }
 
                     @Override

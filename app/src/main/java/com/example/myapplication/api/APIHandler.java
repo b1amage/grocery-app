@@ -23,6 +23,7 @@ import com.android.volley.TimeoutError;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.HttpHeaderParser;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.myapplication.utilities.CookieManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -72,6 +73,29 @@ public class APIHandler {
         editor.apply();
     }
 
+    private void handleError(VolleyError error, VolleyResponseListener listener) {
+        error.printStackTrace();
+        if (checkUnexpectedError(error)) {
+            listener.onError(error.getMessage(), error.networkResponse.statusCode);
+        }
+        NetworkResponse networkResponse = error.networkResponse;
+        if (networkResponse != null && networkResponse.data != null) {
+            String parsed;
+            try {
+                parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
+            } catch (UnsupportedEncodingException e) {
+                parsed = new String(networkResponse.data);
+            }
+
+            try {
+                JSONObject res = new JSONObject(parsed);
+                listener.onError(res.getString("msg"), networkResponse.statusCode);
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     private boolean checkUnexpectedError(VolleyError error) {
         if (error instanceof TimeoutError || error instanceof NoConnectionError) {
             return true;
@@ -93,26 +117,7 @@ public class APIHandler {
                 e.printStackTrace();
             }
         }, error -> {
-            error.printStackTrace();
-            if (checkUnexpectedError(error)) {
-                listener.onError(error.getMessage());
-            }
-            NetworkResponse networkResponse = error.networkResponse;
-            if (networkResponse != null && networkResponse.data != null) {
-                String parsed;
-                try {
-                    parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                } catch (UnsupportedEncodingException e) {
-                    parsed = new String(networkResponse.data);
-                }
-
-                try {
-                    JSONObject res = new JSONObject(parsed);
-                    listener.onError(res.getString("msg"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            handleError(error, listener);
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -146,26 +151,7 @@ public class APIHandler {
                         e.printStackTrace();
                     }
                 }, error -> {
-                    error.printStackTrace();
-                    if (checkUnexpectedError(error)) {
-                        listener.onError(error.getMessage());
-                    }
-                    NetworkResponse networkResponse = error.networkResponse;
-                    if (networkResponse != null && networkResponse.data != null) {
-                        String parsed;
-                        try {
-                            parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                        } catch (UnsupportedEncodingException e) {
-                            parsed = new String(networkResponse.data);
-                        }
-
-                        try {
-                            JSONObject res = new JSONObject(parsed);
-                            listener.onError(res.getString("msg"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    handleError(error, listener);
                 }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -199,26 +185,7 @@ public class APIHandler {
                 e.printStackTrace();
             }
         }, error -> {
-            error.printStackTrace();
-            if (checkUnexpectedError(error)) {
-                listener.onError(error.getMessage());
-            }
-            NetworkResponse networkResponse = error.networkResponse;
-            if (networkResponse != null && networkResponse.data != null) {
-                String parsed;
-                try {
-                    parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                } catch (UnsupportedEncodingException e) {
-                    parsed = new String(networkResponse.data);
-                }
-
-                try {
-                    JSONObject res = new JSONObject(parsed);
-                    listener.onError(res.getString("msg"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            handleError(error, listener);
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -246,26 +213,7 @@ public class APIHandler {
                 e.printStackTrace();
             }
         }, error -> {
-            error.printStackTrace();
-            if (checkUnexpectedError(error)) {
-                listener.onError(error.getMessage());
-            }
-            NetworkResponse networkResponse = error.networkResponse;
-            if (networkResponse != null && networkResponse.data != null) {
-                String parsed;
-                try {
-                    parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                } catch (UnsupportedEncodingException e) {
-                    parsed = new String(networkResponse.data);
-                }
-
-                try {
-                    JSONObject res = new JSONObject(parsed);
-                    listener.onError(res.getString("msg"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            handleError(error, listener);
         }) {
             @Override
             protected Response<JSONObject> parseNetworkResponse(NetworkResponse response) {
@@ -290,7 +238,11 @@ public class APIHandler {
     }
 
     public void logoutRequest(String endpoint, VolleyResponseListener listener) {
-        Log.i("refreshToken", sharedPreferences.getString("refreshToken", ""));
+//        Log.i("refreshToken", sharedPreferences.getString("refreshToken", ""));
+        if (!new CookieManager(ctx).isLogin()) {
+            listener.onError("You have not logged in", 401);
+            return;
+        }
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.DELETE,
                 url + endpoint, null, response -> {
             Log.i("result", response.toString());
@@ -302,26 +254,7 @@ public class APIHandler {
 
             removeCookie();
         }, error -> {
-            error.printStackTrace();
-            if (checkUnexpectedError(error)) {
-                listener.onError(error.getMessage());
-            }
-            NetworkResponse networkResponse = error.networkResponse;
-            if (networkResponse != null && networkResponse.data != null) {
-                String parsed;
-                try {
-                    parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                } catch (UnsupportedEncodingException e) {
-                    parsed = new String(networkResponse.data);
-                }
-
-                try {
-                    JSONObject res = new JSONObject(parsed);
-                    listener.onError(res.getString("msg"));
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-            }
+            handleError(error, listener);
         }) {
             @Override
             public Map<String, String> getHeaders() throws AuthFailureError {
@@ -365,46 +298,27 @@ public class APIHandler {
                         }
                     }
                 }, error -> {
-                    error.printStackTrace();
-                    if (checkUnexpectedError(error)) {
-                        listener.onError(error.getMessage());
-                    }
-                    NetworkResponse networkResponse = error.networkResponse;
-                    if (networkResponse != null && networkResponse.data != null) {
-                        String parsed;
-                        try {
-                            parsed = new String(networkResponse.data, HttpHeaderParser.parseCharset(networkResponse.headers));
-                        } catch (UnsupportedEncodingException e) {
-                            parsed = new String(networkResponse.data);
-                        }
-
-                        try {
-                            JSONObject res = new JSONObject(parsed);
-                            listener.onError(res.getString("msg"));
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                    }
-            }) {
-                    @Override
-                    public Map<String, String> getHeaders() throws AuthFailureError {
-                        Map<String, String> headers = super.getHeaders();
-                        if (headers == null || headers.equals(Collections.emptyMap())) {
-                            headers = new HashMap<>();
-                        }
+            handleError(error, listener);
+        }) {
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headers = super.getHeaders();
+                if (headers == null || headers.equals(Collections.emptyMap())) {
+                    headers = new HashMap<>();
+                }
 
 //                        headers.put("Content-Type", "multipart/form-data");
-                        Log.i("headers", headers.toString());
-                        return headers;
-                    }
+                Log.i("headers", headers.toString());
+                return headers;
+            }
 
-                    @Override
-                    protected Map<String, DataPart> getByteData() {
-                        Map<String, DataPart> params = new HashMap<>();
-                        long imagename = System.currentTimeMillis();
-                        params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(ctx, imageView.getDrawable()), "image/jpg"));
-                        return params;
-                    }
+            @Override
+            protected Map<String, DataPart> getByteData() {
+                Map<String, DataPart> params = new HashMap<>();
+                long imagename = System.currentTimeMillis();
+                params.put("image", new DataPart(imagename + ".png", getFileDataFromDrawable(ctx, imageView.getDrawable()), "image/jpg"));
+                return params;
+            }
         };
 
         //adding the request to volley
