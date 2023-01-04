@@ -1,9 +1,0 @@
-<resources>
-    <string name="app_name">My Application</string>
-
-    <string-array name="gender">
-        <item>Male</item>
-        <item>Female</item>
-        <item>Others</item>
-    </string-array>
-</resources>
