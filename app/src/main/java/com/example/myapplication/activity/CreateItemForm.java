@@ -23,13 +23,15 @@ public class CreateItemForm extends AppCompatActivity {
 
     private ActionBar itemFormActionBar = new ActionBar(R.id.itemFormActionBar, this);
     private Button submitButton = new Button(R.id.submitButton, this);
-    private ImageButton uploadImageButton;
 
     private Item newItem;
 
-    private EditText inputItemText;
-    private EditText inputShopText;
-    private EditText inputPriceText;
+    private EditText inputItemNameText;
+    private EditText inputItemCategoryText;
+    private EditText inputItemPriceText;
+    private EditText inputItemQuantityText;
+    private EditText inputItemDescriptionText;
+    private ImageButton uploadImageButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,14 +42,17 @@ public class CreateItemForm extends AppCompatActivity {
         submitButton.createActiveButton("Create", onSubmitFormClick());
         uploadImageButton = findViewById(R.id.uploadImageButton);
 //        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
-        inputItemText = findViewById(R.id.inputItemText);
-        inputShopText = findViewById(R.id.inputShopText);
-        inputPriceText = findViewById(R.id.inputPriceText);
+        inputItemNameText = findViewById(R.id.inputItemText);
+        inputItemCategoryText = findViewById(R.id.inputItemCategoryText);
+        inputItemPriceText = findViewById(R.id.inputPriceText);
+        inputItemDescriptionText = findViewById(R.id.inputItemDescriptionText);
+        inputItemQuantityText = findViewById(R.id.inputItemQuantityText);
 
-        inputItemText.addTextChangedListener(getInputValue(inputItemText));
-        inputShopText.addTextChangedListener(getInputValue(inputShopText));
-        inputPriceText.addTextChangedListener(getInputValue(inputPriceText));
-
+        inputItemNameText.addTextChangedListener(getInputValue(inputItemNameText));
+        inputItemCategoryText.addTextChangedListener(getInputValue(inputItemCategoryText));
+        inputItemPriceText.addTextChangedListener(getInputValue(inputItemPriceText));
+        inputItemDescriptionText.addTextChangedListener(getInputValue(inputItemDescriptionText));
+        inputItemQuantityText.addTextChangedListener(getInputValue(inputItemQuantityText));
 
     }
 
@@ -81,8 +86,8 @@ public class CreateItemForm extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(CreateItemForm.this, newItem.toString(), Toast.LENGTH_LONG).show();
+//                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
+                Toast.makeText(CreateItemForm.this, "Create", Toast.LENGTH_LONG).show();
             }
         };
     }
