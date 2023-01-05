@@ -2,7 +2,9 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -39,27 +41,51 @@ public class SignUpActivity extends AppCompatActivity {
         button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONObject jsonObject = new JSONObject();
-                try {
-                    jsonObject.put("username",edittext_name.getText().toString());
-                    jsonObject.put("password",edittext_password.getText().toString());
-                    jsonObject.put("email",edittext_email.getText().toString());
-                    jsonObject.put("phone",edittext_phone.getText().toString());
-                    jsonObject.put("address",edittext_address.getText().toString());
-                } catch (JSONException e) {
-                    e.printStackTrace();
+                boolean cont = true;
+                if(!edittext_password.getText().toString().equals(edittext_confirmPassword.getText().toString())){
+                    edittext_confirmPassword.setError("Password does not match");
+                    cont = false;
                 }
-                (new APIHandler(SignUpActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
-                    @Override
-                    public void onError(String message, int statusCode) {
-                        System.out.println(message + statusCode);
+                if(TextUtils.isEmpty(edittext_address.getText().toString())){
+                    edittext_address.setError("Address can not be empty");
+                    cont = false;
+                }
+                if(cont){
+                    JSONObject jsonObject = new JSONObject();
+                    try {
+                        jsonObject.put("username",edittext_name.getText().toString());
+                        jsonObject.put("password",edittext_password.getText().toString());
+                        jsonObject.put("email",edittext_email.getText().toString());
+                        jsonObject.put("phone",edittext_phone.getText().toString());
+                        jsonObject.put("address",edittext_address.getText().toString());
+                    } catch (JSONException e) {
+                        e.printStackTrace();
                     }
-
-                    @Override
-                    public void onResponse(JSONObject response) throws JSONException {
-                       Toast.makeText(SignUpActivity.this, response.toString(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    (new APIHandler(SignUpActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
+                        @Override
+                        public void onError(String message, int statusCode) {
+                            if(message.contains("email")){
+                                edittext_email.setError(message);
+                            } else if(message.contains("password")){
+                                edittext_password.setError(message);
+                            } else if(message.contains("username")){
+                                edittext_name.setError(message);
+                            } else if(message.contains("phone")){
+                                edittext_phone.setError(message);
+                            } else {
+                                System.out.println(message + statusCode);
+                            }
+                        }
+                        @Override
+                        public void onResponse(JSONObject response) throws JSONException {
+                            jsonObject.put("hash", response.get("hash"));
+                            Intent intent = new Intent(SignUpActivity.this, OTPActivity.class);
+                            intent.putExtra("user",jsonObject.toString());
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }
             }
         });
     }
