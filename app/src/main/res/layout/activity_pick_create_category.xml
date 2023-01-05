@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.PickCreateCategory">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/pickCreateCategoryActionBarContainer">
+
+        <include layout="@layout/action_bar" android:id="@+id/pickCreateCategoryActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_marginHorizontal="24dp" android:layout_alignParentLeft="true" />
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="24dp"
+        android:layout_below="@+id/pickCreateCategoryActionBarContainer">
+
+        <include layout="@layout/text" android:id="@+id/pageIntroduction" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layout_marginVertical="20dp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:layout_below="@+id/pageIntroduction"
+            >
+            <Button
+                android:id="@+id/createItems"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="Items"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_marginVertical="20dp"
+                />
+            <Button
+                android:id="@+id/createVouchers"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="Vouchers"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_below="@id/createItems"
+                android:layout_marginVertical="20dp"
+                />
+            <Button
+                android:id="@+id/createLocations"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:text="Locations"
+                android:textStyle="bold"
+                android:textSize="16dp"
+                android:layout_below="@id/createVouchers"
+                android:layout_marginVertical="20dp"
+                />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

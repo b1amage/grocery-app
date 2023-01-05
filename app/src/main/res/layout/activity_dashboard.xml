@@ -34,19 +34,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/searchBar"
-        android:gravity="center_vertical"
         android:layout_marginHorizontal="24dp">
 
-        <include layout="@layout/category_filter_box" android:id="@+id/filterCategory" android:layout_toLeftOf="@id/addButton"  android:layout_width="match_parent" android:layout_height="wrap_content"   />
+        <include layout="@layout/category_filter_box" android:id="@+id/filterCategory" android:layout_centerVertical="true" android:layout_toLeftOf="@id/addButton"  android:layout_width="match_parent" android:layout_height="wrap_content" />
         <ImageButton
             android:id="@+id/addButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:src="@drawable/add"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"
-            android:background="#FFFFFF" />
+            android:background="@drawable/navbutton_shape" />
     </RelativeLayout>
 
     <ListView
@@ -74,4 +73,5 @@
         app:menu="@menu/admin_dashboard_menu"
 
         />
+    <include layout="@layout/delete_bottom_sheet"  android:id="@+id/deleteNotification" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_above="@+id/bottomNav" />
 </RelativeLayout>
