@@ -9,27 +9,50 @@
     >
 
     <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/actionBarContainer"
-        android:layout_marginHorizontal="24dp"
-        >
-        <include layout="@layout/action_bar" android:id="@+id/actionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" />
+        android:id="@+id/actionBarContainer">
+
+        <include layout="@layout/action_bar" android:id="@+id/actionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_marginHorizontal="24dp" android:layout_alignParentLeft="true" />
+
         <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/menu_burger"
-            android:background="#FFFFFF"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
+            android:id="@+id/logout"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:src="@drawable/logout"
+            android:background="@drawable/navbutton_shape"
+            android:layout_marginRight="24dp"
+            android:layout_marginLeft="16dp"
+            android:layout_alignParentRight="true"
             />
+    </RelativeLayout>
+
+    <include layout="@layout/search_bar" android:id="@+id/searchBar" android:layout_below="@id/actionBarContainer" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginVertical="16dp" />
+
+    <RelativeLayout
+        android:id="@+id/filterCategoryContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/searchBar"
+        android:layout_marginHorizontal="24dp">
+
+        <include layout="@layout/category_filter_box" android:id="@+id/filterCategory" android:layout_centerVertical="true" android:layout_toLeftOf="@id/addButton"  android:layout_width="match_parent" android:layout_height="wrap_content" />
+        <ImageButton
+            android:id="@+id/addButton"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/add"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dp"
+            android:background="@drawable/navbutton_shape" />
     </RelativeLayout>
 
     <ListView
         android:id="@+id/categoryList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/actionBarContainer"
+        android:layout_below="@id/filterCategoryContainer"
         app:layout_constraintBottom_toTopOf="@id/bottomNav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
@@ -50,4 +73,5 @@
         app:menu="@menu/admin_dashboard_menu"
 
         />
+    <include layout="@layout/delete_bottom_sheet"  android:id="@+id/deleteNotification" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_above="@+id/bottomNav" />
 </RelativeLayout>

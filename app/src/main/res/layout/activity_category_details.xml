@@ -25,5 +25,5 @@
             android:id="@+id/categoryItemList"/>
     </LinearLayout>
 
-    <include layout="@layout/delete_bottom_sheet"  android:id="@+id/deleteNotification" />
+
 </RelativeLayout>
