@@ -95,6 +95,13 @@
                 android:value="" />
         </activity>
         <activity
+            android:name=".activity.OTPActivity"
+            android:exported="false">
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
             android:name=".activity.OTPForgotActivity"
             android:exported="false">
             <meta-data

@@ -2,20 +2,31 @@ package com.example.myapplication.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.myapplication.R;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class OTPActivity extends AppCompatActivity {
 
     private EditText code1, code2, code3, code4, code5, code6;
+    private Button button_next;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+
         code1 = findViewById(R.id.code1);
         code2 = findViewById(R.id.code2);
         code3 = findViewById(R.id.code3);
@@ -24,6 +35,37 @@ public class OTPActivity extends AppCompatActivity {
         code6 = findViewById(R.id.code6);
 
         setUpOTP();
+        button_next = (Button) findViewById(R.id.button_next);
+        button_next.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject jsonObject = null;
+                String code = code1.getText().toString() +
+                        code2.getText().toString() +
+                        code3.getText().toString() +
+                        code4.getText().toString() +
+                        code5.getText().toString() +
+                        code6.getText().toString();
+                try {
+                    jsonObject = new JSONObject(getIntent().getStringExtra("user"));
+                    jsonObject.put("otp",code);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                (new APIHandler(OTPActivity.this)).postRequest(jsonObject, "/auth/verify-otp-register", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        code6.setError(message);
+                    }
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(OTPActivity.this, RegisterFinishedActivity.class);
+                        startActivity(intent);
+                        finish();
+                    }
+                });
+            }
+        });
     }
 
     private void setUpOTP(){

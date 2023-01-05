@@ -46,7 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
                     edittext_confirmPassword.setError("Password does not match");
                     cont = false;
                 }
-                if(TextUtils.isEmpty(edittext_address.getText().toString())){
+                if(TextUtils.isEmpty(edittext_address.getText())){
                     edittext_address.setError("Address can not be empty");
                     cont = false;
                 }
