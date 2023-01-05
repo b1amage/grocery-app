@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
@@ -22,10 +24,19 @@ public class OTPActivity extends AppCompatActivity {
 
     private EditText code1, code2, code3, code4, code5, code6;
     private Button button_next;
+    private TextView text_receive, text_resend, text_second;
+    private JSONObject jsonObject;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_otp);
+        try {
+            jsonObject = new JSONObject(getIntent().getStringExtra("user"));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         code1 = findViewById(R.id.code1);
         code2 = findViewById(R.id.code2);
@@ -33,13 +44,16 @@ public class OTPActivity extends AppCompatActivity {
         code4 = findViewById(R.id.code4);
         code5 = findViewById(R.id.code5);
         code6 = findViewById(R.id.code6);
+        button_next = (Button) findViewById(R.id.button_next);
+        text_receive = (TextView) findViewById(R.id.text_receive);
+        text_resend = (TextView) findViewById(R.id.text_resend);
+        text_second = (TextView) findViewById(R.id.text_second);
 
         setUpOTP();
-        button_next = (Button) findViewById(R.id.button_next);
+        reverseTimer();
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                JSONObject jsonObject = null;
                 String code = code1.getText().toString() +
                         code2.getText().toString() +
                         code3.getText().toString() +
@@ -47,7 +61,6 @@ public class OTPActivity extends AppCompatActivity {
                         code5.getText().toString() +
                         code6.getText().toString();
                 try {
-                    jsonObject = new JSONObject(getIntent().getStringExtra("user"));
                     jsonObject.put("otp",code);
                 } catch (JSONException e) {
                     e.printStackTrace();
@@ -67,6 +80,45 @@ public class OTPActivity extends AppCompatActivity {
             }
         });
     }
+
+    public void reverseTimer(){
+        new CountDownTimer(90000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                text_second.setText(millisUntilFinished / 1000 + " seconds" );
+                // logic to set the EditText could go here
+            }
+
+            public void onFinish() {
+                text_second.setText("Please resend the code");
+                text_resend.setText("Resend here!");
+                text_resend.setTextColor(getResources().getColor(R.color.primary_100));
+                text_resend.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        (new APIHandler(OTPActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message, int statusCode) {
+                            }
+                            @Override
+                            public void onResponse(JSONObject response) throws JSONException {
+                                reverseTimer();
+                                text_resend.setText("Please wait!");
+                                text_resend.setTextColor(getResources().getColor(R.color.tertiary_gray));
+                                text_resend.setOnClickListener(new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+
+        }.start();
+    }
+
 
     private void setUpOTP(){
         code1.addTextChangedListener(new TextWatcher() {
