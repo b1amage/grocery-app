@@ -6,22 +6,11 @@ import com.example.myapplication.model.Category;
 import java.util.ArrayList;
 
 public class Categories {
-    private ArrayList<Category> categories = new ArrayList<>();
+    private String[] categories;
     public Categories() {
-        categories.add(new Category(R.drawable.food, "Food"));
-        categories.add(new Category(R.drawable.tech, "Technology"));
-        categories.add(new Category(R.drawable.furniture, "Furniture "));
-        categories.add(new Category(R.drawable.clothes, "Clothes"));
-        categories.add(new Category(R.drawable.orders, "Orders"));
-        categories.add(new Category(R.drawable.voucher, "Voucher"));
-        categories.add(new Category(R.drawable.logo_icon, "Information"));
+        this.categories = new String[]{"Vegetables", "Meat", "Fruit", "Diary", "Canned", "Snack", "Drinks", "Spice", "Household", "Personal hygiene"};
     }
-
-    public ArrayList<Category> getCategories() {
+    public String[] getCategories(){
         return categories;
-    }
-
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
     }
 }

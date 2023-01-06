@@ -1,8 +1,5 @@
 package com.example.myapplication.activity;
 
-import com.example.myapplication.adapter.CategoryItemAdapter;
-import com.example.myapplication.components.ActionBar;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -11,14 +8,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-//import com.example.myapplication.adapter.CategoryAdapter;
+import com.example.myapplication.adapter.CategoryItemAdapter;
+import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Items;
@@ -26,7 +23,7 @@ import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Dashboard extends AppCompatActivity {
+public class LocationList extends AppCompatActivity {
     private String[] categories = new Categories().getCategories();
     private ListView categoryView;
     private Items items = new Items();
@@ -40,7 +37,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_location_list);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -61,7 +58,7 @@ public class Dashboard extends AppCompatActivity {
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.items);
+        bottomNavigationView.setSelectedItemId(R.id.store);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
