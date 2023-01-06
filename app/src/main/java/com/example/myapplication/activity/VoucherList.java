@@ -26,7 +26,7 @@ import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Dashboard extends AppCompatActivity {
+public class VoucherList extends AppCompatActivity {
     private String[] categories = new Categories().getCategories();
     private ListView categoryView;
     private Items items = new Items();
@@ -40,7 +40,7 @@ public class Dashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.activity_voucher_list);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -61,7 +61,7 @@ public class Dashboard extends AppCompatActivity {
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.items);
+        bottomNavigationView.setSelectedItemId(R.id.vouchers);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
