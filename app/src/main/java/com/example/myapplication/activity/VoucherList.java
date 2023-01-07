@@ -1,6 +1,7 @@
 package com.example.myapplication.activity;
 
 import com.example.myapplication.adapter.CategoryItemAdapter;
+import com.example.myapplication.adapter.VoucherAdapter;
 import com.example.myapplication.components.ActionBar;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,17 @@ import com.example.myapplication.R;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Items;
+import com.example.myapplication.content.Vouchers;
+import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class VoucherList extends AppCompatActivity {
-    private String[] categories = new Categories().getCategories();
+    private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
+    private String[] categories = new Categories().getVoucherTypes();
     private ListView categoryView;
     private Items items = new Items();
     private ImageButton addButton;
@@ -53,7 +59,7 @@ public class VoucherList extends AppCompatActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
-        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, items.getItems());
+        VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
 

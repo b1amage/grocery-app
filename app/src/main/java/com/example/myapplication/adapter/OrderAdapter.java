@@ -16,20 +16,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.model.Item;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.model.Voucher;
-import com.example.myapplication.utilities.Button;
 
 import java.util.ArrayList;
 
-public class VoucherAdapter extends ArrayAdapter<Voucher> {
-
+public class OrderAdapter extends ArrayAdapter<Order> {
     private ImageView edit;
     private LinearLayout deleteLayout;
     private RelativeLayout deleteNotification;
 
-    public VoucherAdapter(@NonNull Context context, ArrayList<Voucher> vouchers) {
-        super(context, 0, vouchers);
+    public OrderAdapter(@NonNull Context context, ArrayList<Order> orders) {
+        super(context, 0, orders);
         deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
     }
 
@@ -42,12 +40,12 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
         }
 
-        Voucher voucher = (Voucher) getItem(position);
+        Order order = (Order) getItem(position);
 
-        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.voucher);
-        ((TextView) listItemView.findViewById(R.id.itemName)).setText(voucher.getCode());
-        ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(voucher.getTitle());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? "$" + voucher.getValue() : voucher.getValue() + "VND");
+        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.orders);
+        ((TextView) listItemView.findViewById(R.id.itemName)).setText(order.get_id());
+        ((TextView) listItemView.findViewById(R.id.itemInfo)).setText("");
+        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(String.valueOf(order.getTotal()));
 //        listItemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -78,4 +76,3 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
     }
 
 }
-
