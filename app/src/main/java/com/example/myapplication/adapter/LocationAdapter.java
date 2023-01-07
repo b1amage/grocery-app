@@ -17,19 +17,20 @@ import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Item;
+import com.example.myapplication.model.Location;
 import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 
 import java.util.ArrayList;
 
-public class VoucherAdapter extends ArrayAdapter<Voucher> {
+public class LocationAdapter extends ArrayAdapter<Location> {
 
     private ImageView edit;
     private LinearLayout deleteLayout;
     private RelativeLayout deleteNotification;
 
-    public VoucherAdapter(@NonNull Context context, ArrayList<Voucher> vouchers) {
-        super(context, 0, vouchers);
+    public LocationAdapter(@NonNull Context context, ArrayList<Location> locations) {
+        super(context, 0, locations);
         deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
     }
 
@@ -42,12 +43,11 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
             listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
         }
 
-        Voucher voucher = (Voucher) getItem(position);
+        Location location = (Location) getItem(position);
 
-        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.voucher);
-        ((TextView) listItemView.findViewById(R.id.itemName)).setText(voucher.getCode());
-        ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(voucher.getTitle());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? "$" + voucher.getValue() : voucher.getValue() + "VND");
+        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.shop);
+        ((TextView) listItemView.findViewById(R.id.itemName)).setText(location.getAddress());
+
 //        listItemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -78,4 +78,5 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
     }
 
 }
+
 

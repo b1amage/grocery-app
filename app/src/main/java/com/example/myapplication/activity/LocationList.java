@@ -15,18 +15,23 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.CategoryItemAdapter;
+import com.example.myapplication.adapter.LocationAdapter;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Items;
+import com.example.myapplication.content.Locations;
+import com.example.myapplication.model.Location;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class LocationList extends AppCompatActivity {
-    private String[] categories = new Categories().getCategories();
+    private ArrayList<Location> locations = new Locations().getLocations();
+    private String[] categories = new Categories().getLocations();
     private ListView categoryView;
-    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -50,7 +55,7 @@ public class LocationList extends AppCompatActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
-        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, items.getItems());
+        LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
 

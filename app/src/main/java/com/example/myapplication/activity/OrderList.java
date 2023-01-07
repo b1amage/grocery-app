@@ -15,19 +15,24 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.CategoryItemAdapter;
+import com.example.myapplication.adapter.OrderAdapter;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Items;
+import com.example.myapplication.content.Orders;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class OrderList extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
 
-    private String[] categories = new Categories().getCategories();
+public class OrderList extends AppCompatActivity {
+    private ArrayList<Order> orders = new Orders().getOrders();
+    private String[] categories = new Categories().getTimes();
     private ListView categoryView;
-    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -51,7 +56,7 @@ public class OrderList extends AppCompatActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
-        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, items.getItems());
+        OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
 
