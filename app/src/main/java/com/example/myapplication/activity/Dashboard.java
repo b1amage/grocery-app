@@ -26,7 +26,7 @@ import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends BaseActivity {
     private String[] categories = new Categories().getCategories();
     private ListView categoryView;
     private Items items = new Items();
