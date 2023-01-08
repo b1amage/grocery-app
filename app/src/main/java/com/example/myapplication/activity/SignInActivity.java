@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
+import com.google.android.gms.maps.model.Dash;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -70,7 +71,16 @@ public class SignInActivity extends BaseActivity {
                     }
                     @Override
                     public void onResponse(JSONObject response) throws JSONException {
-                        System.out.println(response.toString());
+                        JSONObject user = (JSONObject) response.get("user");
+
+                        if(user.get("role").toString().equals("staff")){
+                            Intent intent = new Intent(SignInActivity.this, Dashboard.class);
+                            startActivity(intent);
+                        } else if(user.get("role").toString().equals("customer")){
+                            Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                            startActivity(intent);
+                        }
+                        finish();
                     }
                 });
 
