@@ -26,10 +26,10 @@
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="10dp"
 
-            android:textStyle="bold"
-            android:textSize="20dp"
+            android:text="Forgot password"
             android:textColor="#000000"
-            android:text="Forgot password"/>
+            android:textSize="20dp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -103,21 +103,50 @@
             android:textSize="24dp"
             android:textStyle="bold"/>
 
+        <EditText
+            android:id="@+id/code5"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
+        <EditText
+            android:id="@+id/code6"
+            android:layout_width="40dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="4dp"
+            android:gravity="center"
+            android:imeOptions="actionNext"
+            android:importantForAutofill="no"
+            android:inputType="number"
+            android:maxLength="1"
+            android:textSize="24dp"
+            android:textStyle="bold"/>
+
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/resend_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/otp_code"
         android:orientation="horizontal"
         android:gravity="center">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
 
+        <TextView
+            android:id="@+id/text_receive"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
             android:text="Didn't receive your OTP?"
-            android:textSize="14dp"/>
+            android:textSize="14dp" />
 
         <TextView
             android:id="@+id/text_resend"
@@ -126,11 +155,38 @@
 
             android:layout_marginStart="5dp"
 
-            android:text="Resend here"
+            android:text="Please wait!"
+            android:textStyle="bold"
+            android:textColor="@color/tertiary_gray"
+            android:textSize="14dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/second_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_below="@+id/resend_layout"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/text_expire"
+            android:layout_width="wrap_content"
+
+            android:layout_height="wrap_content"
+            android:text="The OTP will expire in "
+            android:textSize="14dp" />
+
+        <TextView
+            android:id="@+id/text_second"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="seconds"
             android:textStyle="bold"
             android:textColor="@color/primary_100"
             android:textSize="14dp"/>
-
     </LinearLayout>
 
     <Button
