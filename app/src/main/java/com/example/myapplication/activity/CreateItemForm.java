@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.Activity;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
@@ -19,7 +17,7 @@ import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.Input;
 
-public class CreateItemForm extends AppCompatActivity {
+public class CreateItemForm extends BaseActivity {
 
     private ActionBar itemFormActionBar = new ActionBar(R.id.itemFormActionBar, this);
     private Button submitButton = new Button(R.id.submitButton, this);

@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,7 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ViewAllItemActivity extends AppCompatActivity {
+public class ViewAllItemActivity extends BaseActivity {
 
     private List<Item> itemList;
     private ListView listView;

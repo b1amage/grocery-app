@@ -1,7 +1,6 @@
 package com.example.myapplication.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -28,7 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class LocationList extends AppCompatActivity {
+public class LocationList extends BaseActivity {
     private ArrayList<Location> locations = new Locations().getLocations();
     private String[] categories = new Categories().getLocations();
     private ListView categoryView;

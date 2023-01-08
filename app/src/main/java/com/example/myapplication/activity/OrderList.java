@@ -1,7 +1,6 @@
 package com.example.myapplication.activity;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -29,7 +28,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderList extends AppCompatActivity {
+public class OrderList extends BaseActivity {
     private ArrayList<Order> orders = new Orders().getOrders();
     private String[] categories = new Categories().getTimes();
     private ListView categoryView;

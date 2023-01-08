@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,7 +7,7 @@ import android.widget.EditText;
 
 import com.example.myapplication.R;
 
-public class OTPForgotActivity extends AppCompatActivity {
+public class OTPForgotActivity extends BaseActivity {
 
     private EditText code1, code2, code3, code4;
     @Override

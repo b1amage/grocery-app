@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -12,7 +10,7 @@ import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.utilities.Text;
 
-public class PickCreateCategory extends AppCompatActivity {
+public class PickCreateCategory extends BaseActivity {
 
     private ActionBar pickCreateCategoryActionBar = new ActionBar(R.id.pickCreateCategoryActionBar, this);
     private Text pageIntro = new Text(R.id.pageIntroduction, this);

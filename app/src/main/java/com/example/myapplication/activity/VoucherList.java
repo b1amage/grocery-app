@@ -5,7 +5,6 @@ import com.example.myapplication.adapter.VoucherAdapter;
 import com.example.myapplication.components.ActionBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
@@ -31,7 +30,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class VoucherList extends AppCompatActivity {
+public class VoucherList extends BaseActivity {
     private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
     private String[] categories = new Categories().getVoucherTypes();
     private ListView categoryView;
