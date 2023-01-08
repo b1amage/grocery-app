@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -16,7 +14,7 @@ import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
 
-public class VoucherForm extends AppCompatActivity {
+public class VoucherForm extends BaseActivity {
     private ActionBar voucherFormActionBar = new ActionBar(R.id.voucherFormActionBar, this);
     private Button voucherFormButton = new Button(R.id.voucherSubmitButton, this);
 

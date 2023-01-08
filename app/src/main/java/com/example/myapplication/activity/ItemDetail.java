@@ -2,7 +2,6 @@ package com.example.myapplication.activity;
 
 import androidx.annotation.NonNull;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.WindowCompat;
 
 
@@ -18,7 +17,7 @@ import com.example.myapplication.R;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 
-public class ItemDetail extends AppCompatActivity {
+public class ItemDetail extends BaseActivity {
 
     private Button btnShowSheet;
     private RelativeLayout bottomSheet;

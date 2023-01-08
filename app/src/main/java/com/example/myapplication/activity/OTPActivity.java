@@ -1,7 +1,5 @@
 package com.example.myapplication.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -20,7 +18,7 @@ import com.example.myapplication.api.VolleyResponseListener;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class OTPActivity extends AppCompatActivity {
+public class OTPActivity extends BaseActivity {
 
     private EditText code1, code2, code3, code4, code5, code6;
     private Button button_next;
