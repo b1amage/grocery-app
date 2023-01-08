@@ -43,8 +43,7 @@
         android:layout_below="@+id/text_email"
 
         android:textSize="15dp"
-        android:textColor="#000000"
-        android:hint="Email"/>
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/text_password"
@@ -81,7 +80,7 @@
             android:background="@drawable/rounded_edittext"
 
             android:textSize="15dp"
-            android:hint="Password"/>
+            android:hint="upper, lowercase, special character, number"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -119,7 +118,7 @@
             android:background="@drawable/rounded_edittext"
 
             android:textSize="15dp"
-            android:hint="Password"/>
+            android:hint="Repeat the password"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <TextView
@@ -148,7 +147,7 @@
 
         android:textSize="15dp"
         android:textColor="#000000"
-        android:hint="Full name"/>
+        android:hint="i.e. Nguyen Van A"/>
 
     <TextView
         android:id="@+id/text_phone"
@@ -173,7 +172,7 @@
         android:layout_below="@+id/text_phone"
         android:layout_marginTop="5dp"
 
-        android:hint="Phone number"
+        android:hint="i.e. 0123456789"
         android:padding="15dp"
         android:textColor="#000000"
         android:textSize="15dp" />
@@ -201,7 +200,7 @@
         android:layout_below="@+id/text_address"
         android:layout_marginTop="5dp"
 
-        android:hint="Address"
+        android:hint="i.e. <Your Address>, <Ward>, <District>, <City>"
         android:padding="15dp"
         android:textColor="#000000"
         android:textSize="15dp" />

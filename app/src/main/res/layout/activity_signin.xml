@@ -52,8 +52,7 @@
         android:layout_below="@+id/text_email"
 
         android:textSize="15dp"
-        android:textColor="#000000"
-        android:hint="Email or Phone Number"/>
+        android:textColor="#000000" />
 
     <TextView
         android:id="@+id/text_password"
@@ -70,7 +69,7 @@
         android:text="Password"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/edittext_password"
+        android:id="@+id/password"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:endIconMode="password_toggle"
@@ -82,14 +81,14 @@
         app:boxStrokeWidthFocused="0dp">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edittext_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="15dp"
             android:inputType="textPassword"
             android:background="@drawable/rounded_edittext"
 
-            android:textSize="15dp"
-            android:hint="Password"/>
+            android:textSize="15dp" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
@@ -98,7 +97,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
 
-        android:layout_below="@id/edittext_password">
+        android:layout_below="@id/password">
 
         <CheckBox
             android:id="@+id/checkbox_remember"
