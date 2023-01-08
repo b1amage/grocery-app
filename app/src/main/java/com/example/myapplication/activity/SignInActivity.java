@@ -1,6 +1,8 @@
 package com.example.myapplication.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -80,6 +82,11 @@ public class SignInActivity extends BaseActivity {
                             Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                             startActivity(intent);
                         }
+                        SharedPreferences sharedpreferences = getSharedPreferences("Cookies", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+                        editor.putString("role",user.get("role").toString());
+                        editor.putString("userId",user.get("userId").toString());
+                        editor.commit();
                         finish();
                     }
                 });
@@ -91,6 +98,15 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(SignInActivity.this,SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        text_forgot.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignInActivity.this,ForgotPasswordActivity.class);
                 startActivity(intent);
                 finish();
             }
