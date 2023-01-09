@@ -34,4 +34,14 @@ public class CookieManager {
     public Long getLoginAt() {
         return sharedPreferences.getLong("loginAt", 0);
     }
+
+    public void expireCookie() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove("refreshToken");
+        editor.remove("role");
+        editor.remove("userId");
+        editor.remove("name");
+        editor.remove("loginAt");
+        editor.apply();
+    }
 }

@@ -205,6 +205,8 @@
                 <action android:name = "android.net.wifi.WIFI_STATE_CHANGED" />
             </intent-filter>
         </receiver>
+
+        <service android:name=".service.BackgroundService" />
     </application>
 
 </manifest>
