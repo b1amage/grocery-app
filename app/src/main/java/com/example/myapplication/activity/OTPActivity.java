@@ -89,6 +89,7 @@ public class OTPActivity extends BaseActivity {
 
             public void onFinish() {
                 text_second.setText("Please resend the code");
+                text_second.setTextColor(getResources().getColor(R.color.tertiary_gray));
                 text_resend.setText("Resend here!");
                 text_resend.setTextColor(getResources().getColor(R.color.primary_100));
                 text_resend.setOnClickListener(new View.OnClickListener() {

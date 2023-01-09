@@ -13,6 +13,7 @@ import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.utilities.Text;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +23,7 @@ public class SignUpActivity extends BaseActivity {
     private Button button_signup;
     private EditText edittext_email, edittext_name, edittext_phone, edittext_address;
     private TextInputEditText edittext_password, edittext_confirmPassword;
+    private TextInputLayout password, confirmPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,24 @@ public class SignUpActivity extends BaseActivity {
         edittext_address = (EditText) findViewById(R.id.edittext_address);
         edittext_password = (TextInputEditText) findViewById(R.id.edittext_password);
         edittext_confirmPassword = (TextInputEditText) findViewById(R.id.edittext_confirmPassword);
+        password = (TextInputLayout) findViewById(R.id.password);
+        confirmPassword = (TextInputLayout) findViewById(R.id.confirmPassword);
+
+        edittext_password.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                password.setEndIconVisible(true);
+                edittext_password.setError(null);
+            }
+        });
+
+        edittext_confirmPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                confirmPassword.setEndIconVisible(true);
+                edittext_confirmPassword.setError(null);
+            }
+        });
 
         button_signup.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -42,6 +62,7 @@ public class SignUpActivity extends BaseActivity {
                 boolean cont = true;
                 if(!edittext_password.getText().toString().equals(edittext_confirmPassword.getText().toString())){
                     edittext_confirmPassword.setError("Password does not match");
+                    confirmPassword.setEndIconVisible(false);
                     cont = false;
                 }
                 if(TextUtils.isEmpty(edittext_address.getText())){
@@ -66,6 +87,7 @@ public class SignUpActivity extends BaseActivity {
                                 edittext_email.setError(message);
                             } else if(message.contains("password")){
                                 edittext_password.setError(message);
+                                password.setEndIconVisible(false);
                             } else if(message.contains("username")){
                                 edittext_name.setError(message);
                             } else if(message.contains("phone")){

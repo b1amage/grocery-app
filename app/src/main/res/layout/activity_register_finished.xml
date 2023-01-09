@@ -42,7 +42,7 @@
         android:textSize="14dp"/>
 
     <Button
-        android:id="@+id/button_gohomepage"
+        android:id="@+id/button_gosignin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_edittext"
@@ -51,6 +51,6 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="20dp"
 
-        android:text="Go homepage"/>
+        android:text="Go back to sign in"/>
 </RelativeLayout>
 

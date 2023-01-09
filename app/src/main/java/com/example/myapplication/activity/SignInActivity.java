@@ -46,6 +46,7 @@ public class SignInActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 password.setEndIconVisible(true);
+                editText_password.setError(null);
             }
         });
 

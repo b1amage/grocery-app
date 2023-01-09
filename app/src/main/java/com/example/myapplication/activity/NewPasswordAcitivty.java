@@ -46,6 +46,7 @@ public class NewPasswordAcitivty extends BaseActivity {
             @Override
             public void onClick(View view) {
                 password.setEndIconVisible(true);
+                edittext_password.setError(null);
             }
         });
 
@@ -53,6 +54,7 @@ public class NewPasswordAcitivty extends BaseActivity {
             @Override
             public void onClick(View view) {
                 confirmPassword.setEndIconVisible(true);
+                edittext_confirmPassword.setError(null);
             }
         });
 
