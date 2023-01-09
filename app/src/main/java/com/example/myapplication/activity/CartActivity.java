@@ -10,10 +10,9 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ItemAdapter;
+import com.example.myapplication.content.Items;
 import com.example.myapplication.model.Item;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CartActivity extends BaseActivity {
@@ -27,13 +26,7 @@ public class CartActivity extends BaseActivity {
     }
 
     private void initMockData() {
-        itemList = new ArrayList<>(
-                Arrays.asList(
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("4d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("5d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12)
-                )
-        );
+        itemList = Items.getItems();
     }
 
     private void setUpListView() {

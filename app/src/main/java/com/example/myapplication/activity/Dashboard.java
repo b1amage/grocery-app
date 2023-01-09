@@ -29,7 +29,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Dashboard extends BaseActivity {
     private String[] categories = new Categories().getCategories();
     private ListView categoryView;
-    private Items items = new Items();
+//    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -53,7 +53,7 @@ public class Dashboard extends BaseActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
-        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, items.getItems());
+        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, Items.getItems());
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
 

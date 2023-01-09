@@ -34,7 +34,7 @@ public class VoucherList extends BaseActivity {
     private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
     private String[] categories = new Categories().getVoucherTypes();
     private ListView categoryView;
-    private Items items = new Items();
+//    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
