@@ -11,10 +11,22 @@ import android.view.View;
 
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.myapplication.R;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
+import com.example.myapplication.model.Item;
+import com.example.myapplication.utilities.ImageLoader;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 
 public class ItemDetail extends BaseActivity {
@@ -23,10 +35,21 @@ public class ItemDetail extends BaseActivity {
     private RelativeLayout bottomSheet;
     private BottomSheetBehavior bottomSheetBehavior;
 
+    private ImageView imageView;
+    private TextView description;
+    private TextView name;
+    private TextView category;
+
+
     private void initUIComponents() {
         btnShowSheet = findViewById(R.id.openBtn);
         bottomSheet = findViewById(R.id.bottomSheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
+
+        imageView = findViewById(R.id.detail_img);
+        description = findViewById(R.id.detail_item_dsc);
+        name = findViewById(R.id.item_detail_name);
+        category = findViewById(R.id.category_tag);
     }
 
     private void handleDraggingSheet() {
@@ -60,6 +83,28 @@ public class ItemDetail extends BaseActivity {
         });
     }
 
+    private void setUpContent(String img, String name, String category, String description) {
+        ImageLoader.loadImg(img, imageView);
+        this.name.setText(name);
+        this.category.setText(category);
+        this.description.setText(description);
+    }
+
+    private void getItemDetail() {
+        (new APIHandler(ItemDetail.this)).getRequest("/item/detail/" + getIntent().getExtras().getString("_id"), new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                JSONObject jsonObject = response.getJSONObject("item");
+                setUpContent(jsonObject.getString("image"), jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("description"));
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +115,7 @@ public class ItemDetail extends BaseActivity {
         initUIComponents();
         handleDraggingSheet();
         handleButtonClick();
+        getItemDetail();
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }

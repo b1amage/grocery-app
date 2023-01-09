@@ -27,13 +27,13 @@ import java.util.List;
 public class MainActivity extends BaseActivity {
 
     private ListView listView;
+    private List<Item> items;
     private TextView seeAllText;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
         seeAllText = findViewById(R.id.see_all_txt);
     }
-
 
     private void setUpListView(List<Item> itemList) {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
@@ -42,7 +42,9 @@ public class MainActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(MainActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(MainActivity.this, ItemDetail.class);
+                intent.putExtra("_id", items.get(position).get_id());
+                startActivityForResult(intent, 101);
             }
         });
     }
@@ -77,9 +79,8 @@ public class MainActivity extends BaseActivity {
                         itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
-                    System.out.println(itemArrayList);
-
                     setUpListView(itemArrayList);
+                    items = itemArrayList;
                 }
             }
         });
