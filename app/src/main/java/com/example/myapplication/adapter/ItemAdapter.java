@@ -26,7 +26,6 @@ public class ItemAdapter extends BaseAdapter {
         this.isInCart = isInCart;
     }
 
-
     @Override
     public int getCount() {
         return items.size();
@@ -56,12 +55,12 @@ public class ItemAdapter extends BaseAdapter {
 //            ((ImageView) itemView.findViewById(R.id.item_img)).setImageResource(item.getImg());
             ((TextView) itemView.findViewById(R.id.item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.item_category)).setText(item.getCategory());
-            ((TextView) itemView.findViewById(R.id.item_price)).setText("$" + String.valueOf(item.getPrice()));
+            ((TextView) itemView.findViewById(R.id.item_price)).setText(String.valueOf(item.getPrice()));
         } else {
 //            ((ImageView) itemView.findViewById(R.id.cart_item_img)).setImageResource(item.getImg());
             ((TextView) itemView.findViewById(R.id.cart_item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.cart_item_category)).setText(item.getCategory());
-            ((TextView) itemView.findViewById(R.id.cart_item_price)).setText("$" + String.valueOf(item.getPrice()));
+            ((TextView) itemView.findViewById(R.id.cart_item_price)).setText(String.valueOf(item.getPrice()));
         }
 
 

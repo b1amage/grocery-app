@@ -42,17 +42,30 @@
 
     </RelativeLayout>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$12"
-        android:textColor="@color/primary_100"
-        android:textStyle="bold"
-        android:layout_centerVertical="true"
-        android:textSize="24dp"
         android:layout_toRightOf="@id/item_info"
-        android:layout_marginLeft="70dp"
-        android:id="@+id/item_price"/>
+        android:layout_marginLeft="50dp"
+        android:layout_centerVertical="true">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="10000"
+            android:textColor="@color/primary_100"
+            android:textStyle="bold"
+            android:textSize="24dp"
+            android:id="@+id/item_price"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_price"
+            android:text="VND"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"/>
+    </RelativeLayout>
+
+
 
 
 </RelativeLayout>
