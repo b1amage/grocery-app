@@ -7,11 +7,12 @@
     android:background="@drawable/rounded_lg">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/dummy_item"
         android:id="@+id/item_img"
         android:layout_centerVertical="true"
+        android:scaleType="centerCrop"
       />
 
     <RelativeLayout
@@ -46,7 +47,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/item_info"
-        android:layout_marginLeft="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true">
         <TextView
             android:layout_width="wrap_content"
@@ -54,7 +56,8 @@
             android:text="10000"
             android:textColor="@color/primary_100"
             android:textStyle="bold"
-            android:textSize="24dp"
+            android:textSize="14dp"
+            android:layout_alignParentRight="true"
             android:id="@+id/item_price"/>
         <TextView
             android:layout_width="wrap_content"
@@ -62,7 +65,8 @@
             android:layout_below="@id/item_price"
             android:text="VND"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"/>
+            android:layout_marginTop="8dp"
+            android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
 

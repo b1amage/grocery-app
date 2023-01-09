@@ -2,6 +2,7 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -10,14 +11,21 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ItemAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.content.Items;
 import com.example.myapplication.model.Item;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
+    // https://res.cloudinary.com/dlu4it0gk/image/upload/v1672201096/broccoli_n8iz4j.png?fbclid=IwAR1ALOId88NTq8kYRc3_5Y38wg-vSG6nxlOo68TX3wIPtwul340pJ9ZW3sM
 
     private ListView listView;
     private List<Item> itemList;
@@ -32,7 +40,7 @@ public class MainActivity extends BaseActivity {
         itemList = Items.getItems();
     }
 
-    private void setUpListView() {
+    private void setUpListView(List<Item> itemList) {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         listView.setAdapter(itemAdapter);
 
@@ -54,6 +62,34 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    private void getAllItems() {
+        (new APIHandler(MainActivity.this)).getRequest("/item/view", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                JSONArray jsonArray = response.getJSONArray("results");
+                ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                    }
+
+                    System.out.println(itemArrayList);
+
+                    setUpListView(itemArrayList);
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +97,8 @@ public class MainActivity extends BaseActivity {
 
         initUIComponents();
         initMockData();
-        setUpListView();
         setViewAllTextListener();
+        getAllItems();
+
     }
 }

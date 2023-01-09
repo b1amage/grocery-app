@@ -67,11 +67,9 @@ public class ItemDetail extends BaseActivity {
         setContentView(R.layout.activity_item_detail);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-
         initUIComponents();
         handleDraggingSheet();
         handleButtonClick();
-
 
         bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
     }

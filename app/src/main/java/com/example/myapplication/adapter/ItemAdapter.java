@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.Item;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -52,12 +53,12 @@ public class ItemAdapter extends BaseAdapter {
 
 
         if (!isInCart) {
-//            ((ImageView) itemView.findViewById(R.id.item_img)).setImageResource(item.getImg());
+            loadImg(item.getImageURL(), itemView.findViewById(R.id.item_img));
             ((TextView) itemView.findViewById(R.id.item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.item_price)).setText(String.valueOf(item.getPrice()));
         } else {
-//            ((ImageView) itemView.findViewById(R.id.cart_item_img)).setImageResource(item.getImg());
+            loadImg(item.getImageURL(), itemView.findViewById(R.id.cart_item_img));
             ((TextView) itemView.findViewById(R.id.cart_item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.cart_item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.cart_item_price)).setText(String.valueOf(item.getPrice()));
@@ -66,5 +67,11 @@ public class ItemAdapter extends BaseAdapter {
 
 
         return itemView;
+    }
+
+    private void loadImg(String url, ImageView imageView) {
+        Picasso.get()
+                .load(url)
+                .into(imageView);
     }
 }
