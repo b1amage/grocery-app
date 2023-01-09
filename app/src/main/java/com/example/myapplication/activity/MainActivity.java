@@ -25,10 +25,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends BaseActivity {
-    // https://res.cloudinary.com/dlu4it0gk/image/upload/v1672201096/broccoli_n8iz4j.png?fbclid=IwAR1ALOId88NTq8kYRc3_5Y38wg-vSG6nxlOo68TX3wIPtwul340pJ9ZW3sM
 
     private ListView listView;
-    private List<Item> itemList;
     private TextView seeAllText;
 
     private void initUIComponents() {
@@ -36,9 +34,6 @@ public class MainActivity extends BaseActivity {
         seeAllText = findViewById(R.id.see_all_txt);
     }
 
-    private void initMockData() {
-        itemList = Items.getItems();
-    }
 
     private void setUpListView(List<Item> itemList) {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
@@ -96,7 +91,6 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
 
         initUIComponents();
-        initMockData();
         setViewAllTextListener();
         getAllItems();
 

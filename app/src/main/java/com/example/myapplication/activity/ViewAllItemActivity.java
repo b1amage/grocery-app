@@ -10,15 +10,19 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ItemAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.model.Item;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class ViewAllItemActivity extends BaseActivity {
 
-    private List<Item> itemList;
     private ListView listView;
     private ImageButton backBtn;
 
@@ -28,21 +32,7 @@ public class ViewAllItemActivity extends BaseActivity {
         backBtn = findViewById(R.id.view_all_back_btn);
     }
 
-    private void initMockData() {
-        itemList = new ArrayList<>(
-                Arrays.asList(
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
-                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12)
-                )
-        );
-    }
-
-    private void setUpListView() {
+    private void setUpListView(List<Item> itemList) {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
         listView.setAdapter(itemAdapter);
 
@@ -65,14 +55,41 @@ public class ViewAllItemActivity extends BaseActivity {
         });
     }
 
+    private void getAllItems() {
+        (new APIHandler(ViewAllItemActivity.this)).getRequest("/item/view", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                JSONArray jsonArray = response.getJSONArray("results");
+                ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                    }
+
+                    System.out.println(itemArrayList);
+
+                    setUpListView(itemArrayList);
+                }
+            }
+        });
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_all_item);
 
         initUIComponents();
-        initMockData();
-        setUpListView();
         setBackButtonListener();
+        getAllItems();
     }
 }
