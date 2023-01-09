@@ -42,7 +42,13 @@ public class ForgotPasswordActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 JSONObject jsonObject = new JSONObject();
-                (new APIHandler(ForgotPasswordActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
+                try {
+                    jsonObject.put("email",edittext_email.getText().toString());
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                (new APIHandler(ForgotPasswordActivity.this)).postRequest(jsonObject, "/auth/forgot-password", new VolleyResponseListener() {
                     @Override
                     public void onError(String message, int statusCode) {
                         edittext_email.setError(message);
@@ -50,7 +56,7 @@ public class ForgotPasswordActivity extends BaseActivity {
                     @Override
                     public void onResponse(JSONObject response) throws JSONException {
                         jsonObject.put("hash", response.get("hash"));
-                        Intent intent = new Intent(ForgotPasswordActivity.this, OTPActivity.class);
+                        Intent intent = new Intent(ForgotPasswordActivity.this, NewPasswordAcitivty.class);
                         intent.putExtra("user",jsonObject.toString());
                         startActivity(intent);
                         finish();
