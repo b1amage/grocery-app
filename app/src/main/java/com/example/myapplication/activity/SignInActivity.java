@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
+import com.example.myapplication.utilities.CookieManager;
 import com.google.android.gms.maps.model.Dash;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
@@ -22,13 +23,14 @@ import com.google.android.material.textfield.TextInputLayout;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Date;
+
 public class SignInActivity extends BaseActivity {
 
     private EditText editText_email;
     private TextInputEditText editText_password;
     private Button button_signIn;
     private TextView text_forgot, text_signUp;
-    private CheckBox checkBox_remember;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +89,12 @@ public class SignInActivity extends BaseActivity {
                         SharedPreferences.Editor editor = sharedpreferences.edit();
                         editor.putString("role",user.get("role").toString());
                         editor.putString("userId",user.get("userId").toString());
-                        editor.commit();
+                        editor.putString("name", user.get("name").toString());
+                        editor.putLong("loginAt", (new Date()).getTime());
+                        editor.apply();
+
+                        System.out.println("name " + (new CookieManager(SignInActivity.this)).getName());
+                        System.out.println("login at " + (new CookieManager(SignInActivity.this)).getLoginAt());
                         finish();
                     }
                 });

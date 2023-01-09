@@ -26,4 +26,12 @@ public class CookieManager {
     public String getUserId() {
         return sharedPreferences.getString("userId", "");
     }
+
+    public String getName() {
+        return sharedPreferences.getString("name", "");
+    }
+
+    public Long getLoginAt() {
+        return sharedPreferences.getLong("loginAt", 0);
+    }
 }
