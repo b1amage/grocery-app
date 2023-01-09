@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
+import com.example.myapplication.utilities.CookieManager;
 
 public class SplashActivity extends AppCompatActivity {
 
@@ -24,7 +25,17 @@ public class SplashActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                boolean isLogin = (new CookieManager(SplashActivity.this)).isLogin();
+                if (isLogin) {
+                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                } else {
+                    String role = (new CookieManager(SplashActivity.this)).getRole();
+                    if (role.equals("customer")) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    } else if (role.equals("staff")) {
+                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
+                    }
+                }
                 finish();
             }
         }, DURATION);

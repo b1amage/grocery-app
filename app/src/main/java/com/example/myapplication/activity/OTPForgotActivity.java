@@ -29,7 +29,7 @@ public class OTPForgotActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_otp);
+        setContentView(R.layout.activity_otpforgot);
         try {
             jsonObject = new JSONObject(getIntent().getStringExtra("user"));
         } catch (JSONException e) {
@@ -45,10 +45,8 @@ public class OTPForgotActivity extends BaseActivity {
         button_next = (Button) findViewById(R.id.button_next);
         text_receive = (TextView) findViewById(R.id.text_receive);
         text_resend = (TextView) findViewById(R.id.text_resend);
-        text_second = (TextView) findViewById(R.id.text_second);
 
         setUpOTP();
-        reverseTimer();
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -78,45 +76,6 @@ public class OTPForgotActivity extends BaseActivity {
             }
         });
     }
-
-    public void reverseTimer(){
-        new CountDownTimer(90000, 1000) {
-
-            public void onTick(long millisUntilFinished) {
-                text_second.setText(millisUntilFinished / 1000 + " seconds" );
-                // logic to set the EditText could go here
-            }
-
-            public void onFinish() {
-                text_second.setText("Please resend the code");
-                text_resend.setText("Resend here!");
-                text_resend.setTextColor(getResources().getColor(R.color.primary_100));
-                text_resend.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        (new APIHandler(OTPForgotActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
-                            @Override
-                            public void onError(String message, int statusCode) {
-                            }
-                            @Override
-                            public void onResponse(JSONObject response) throws JSONException {
-                                reverseTimer();
-                                text_resend.setText("Please wait!");
-                                text_resend.setTextColor(getResources().getColor(R.color.tertiary_gray));
-                                text_resend.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                    }
-                                });
-                            }
-                        });
-                    }
-                });
-            }
-
-        }.start();
-    }
-
 
     private void setUpOTP(){
         code1.addTextChangedListener(new TextWatcher() {

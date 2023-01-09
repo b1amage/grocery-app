@@ -19,8 +19,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onDestroy() {
+        super.onDestroy();
+        System.err.println("destroyed");
         unregisterReceiver(connectionReceiver);
     }
 }

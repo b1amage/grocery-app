@@ -18,4 +18,12 @@ public class CookieManager {
         String refreshToken = sharedPreferences.getString("refreshToken", "");
         return !refreshToken.equals("") && !refreshToken.equals("logout");
     }
+
+    public String getRole() {
+        return sharedPreferences.getString("role", "");
+    }
+
+    public String getUserId() {
+        return sharedPreferences.getString("userId", "");
+    }
 }
