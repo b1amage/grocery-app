@@ -1,18 +1,39 @@
 package com.example.myapplication.model;
 
 public class Item {
-    private int id;
+    private String _id;
     private String name;
-    private int img;
+    private String description;
+    private int price;
     private String category;
-    private double price;
+    private String imageURL;
+    private int quantity;
 
-    public Item(int id, String name, int img, String category, double price) {
-        this.id = id;
+    public Item(String _id, String name, String description, int price, String category, String imageURL, int quantity) {
+        this._id = _id;
         this.name = name;
-        this.img = img;
-        this.category = category;
+        this.description = description;
         this.price = price;
+        this.category = category;
+        this.imageURL = imageURL;
+        this.quantity = quantity;
+    }
+
+    public Item(String name, String description, int price, String category, String imageURL, int quantity) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.imageURL = imageURL;
+        this.quantity = quantity;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public String getName() {
@@ -23,12 +44,20 @@ public class Item {
         this.name = name;
     }
 
-    public int getImg() {
-        return img;
+    public String getDescription() {
+        return description;
     }
 
-    public void setImg(int img) {
-        this.img = img;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public String getCategory() {
@@ -39,30 +68,32 @@ public class Item {
         this.category = category;
     }
 
-    public double getPrice() {
-        return price;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 
-    public int getId() {
-        return id;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     @Override
     public String toString() {
         return "Item{" +
-                "id=" + id +
+                "_id='" + _id + '\'' +
                 ", name='" + name + '\'' +
-                ", img=" + img +
-                ", category='" + category + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
+                ", category='" + category + '\'' +
+                ", imageURL='" + imageURL + '\'' +
+                ", quantity=" + quantity +
                 '}';
     }
 }

@@ -39,7 +39,7 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return items.get(i).getId();
+        return 1;
     }
 
     @Override
@@ -53,12 +53,12 @@ public class ItemAdapter extends BaseAdapter {
 
 
         if (!isInCart) {
-            ((ImageView) itemView.findViewById(R.id.item_img)).setImageResource(item.getImg());
+//            ((ImageView) itemView.findViewById(R.id.item_img)).setImageResource(item.getImg());
             ((TextView) itemView.findViewById(R.id.item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.item_price)).setText("$" + String.valueOf(item.getPrice()));
         } else {
-            ((ImageView) itemView.findViewById(R.id.cart_item_img)).setImageResource(item.getImg());
+//            ((ImageView) itemView.findViewById(R.id.cart_item_img)).setImageResource(item.getImg());
             ((TextView) itemView.findViewById(R.id.cart_item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.cart_item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.cart_item_price)).setText("$" + String.valueOf(item.getPrice()));

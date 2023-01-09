@@ -43,7 +43,7 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
 
         Item item = (Item) getItem(position);
 
-        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(item.getImg());
+//        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(item.getImg());
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(item.getName());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(item.getCategory());
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setText("$" + String.valueOf(item.getPrice()));

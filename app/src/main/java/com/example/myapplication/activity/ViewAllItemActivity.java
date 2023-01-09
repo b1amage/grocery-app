@@ -31,16 +31,13 @@ public class ViewAllItemActivity extends BaseActivity {
     private void initMockData() {
         itemList = new ArrayList<>(
                 Arrays.asList(
-                        new Item(1, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(2, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(3, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(4, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(5, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(6, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(7, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(8, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(9, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12),
-                        new Item(10, "Fresh Cabbage", R.drawable.dummy_item, "Vegetables", 12)
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12),
+                        new Item("6d3", "Fresh Cabbage", "good vegtable", 10000, "vegetable", "", 12)
                 )
         );
     }
