@@ -63,14 +63,14 @@ public class OTPForgotActivity extends BaseActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                (new APIHandler(OTPForgotActivity.this)).postRequest(jsonObject, "/auth/verify-otp-register", new VolleyResponseListener() {
+                (new APIHandler(OTPForgotActivity.this)).postRequest(jsonObject, "/auth/reset-password", new VolleyResponseListener() {
                     @Override
                     public void onError(String message, int statusCode) {
                         code6.setError(message);
                     }
                     @Override
                     public void onResponse(JSONObject response) throws JSONException {
-                        Intent intent = new Intent(OTPForgotActivity.this, RegisterFinishedActivity.class);
+                        Intent intent = new Intent(OTPForgotActivity.this, ResetFinishedActivity.class);
                         startActivity(intent);
                         finish();
                     }
