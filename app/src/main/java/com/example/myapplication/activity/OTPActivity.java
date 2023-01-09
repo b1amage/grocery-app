@@ -94,12 +94,20 @@ public class OTPActivity extends BaseActivity {
                 text_resend.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        (new APIHandler(OTPActivity.this)).postRequest(jsonObject, "/auth/register", new VolleyResponseListener() {
+                        JSONObject temp = jsonObject;
+                        try {
+                            temp.getJSONObject("user").remove("hash");
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+
+                        (new APIHandler(OTPActivity.this)).postRequest(temp, "/auth/register", new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {
                             }
                             @Override
                             public void onResponse(JSONObject response) throws JSONException {
+                                jsonObject.put("hash", response.get("hash"));
                                 reverseTimer();
                                 text_resend.setText("Please wait!");
                                 text_resend.setTextColor(getResources().getColor(R.color.tertiary_gray));

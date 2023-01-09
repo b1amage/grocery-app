@@ -155,9 +155,9 @@
 
             android:layout_marginStart="5dp"
 
-            android:text="Please wait!"
+            android:text="Resend here"
             android:textStyle="bold"
-            android:textColor="@color/tertiary_gray"
+            android:textColor="@color/primary_100"
             android:textSize="14dp"/>
     </LinearLayout>
 

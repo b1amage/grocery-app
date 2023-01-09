@@ -47,6 +47,28 @@ public class OTPForgotActivity extends BaseActivity {
         text_resend = (TextView) findViewById(R.id.text_resend);
 
         setUpOTP();
+        text_resend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                JSONObject temp = jsonObject;
+                try {
+                    temp.getJSONObject("user").remove("hash");
+                    temp.getJSONObject("user").remove("newPassword");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                (new APIHandler(OTPForgotActivity.this)).postRequest(temp, "/auth/forgot-password", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                    }
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        jsonObject.put("hash", response.get("hash"));
+                    }
+                });
+            }
+        });
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
