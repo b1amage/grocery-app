@@ -26,7 +26,7 @@ public class SplashActivity extends AppCompatActivity {
             @Override
             public void run() {
                 boolean isLogin = (new CookieManager(SplashActivity.this)).isLogin();
-                if (isLogin) {
+                if (!isLogin) {
                     startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 } else {
                     String role = (new CookieManager(SplashActivity.this)).getRole();

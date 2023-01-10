@@ -5,12 +5,14 @@ import androidx.annotation.NonNull;
 import androidx.core.view.WindowCompat;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import android.view.View;
 
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -20,6 +22,7 @@ import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.ImageLoader;
+import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 
 import org.json.JSONArray;
@@ -39,6 +42,8 @@ public class ItemDetail extends BaseActivity {
     private TextView description;
     private TextView name;
     private TextView category;
+    private ShimmerFrameLayout shimmerFrameLayout;
+    private ImageButton backButton;
 
 
     private void initUIComponents() {
@@ -50,6 +55,18 @@ public class ItemDetail extends BaseActivity {
         description = findViewById(R.id.detail_item_dsc);
         name = findViewById(R.id.item_detail_name);
         category = findViewById(R.id.category_tag);
+        backButton = findViewById(R.id.detail_back_btn);
+    }
+
+    private void setUpBackButton() {
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ItemDetail.this, MainActivity.class);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     private void handleDraggingSheet() {
@@ -100,7 +117,15 @@ public class ItemDetail extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) throws JSONException {
                 JSONObject jsonObject = response.getJSONObject("item");
+
+                shimmerFrameLayout.stopShimmer();
+                setContentView(R.layout.activity_item_detail);
+                initUIComponents();
+                handleDraggingSheet();
+                handleButtonClick();
+                setUpBackButton();
                 setUpContent(jsonObject.getString("image"), jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("description"));
+                bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });
     }
@@ -109,15 +134,15 @@ public class ItemDetail extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         WindowCompat.setDecorFitsSystemWindows(getWindow(), false);
-        setContentView(R.layout.activity_item_detail);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        setContentView(R.layout.detail_shimmer);
 
-        initUIComponents();
-        handleDraggingSheet();
-        handleButtonClick();
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        shimmerFrameLayout = findViewById(R.id.detail_shimmer);
+
+        shimmerFrameLayout.startShimmer();
         getItemDetail();
 
-        bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
+
     }
 
 }

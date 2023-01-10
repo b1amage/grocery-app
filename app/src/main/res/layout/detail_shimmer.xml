@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ItemDetail">
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:id="@+id/detail_shimmer">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:id="@+id/detail_img_shimmer"
+                android:background="@color/shimmer"/>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="20dp">
+
+            <ImageButton
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/arr_back"
+                android:backgroundTint="@color/tertiary_gray"
+                android:layout_centerVertical="true"
+               />
+
+            <RelativeLayout
+                android:layout_width="100dp"
+                android:layout_height="50dp"
+                android:background="@color/tertiary_gray"
+                android:id="@+id/openBtn"
+                android:layout_margin="16dp"
+                android:layout_alignParentRight="true"/>
+
+        </RelativeLayout>
+
+        <include android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_gravity="bottom" layout="@layout/bottom_sheet_shimmer" />
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+</com.google.android.material.circularreveal.coordinatorlayout.CircularRevealCoordinatorLayout>
