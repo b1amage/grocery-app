@@ -15,5 +15,6 @@
     <color name="secondary">#FFB800</color>
     <color name="tertiary_dark">#FF03DAC5</color>
     <color name="tertiary_gray">#A3A9AF</color>
+    <color name="shimmer">#D1D1D1</color>
 
 </resources>

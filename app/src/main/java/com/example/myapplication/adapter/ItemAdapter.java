@@ -40,7 +40,7 @@ public class ItemAdapter extends BaseAdapter {
 
     @Override
     public long getItemId(int i) {
-        return 1;
+        return i;
     }
 
     @Override
@@ -51,7 +51,6 @@ public class ItemAdapter extends BaseAdapter {
         } else itemView = convertView;
 
         Item item = (Item) getItem(i);
-
 
         if (!isInCart) {
             ImageLoader.loadImg(item.getImageURL(), itemView.findViewById(R.id.item_img));

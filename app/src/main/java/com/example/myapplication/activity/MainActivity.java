@@ -15,6 +15,7 @@ import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.content.Items;
 import com.example.myapplication.model.Item;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -29,10 +30,22 @@ public class MainActivity extends BaseActivity {
     private ListView listView;
     private List<Item> items;
     private TextView seeAllText;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
         seeAllText = findViewById(R.id.see_all_txt);
+        shimmerFrameLayout = findViewById(R.id.shimmer_main);
+    }
+
+    private void startLoading() {
+        shimmerFrameLayout.startShimmer();
+    }
+
+    private void stopLoading() {
+        shimmerFrameLayout.stopShimmer();
+        shimmerFrameLayout.setVisibility(View.GONE);
+        listView.setVisibility(View.VISIBLE);
     }
 
     private void setUpListView(List<Item> itemList) {
@@ -82,6 +95,8 @@ public class MainActivity extends BaseActivity {
                     setUpListView(itemArrayList);
                     items = itemArrayList;
                 }
+
+                stopLoading();
             }
         });
     }
@@ -91,7 +106,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
         initUIComponents();
+        startLoading();
         setViewAllTextListener();
         getAllItems();
 
