@@ -3,10 +3,10 @@ package com.example.myapplication.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ItemAdapter;
@@ -27,6 +27,8 @@ public class ViewAllItemActivity extends BaseActivity {
     private ListView listView;
     private ImageButton backBtn;
     private ShimmerFrameLayout shimmerFrameLayout;
+    private String nextCursor = "";
+    private List<Item> items;
 
 
     private void initUIComponents() {
@@ -42,7 +44,28 @@ public class ViewAllItemActivity extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(ViewAllItemActivity.this, "Item clicked", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewAllItemActivity.this, ItemDetail.class);
+                intent.putExtra("_id", items.get(position).get_id());
+                startActivityForResult(intent, 104);
+            }
+        });
+
+        // onScroll: load more item if scroll to bottom
+        listView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && (listView.getLastVisiblePosition() - listView.getHeaderViewsCount() -
+                        listView.getFooterViewsCount()) >= (itemAdapter.getCount() - 1)) {
+                    if (nextCursor != null) {
+                        // load more
+                        loadMoreItems();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
             }
         });
     }
@@ -68,6 +91,7 @@ public class ViewAllItemActivity extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) throws JSONException {
                 JSONArray jsonArray = response.getJSONArray("results");
+                nextCursor = response.getString("next_cursor");
                 ArrayList<Item> itemArrayList = new ArrayList<>();
 
                 if (jsonArray != null) {
@@ -78,10 +102,36 @@ public class ViewAllItemActivity extends BaseActivity {
                         itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
+                    items = itemArrayList;
                     setUpListView(itemArrayList);
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     listView.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+    }
+
+    private void loadMoreItems() {
+        (new APIHandler(ViewAllItemActivity.this)).getRequest(String.format("/item/view?next_cursor=%s", nextCursor), new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                JSONArray jsonArray = response.getJSONArray("results");
+                nextCursor = response.getString("next_cursor");
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        items.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                    }
+
+                    setUpListView(items);
                 }
             }
         });

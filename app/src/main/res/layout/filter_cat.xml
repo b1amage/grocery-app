@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/category_tag"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="36dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="abc"
+            android:id="@+id/cat_tag_name"
+            android:textColor="@color/primary_100"
+            android:textStyle="bold"/>
+</RelativeLayout>

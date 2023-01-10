@@ -2,9 +2,12 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -35,6 +38,8 @@ public class MainActivity extends BaseActivity {
     private ShimmerFrameLayout shimmerFrameLayout;
     private ImageButton buttonToAccount;
     private String nextCursor = "";
+    private EditText searchBox;
+    private ImageButton searchButton;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -42,6 +47,51 @@ public class MainActivity extends BaseActivity {
         shimmerFrameLayout = findViewById(R.id.shimmer_main);
         textName = findViewById(R.id.textHello);
         buttonToAccount = findViewById(R.id.main_btn_to_account);
+        searchBox = findViewById(R.id.home_search);
+        searchButton = findViewById(R.id.main_btn_search);
+    }
+
+    private void setUpSearchBtn() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchBox.getText().toString();
+                if (query.isEmpty()) return;
+
+                startLoading();
+
+                (new APIHandler(MainActivity.this)).getRequest(String.format("/item/view?name=%s", query), new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        System.out.println(message);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        System.out.println(response);
+                        JSONArray jsonArray = response.getJSONArray("results");
+                        nextCursor = response.getString("next_cursor");
+                        ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++){
+
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                System.out.println("object" + object);
+                                itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                            }
+
+                            setUpListView(itemArrayList);
+                            items = itemArrayList;
+                        }
+
+                        stopLoading();
+                    }
+                });
+            }
+        });
+
+
     }
 
     private void startLoading() {
@@ -198,6 +248,7 @@ public class MainActivity extends BaseActivity {
         initUIComponents();
         initContent();
         startLoading();
+        setUpSearchBtn();
         setViewAllTextListener();
         setUpButtonToAccount();
         getAllItems();
