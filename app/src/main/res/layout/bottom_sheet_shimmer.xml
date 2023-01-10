@@ -3,22 +3,21 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:paddingTop="36dp"
-    android:paddingBottom="48dp"
+    android:paddingVertical="36dp"
     android:paddingHorizontal="20dp"
     android:background="@drawable/corner_top"
     app:behavior_hideable="true"
     app:behavior_peekHeight="0dp"
     android:id="@+id/bottomSheet"
+    android:layout_toEndOf="@+id/detail_shimmer"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
-        android:text="Popular"
+        android:background="@color/shimmer"
         android:textColor="@color/primary_100"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/category_tag"
         android:paddingVertical="4dp"
         android:paddingHorizontal="12dp"
         android:id="@+id/category_tag"/>
@@ -31,34 +30,33 @@
         android:layout_marginTop="24dp">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:text="Fresh Cabbage"
+            android:background="@color/shimmer"
             android:textColor="@color/black"
             android:textStyle="bold"
             android:textSize="24dp"
             android:id="@+id/item_detail_name"
             android:layout_marginBottom="8dp"/>
-
     </RelativeLayout>
+
 
 
     <TextView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="80dp"
         android:layout_below="@+id/stat_ctn"
         android:layout_marginTop="20dp"
         android:textSize="16dp"
         android:id="@+id/detail_item_dsc"
-        android:text="Quality fresh cabbage directly harvested from our garden by professional growers. Cabbage aged 3 months with very intensive care so that the cabbage has a dense and fresh texture." />
+        android:background="@color/shimmer" />
 
-    <Button
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_below="@+id/detail_item_dsc"
         android:layout_marginTop="20dp"
-        android:text="Add to cart"
-        android:background="@drawable/gradient_btn"
+        android:background="@color/shimmer"
         android:drawableRight="@drawable/detail_cart"
         android:paddingHorizontal="100dp"/>
 </RelativeLayout>

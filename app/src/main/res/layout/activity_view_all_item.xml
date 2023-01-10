@@ -57,12 +57,36 @@
             android:backgroundTint="@color/primary_10"
             android:layout_centerVertical="true"
             android:layout_height="50dp"
-            android:layout_marginLeft="24dp"
-            android:layout_toRightOf="@+id/home_search"
+            android:layout_alignParentRight="true"
             android:layout_width="50dp"
             android:src="@drawable/filter" />
 
     </RelativeLayout>
+
+
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/view_all_search_section"
+        android:id="@+id/shimmer_view_all"
+        android:layout_marginTop="20dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+            <include layout="@layout/item_shimmer"></include>
+
+        </LinearLayout>
+    </com.facebook.shimmer.ShimmerFrameLayout>
 
     <ListView
         android:divider="@android:color/transparent"
@@ -71,7 +95,8 @@
         android:layout_below="@+id/view_all_search_section"
         android:layout_marginTop="20dp"
         android:id="@+id/view_all_list_view"
-        android:dividerHeight="10dp"/>
+        android:dividerHeight="10dp"
+        android:visibility="gone"/>
 
 
 

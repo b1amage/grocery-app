@@ -13,6 +13,7 @@ import com.example.myapplication.adapter.ItemAdapter;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.model.Item;
+import com.facebook.shimmer.ShimmerFrameLayout;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -25,11 +26,13 @@ public class ViewAllItemActivity extends BaseActivity {
 
     private ListView listView;
     private ImageButton backBtn;
+    private ShimmerFrameLayout shimmerFrameLayout;
 
 
     private void initUIComponents() {
         listView = findViewById(R.id.view_all_list_view);
         backBtn = findViewById(R.id.view_all_back_btn);
+        shimmerFrameLayout = findViewById(R.id.shimmer_view_all);
     }
 
     private void setUpListView(List<Item> itemList) {
@@ -75,9 +78,10 @@ public class ViewAllItemActivity extends BaseActivity {
                         itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
-                    System.out.println(itemArrayList);
-
                     setUpListView(itemArrayList);
+                    shimmerFrameLayout.stopShimmer();
+                    shimmerFrameLayout.setVisibility(View.GONE);
+                    listView.setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -89,6 +93,7 @@ public class ViewAllItemActivity extends BaseActivity {
         setContentView(R.layout.activity_view_all_item);
 
         initUIComponents();
+        shimmerFrameLayout.startShimmer();
         setBackButtonListener();
         getAllItems();
     }

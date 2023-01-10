@@ -9,6 +9,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ItemAdapter;
 import com.example.myapplication.api.APIHandler;
@@ -62,6 +64,24 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            switch (requestCode) {
+                case 100:
+                    System.out.println("Back from see all");
+                    break;
+                case 101:
+                    System.out.println("Back from detail");
+                    break;
+                default:
+                    System.out.println("Other");
+            }
+        }
+    }
+
     private void setViewAllTextListener() {
         seeAllText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +125,6 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
 
         initUIComponents();
         startLoading();
