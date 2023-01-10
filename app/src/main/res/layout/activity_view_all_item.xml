@@ -40,17 +40,31 @@
         android:layout_marginTop="36dp"
         android:layout_width="match_parent">
 
-        <EditText
-            android:background="@drawable/custom_edt"
-            android:backgroundTint="@color/neutral"
-            android:drawableRight="@drawable/search"
-            android:hint="Search"
-            android:id="@+id/home_search"
-            android:layout_height="wrap_content"
-            android:layout_width="270dp"
-            android:paddingHorizontal="28dp"
-            android:paddingVertical="12dp"
-            android:textSize="16dp" />
+        <RelativeLayout
+            android:layout_width="230dp"
+            android:layout_height="wrap_content">
+            <EditText
+                android:background="@drawable/custom_edt"
+                android:backgroundTint="@color/neutral"
+                android:hint="Search"
+                android:id="@+id/view_all_search"
+                android:layout_height="wrap_content"
+                android:layout_width="230dp"
+                android:paddingHorizontal="28dp"
+                android:paddingVertical="12dp"
+                android:textSize="16dp" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/search"
+                android:id="@+id/view_all_btn_search"
+                android:backgroundTint="@color/neutral"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="8dp"
+                android:background="@android:color/transparent"/>
+        </RelativeLayout>
 
         <ImageButton
             android:background="@drawable/rounded"

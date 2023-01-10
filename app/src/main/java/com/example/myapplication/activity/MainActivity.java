@@ -2,8 +2,6 @@ package com.example.myapplication.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
@@ -90,8 +88,6 @@ public class MainActivity extends BaseActivity {
                 });
             }
         });
-
-
     }
 
     private void startLoading() {
