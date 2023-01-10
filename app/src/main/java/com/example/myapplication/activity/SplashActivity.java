@@ -34,6 +34,8 @@ public class SplashActivity extends AppCompatActivity {
                         startActivity(new Intent(SplashActivity.this, MainActivity.class));
                     } else if (role.equals("staff")) {
                         startActivity(new Intent(SplashActivity.this, Dashboard.class));
+                    } else {
+                        startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                     }
                 }
                 finish();
