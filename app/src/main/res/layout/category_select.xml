@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/primary_10"
+    android:paddingHorizontal="12dp"
+    android:paddingVertical="8dp">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/dummy_item"
+        android:id="@+id/category_select_img" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Vegetables"
+        android:layout_toRightOf="@+id/category_select_img"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="24dp"
+        android:textSize="20dp"
+        android:textStyle="bold"
+        android:id="@+id/category_select_name"
+        android:textAllCaps="true"/>
+
+</RelativeLayout>
