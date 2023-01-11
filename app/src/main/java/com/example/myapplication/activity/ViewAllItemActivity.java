@@ -32,7 +32,7 @@ public class ViewAllItemActivity extends BaseActivity {
     private List<Item> items;
     private EditText searchBox;
     private ImageButton searchButton;
-
+    ItemAdapter itemAdapter;
 
     private void initUIComponents() {
         listView = findViewById(R.id.view_all_list_view);
@@ -78,7 +78,7 @@ public class ViewAllItemActivity extends BaseActivity {
     }
 
     private void setUpListView(List<Item> itemList) {
-        ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        itemAdapter = new ItemAdapter(itemList);
         listView.setAdapter(itemAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -171,7 +171,7 @@ public class ViewAllItemActivity extends BaseActivity {
                         items.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
-                    setUpListView(items);
+                    itemAdapter.updateResults(items);
                 }
             }
         });

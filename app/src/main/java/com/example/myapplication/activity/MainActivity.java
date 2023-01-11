@@ -39,6 +39,7 @@ public class MainActivity extends BaseActivity {
     private EditText searchBox;
     private ImageButton searchButton;
     private ImageButton filterButton;
+    ItemAdapter itemAdapter;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -118,7 +119,7 @@ public class MainActivity extends BaseActivity {
     }
 
     private void setUpListView(List<Item> itemList) {
-        ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        itemAdapter = new ItemAdapter(itemList);
         listView.setAdapter(itemAdapter);
 
         // onClick: navigate to relevant item detail
@@ -242,7 +243,7 @@ public class MainActivity extends BaseActivity {
                         items.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
-                    setUpListView(items);
+                    itemAdapter.updateResults(items);
                 }
             }
         });

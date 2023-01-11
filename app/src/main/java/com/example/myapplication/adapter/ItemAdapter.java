@@ -28,6 +28,11 @@ public class ItemAdapter extends BaseAdapter {
         this.isInCart = isInCart;
     }
 
+    public void updateResults(List<Item> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getCount() {
         return items.size();
