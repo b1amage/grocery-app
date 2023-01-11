@@ -1,9 +1,5 @@
 package com.example.myapplication.activity;
 
-import com.example.myapplication.adapter.CategoryItemAdapter;
-import com.example.myapplication.adapter.VoucherAdapter;
-import com.example.myapplication.components.ActionBar;
-
 import androidx.annotation.NonNull;
 
 import android.content.Intent;
@@ -11,30 +7,28 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-//import com.example.myapplication.adapter.CategoryAdapter;
+import com.example.myapplication.adapter.LocationAdapter;
+import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
-import com.example.myapplication.content.Items;
-import com.example.myapplication.content.Vouchers;
-import com.example.myapplication.model.Voucher;
+import com.example.myapplication.content.Locations;
+import com.example.myapplication.model.Location;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
 
-public class VoucherList extends BaseActivity {
-    private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
-    private String[] categories = new Categories().getVoucherTypes();
+public class LocationManagement extends BaseActivity {
+    private ArrayList<Location> locations = new Locations().getLocations();
+    private String[] categories = new Categories().getLocations();
     private ListView categoryView;
-//    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -45,7 +39,7 @@ public class VoucherList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voucher_list);
+        setContentView(R.layout.activity_location_management);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -58,7 +52,7 @@ public class VoucherList extends BaseActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
-        VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
+        LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
 
@@ -66,7 +60,7 @@ public class VoucherList extends BaseActivity {
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
-        bottomNavigationView.setSelectedItemId(R.id.vouchers);
+        bottomNavigationView.setSelectedItemId(R.id.store);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -78,17 +72,17 @@ public class VoucherList extends BaseActivity {
                         return true;
                     case R.id.vouchers:
                         Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), VoucherList.class));
+                        startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
                         Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), OrderList.class));
+                        startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
                         Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), LocationList.class));
+                        startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                 }

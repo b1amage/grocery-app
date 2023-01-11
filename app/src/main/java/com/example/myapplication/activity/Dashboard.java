@@ -4,14 +4,12 @@ import com.example.myapplication.adapter.CategoryItemAdapter;
 import com.example.myapplication.components.ActionBar;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -73,17 +71,17 @@ public class Dashboard extends BaseActivity {
                         return true;
                     case R.id.vouchers:
                         Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), VoucherList.class));
+                        startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
                         Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), OrderList.class));
+                        startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
                         Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), LocationList.class));
+                        startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                 }

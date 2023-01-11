@@ -13,12 +13,10 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
-import com.example.myapplication.adapter.CategoryItemAdapter;
 import com.example.myapplication.adapter.OrderAdapter;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
-import com.example.myapplication.content.Items;
 import com.example.myapplication.content.Orders;
 import com.example.myapplication.model.Order;
 import com.example.myapplication.utilities.Button;
@@ -26,9 +24,8 @@ import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class OrderList extends BaseActivity {
+public class OrderManagement extends BaseActivity {
     private ArrayList<Order> orders = new Orders().getOrders();
     private String[] categories = new Categories().getTimes();
     private ListView categoryView;
@@ -42,7 +39,7 @@ public class OrderList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_list);
+        setContentView(R.layout.activity_order_management);
 
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
@@ -76,17 +73,17 @@ public class OrderList extends BaseActivity {
                         return true;
                     case R.id.vouchers:
                         Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), VoucherList.class));
+                        startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
                         Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), OrderList.class));
+                        startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
                         Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
-                        startActivity(new Intent(getApplicationContext(), LocationList.class));
+                        startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                 }

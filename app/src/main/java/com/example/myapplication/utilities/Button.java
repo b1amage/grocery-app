@@ -51,7 +51,7 @@ public class Button {
     // custom inactive button
     public void createInactiveButton(String text, View.OnClickListener onClickFunction){
         getButtonElement();
-
+        button.setBackgroundTintList(setColor(R.color.white));
         buttonIcon.setVisibility(View.GONE);
         buttonText.setText(text);
         buttonText.setTypeface(buttonText.getTypeface(), Typeface.BOLD);
