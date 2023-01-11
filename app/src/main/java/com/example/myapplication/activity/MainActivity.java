@@ -145,7 +145,7 @@ public class MainActivity extends BaseActivity {
         buttonToAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, Dashboard.class);
+                Intent intent = new Intent(MainActivity.this, UserProfileActivity.class);
                 startActivityForResult(intent, 102);
             }
         });
