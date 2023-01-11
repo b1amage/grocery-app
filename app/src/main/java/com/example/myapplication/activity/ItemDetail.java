@@ -44,6 +44,7 @@ public class ItemDetail extends BaseActivity {
     private TextView category;
     private ShimmerFrameLayout shimmerFrameLayout;
     private ImageButton backButton;
+    private TextView stock;
 
 
     private void initUIComponents() {
@@ -56,6 +57,7 @@ public class ItemDetail extends BaseActivity {
         name = findViewById(R.id.item_detail_name);
         category = findViewById(R.id.category_tag);
         backButton = findViewById(R.id.detail_back_btn);
+        stock = findViewById(R.id.item_detail_stock);
     }
 
     private void setUpBackButton() {
@@ -100,11 +102,12 @@ public class ItemDetail extends BaseActivity {
         });
     }
 
-    private void setUpContent(String img, String name, String category, String description) {
+    private void setUpContent(String img, String name, String category, String description, int quantity) {
         ImageLoader.loadImg(img, imageView);
         this.name.setText(name);
         this.category.setText(category);
         this.description.setText(description);
+        this.stock.setText(String.format("Stock: %d", quantity));
     }
 
     private void getItemDetail() {
@@ -124,7 +127,7 @@ public class ItemDetail extends BaseActivity {
                 handleDraggingSheet();
                 handleButtonClick();
                 setUpBackButton();
-                setUpContent(jsonObject.getString("image"), jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("description"));
+                setUpContent(jsonObject.getString("image"), jsonObject.getString("name"), jsonObject.getString("category"), jsonObject.getString("description"), jsonObject.getInt("quantity"));
                 bottomSheetBehavior.setState(BottomSheetBehavior.STATE_EXPANDED);
             }
         });

@@ -38,6 +38,13 @@
             android:textSize="24dp"
             android:id="@+id/item_detail_name"
             android:layout_marginBottom="8dp"/>
+
+        <TextView
+            android:layout_width="70dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/item_detail_name"
+            android:id="@+id/item_detail_stock"
+            android:background="@color/shimmer"/>
     </RelativeLayout>
 
 
