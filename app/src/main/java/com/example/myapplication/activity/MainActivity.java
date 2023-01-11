@@ -38,6 +38,7 @@ public class MainActivity extends BaseActivity {
     private String nextCursor = "";
     private EditText searchBox;
     private ImageButton searchButton;
+    private ImageButton filterButton;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -47,6 +48,17 @@ public class MainActivity extends BaseActivity {
         buttonToAccount = findViewById(R.id.main_btn_to_account);
         searchBox = findViewById(R.id.home_search);
         searchButton = findViewById(R.id.main_btn_search);
+        filterButton = findViewById(R.id.main_filter_btn);
+    }
+
+    private void setUpFilterButton() {
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, FilterActivity.class);
+                startActivityForResult(intent, 200);
+            }
+        });
     }
 
     private void setUpSearchBtn() {
@@ -247,6 +259,7 @@ public class MainActivity extends BaseActivity {
         setUpSearchBtn();
         setViewAllTextListener();
         setUpButtonToAccount();
+        setUpFilterButton();
         getAllItems();
 
     }

@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.OrderDetails"
+            android:name=".activity.DashboardOrderDetails"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -41,21 +41,21 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.LocationList"
+            android:name=".activity.LocationManagement"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.OrderList"
+            android:name=".activity.OrderManagement"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.VoucherList"
+            android:name=".activity.VoucherManagement"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -28,7 +28,18 @@
             android:text="Hello, Daniel"
             android:textColor="@color/black"
             android:textSize="26dp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:paddingEnd="8dp"/>
+
+        <ImageButton
+            android:background="@drawable/rounded"
+            android:backgroundTint="@color/primary_10"
+            android:layout_height="50dp"
+            android:layout_width="50dp"
+            android:src="@drawable/logout"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentRight="true"
+            android:id="@+id/main_btn_logout"/>
     </RelativeLayout>
 
 
@@ -83,7 +94,8 @@
                 android:layout_height="50dp"
                 android:layout_marginLeft="8dp"
                 android:layout_width="50dp"
-                android:src="@drawable/filter" />
+                android:src="@drawable/filter"
+                android:id="@+id/main_filter_btn"/>
 
         </LinearLayout>
 
