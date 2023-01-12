@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -38,13 +40,25 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
     private List<Item> items;
     private String nextCursor = "";
     private String categorySelected = "dairy";
+    private ImageButton backBtn;
 
     private void initUIComponents() {
         spinner = findViewById(R.id.filter_spinner);
         shimmerFrameLayout = findViewById(R.id.shimmer_filter);
         listView = findViewById(R.id.filter_list_view);
+        backBtn = findViewById(R.id.filter_back_btn);
     }
 
+    private void setUpBackButton() {
+        backBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(FilterActivity.this, MainActivity.class);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
+    }
 
     private void setUpListView(List<Item> itemList) {
         ItemAdapter itemAdapter = new ItemAdapter(itemList);
@@ -144,7 +158,7 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(FilterActivity.this, ((Category) spinner.getSelectedItem()).getCategoryName(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(FilterActivity.this, ((Category) spinner.getSelectedItem()).getCategoryName(), Toast.LENGTH_SHORT).show();
                 getAllItems(String.format("/item/view?category=%s", ((Category) spinner.getSelectedItem()).getCategoryName()));
             }
 
@@ -163,7 +177,7 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
         initUIComponents();
         shimmerFrameLayout.startShimmer();
         setUpSpinner();
-
+        setUpBackButton();
     }
 
     @Override
