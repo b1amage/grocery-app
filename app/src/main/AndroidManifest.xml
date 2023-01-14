@@ -27,7 +27,7 @@
                 android:value="" />
         </activity>
         <activity
-            android:name=".activity.DashboardOrderDetails"
+            android:name=".activity.OrderDetailsActivity"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
@@ -98,7 +98,7 @@
             android:value="AIzaSyBhj2EbKjGNHbaPngGoevwQHqqqypJYH0c" />
 
         <activity
-            android:name=".activity.StoreInformation"
+            android:name=".activity.StoreMapLocation"
             android:exported="false"
             android:label="@string/title_activity_store_information" />
         <activity

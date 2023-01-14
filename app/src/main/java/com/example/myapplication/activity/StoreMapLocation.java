@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
-import com.example.myapplication.databinding.ActivityStoreInformationBinding;
+import com.example.myapplication.databinding.ActivityStoreMapLocationBinding;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,17 +14,17 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
-public class StoreInformation extends FragmentActivity implements OnMapReadyCallback {
+public class StoreMapLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityStoreInformationBinding binding;
+    private ActivityStoreMapLocationBinding binding;
     private ActionBar actionBar = new ActionBar(R.id.storeInformationActionBar, this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityStoreInformationBinding.inflate(getLayoutInflater());
+        binding = ActivityStoreMapLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         actionBar.createActionBar("Store information", R.drawable.ic_back, R.drawable.navbutton_shape);
