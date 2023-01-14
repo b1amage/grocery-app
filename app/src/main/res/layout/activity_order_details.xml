@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.DashboardOrderDetails"
+    tools:context=".activity.OrderDetailsActivity"
     android:layout_marginHorizontal="20dp"
     android:layout_marginVertical="12dp"
     >

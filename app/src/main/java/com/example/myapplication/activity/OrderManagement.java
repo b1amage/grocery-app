@@ -52,6 +52,7 @@ public class OrderManagement extends BaseActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
         categoryView = findViewById(R.id.categoryList);
+
         OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
         categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();

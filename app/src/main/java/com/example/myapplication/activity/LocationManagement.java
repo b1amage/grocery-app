@@ -51,6 +51,7 @@ public class LocationManagement extends BaseActivity {
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
+
         categoryView = findViewById(R.id.categoryList);
         LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
         categoryView.setAdapter(categoryAdapter);

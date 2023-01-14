@@ -2,6 +2,7 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.OrderDetailsActivity;
 import com.example.myapplication.model.Order;
 import com.example.myapplication.model.Voucher;
 
@@ -46,15 +48,14 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(order.get_id());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText("");
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(String.valueOf(order.getTotal()));
-//        listItemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(getContext(), CategoryDetails.class);
-//                intent.putExtra("actionBarTitle", categoryTitle.getText().toString());
-//                getContext().startActivity(intent);
-//            }
-//        });
+        listItemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
+                getContext().startActivity(intent);
+            }
+        });
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {

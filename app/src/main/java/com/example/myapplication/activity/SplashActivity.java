@@ -27,11 +27,11 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 boolean isLogin = (new CookieManager(SplashActivity.this)).isLogin();
                 if (!isLogin) {
-                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                    startActivity(new Intent(SplashActivity.this, OrderDetailsActivity.class));
                 } else {
                     String role = (new CookieManager(SplashActivity.this)).getRole();
                     if (role.equals("customer")) {
-                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
                     } else if (role.equals("staff")) {
                         startActivity(new Intent(SplashActivity.this, Dashboard.class));
                     }
