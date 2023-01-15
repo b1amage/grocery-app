@@ -27,14 +27,15 @@ public class SplashActivity extends AppCompatActivity {
             public void run() {
                 boolean isLogin = (new CookieManager(SplashActivity.this)).isLogin();
                 if (!isLogin) {
-                    startActivity(new Intent(SplashActivity.this, OrderDetailsActivity.class));
+                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 } else {
-                    String role = (new CookieManager(SplashActivity.this)).getRole();
-                    if (role.equals("customer")) {
-                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
-                    } else if (role.equals("staff")) {
-                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
-                    }
+                    startActivity(new Intent(SplashActivity.this, SendFeedbackActivity.class));
+//                    String role = (new CookieManager(SplashActivity.this)).getRole();
+//                    if (role.equals("customer")) {
+//                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+//                    } else if (role.equals("staff")) {
+//                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
+//                    }
                 }
                 finish();
             }
