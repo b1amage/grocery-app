@@ -48,6 +48,15 @@ public class VoucherManagement extends BaseActivity {
             getSupportActionBar().hide();
         }
 
+        ImageButton logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
         deleteNotification = findViewById(R.id.deleteNotification);
         deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
 

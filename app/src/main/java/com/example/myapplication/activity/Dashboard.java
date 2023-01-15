@@ -57,6 +57,15 @@ public class Dashboard extends BaseActivity {
         categorySelected = filterCategory.selectCategory();
         System.out.println(categorySelected);
 
+        ImageButton logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 
