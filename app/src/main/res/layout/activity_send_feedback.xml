@@ -97,6 +97,7 @@
         android:orientation="vertical">
 
         <Button
+            android:id="@+id/send_feedback_btn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="send feedback">
