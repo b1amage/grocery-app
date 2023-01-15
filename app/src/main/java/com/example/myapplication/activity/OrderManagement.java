@@ -56,6 +56,15 @@ public class OrderManagement extends BaseActivity {
 
         filterCategory.selectCategory();
 
+        ImageButton logoutButton = findViewById(R.id.logout);
+        logoutButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                startActivity(intent);
+            }
+        });
+
         ordersView = findViewById(R.id.categoryList);
         OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
         ordersView.setAdapter(categoryAdapter);
