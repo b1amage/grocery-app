@@ -7,4 +7,5 @@
         <item>Others</item>
     </string-array>
     <string name="title_activity_store_information">StoreInformation</string>
+    <string name="title_activity_store_map_location">StoreMapLocation</string>
 </resources>

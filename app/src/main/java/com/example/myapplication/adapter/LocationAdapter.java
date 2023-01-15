@@ -2,7 +2,6 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
-import com.example.myapplication.activity.StoreMapLocation;
-import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Location;
-import com.example.myapplication.model.Voucher;
-import com.example.myapplication.utilities.Button;
 
 import java.util.ArrayList;
 
@@ -49,15 +44,6 @@ public class LocationAdapter extends ArrayAdapter<Location> {
 
         ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.shop);
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(location.getAddress());
-
-        listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getContext(), StoreMapLocation.class);
-                getContext().startActivity(intent);
-            }
-        });
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {

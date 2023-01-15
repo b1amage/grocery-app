@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -19,16 +20,18 @@ import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Locations;
 import com.example.myapplication.model.Location;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class LocationManagement extends BaseActivity {
     private ArrayList<Location> locations = new Locations().getLocations();
     private String[] categories = new Categories().getLocations();
-    private ListView categoryView;
+    private ListView locationsView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -52,9 +55,20 @@ public class LocationManagement extends BaseActivity {
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
 
-        categoryView = findViewById(R.id.categoryList);
+        locationsView = findViewById(R.id.categoryList);
         LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
-        categoryView.setAdapter(categoryAdapter);
+        locationsView.setAdapter(categoryAdapter);
+        locationsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Location location = (Location) locationsView.getItemAtPosition(i);
+                Intent intent = new Intent(getApplicationContext(), StoreMapLocation.class);
+                intent.putExtra("location", location);
+                System.out.println(location);
+                startActivity(intent);
+            }
+        });
+
         filterCategory.selectCategory();
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());

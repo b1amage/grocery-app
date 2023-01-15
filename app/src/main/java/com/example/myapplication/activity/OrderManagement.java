@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -23,12 +24,13 @@ import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 public class OrderManagement extends BaseActivity {
     private ArrayList<Order> orders = new Orders().getOrders();
     private String[] categories = new Categories().getTimes();
-    private ListView categoryView;
+    private ListView ordersView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -51,11 +53,22 @@ public class OrderManagement extends BaseActivity {
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
-        categoryView = findViewById(R.id.categoryList);
 
-        OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
-        categoryView.setAdapter(categoryAdapter);
         filterCategory.selectCategory();
+
+        ordersView = findViewById(R.id.categoryList);
+        OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
+        ordersView.setAdapter(categoryAdapter);
+        ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Order order = (Order) ordersView.getItemAtPosition(i);
+                Intent intent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+                intent.putExtra("order", order);
+                System.out.println(order);
+                startActivity(intent);
+            }
+        });
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());

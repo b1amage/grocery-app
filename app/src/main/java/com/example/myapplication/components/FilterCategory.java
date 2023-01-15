@@ -21,6 +21,7 @@ public class FilterCategory{
     private String[] categories;
     private Activity activity;
     private int listItemId;
+    private String category = "";
 
     public FilterCategory(String[] categories, Activity activity, int listItemId) {
         this.categories = categories;
@@ -28,7 +29,7 @@ public class FilterCategory{
         this.listItemId = listItemId;
     }
 
-    public void selectCategory(){
+    public String selectCategory(){
         AutoCompleteTextView autoCompleteTextView = activity.findViewById(R.id.autoCompleteTxt);
         ArrayAdapter<String> adapterCategories = new ArrayAdapter<>(activity.getApplicationContext(), listItemId, categories);
         autoCompleteTextView.setAdapter(adapterCategories);
@@ -36,9 +37,10 @@ public class FilterCategory{
         autoCompleteTextView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String value = adapterView.getItemAtPosition(i).toString();
-                Toast.makeText(activity.getApplicationContext(), value, Toast.LENGTH_LONG).show();
+                category = adapterView.getItemAtPosition(i).toString();
+                Toast.makeText(activity.getApplicationContext(), category, Toast.LENGTH_LONG).show();
             }
         });
+        return category;
     }
 }

@@ -7,16 +7,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.model.Order;
 import com.example.myapplication.model.OrderItem;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.CookieManager;
 
 public class OrderDetailsActivity extends AppCompatActivity {
 
-    OrderItem[] orders = new OrderItem[]{ new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2)};
+//    OrderItem[] orders = new OrderItem[]{ new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2)};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -33,9 +35,25 @@ public class OrderDetailsActivity extends AppCompatActivity {
             completeOrderButton.createInactiveButton("Complete", onClickCompleteOrder());
         }
 
-        OrderItemAdapter orderItemAdapter = new OrderItemAdapter(getApplicationContext(), orders);
+        Order order = (Order) getIntent().getSerializableExtra("order");
+
+        OrderItemAdapter orderItemAdapter = new OrderItemAdapter(getApplicationContext(), order.getOrderItems());
         ListView orderItemListView = findViewById(R.id.orderItemList);
         orderItemListView.setAdapter(orderItemAdapter);
+
+        TextView orderId = findViewById(R.id.orderId);
+        TextView customerId = findViewById(R.id.customerId);
+        TextView subTotalValue = findViewById(R.id.subTotalValue);
+        TextView discountValue = findViewById(R.id.discountValue);
+        TextView totalValue = findViewById(R.id.totalValue);
+
+        System.out.println(order);
+
+        orderId.setText(order.get_id());
+        customerId.setText(order.getCustomerId());
+        subTotalValue.setText(String.valueOf(order.getSubTotal()));
+        discountValue.setText(String.valueOf(order.getDiscount()));
+        totalValue.setText(String.valueOf(order.getTotal()));
 
     }
 

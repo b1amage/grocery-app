@@ -54,6 +54,7 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/orderId"
                 android:text="{id}"
                 android:layout_toRightOf="@id/orderIdTitle"
                 />
@@ -79,6 +80,7 @@
                 android:textColor="@color/black"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/customerId"
                 android:text="{id}"
                 android:layout_toRightOf="@id/customerIdTitle"
                 />
