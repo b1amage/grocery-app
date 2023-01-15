@@ -27,7 +27,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 public class Dashboard extends BaseActivity {
     private String[] categories = new Categories().getCategories();
     private ListView categoryView;
-//    private Items items = new Items();
+    private String categorySelected;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
     private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
@@ -53,7 +53,9 @@ public class Dashboard extends BaseActivity {
         categoryView = findViewById(R.id.categoryList);
         CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, Items.getItems());
         categoryView.setAdapter(categoryAdapter);
-        filterCategory.selectCategory();
+
+        categorySelected = filterCategory.selectCategory();
+        System.out.println(categorySelected);
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());

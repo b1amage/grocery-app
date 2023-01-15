@@ -1,12 +1,15 @@
 package com.example.myapplication.activity;
 
 import android.os.Bundle;
+import android.widget.TextView;
 
 import androidx.fragment.app.FragmentActivity;
 
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
+import com.example.myapplication.content.Locations;
 import com.example.myapplication.databinding.ActivityStoreMapLocationBinding;
+import com.example.myapplication.model.Location;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -14,12 +17,15 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import java.util.ArrayList;
+
 public class StoreMapLocation extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityStoreMapLocationBinding binding;
     private ActionBar actionBar = new ActionBar(R.id.storeInformationActionBar, this);
-
+    private Location location;
+    private ArrayList<Location> locations = new Locations().getLocations();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +33,18 @@ public class StoreMapLocation extends FragmentActivity implements OnMapReadyCall
         binding = ActivityStoreMapLocationBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        actionBar.createActionBar("Store information", R.drawable.ic_back, R.drawable.navbutton_shape);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+        actionBar.createActionBar("Store Information", R.drawable.ic_back, R.drawable.navbutton_shape);
+
+        location = (Location) getIntent().getSerializableExtra("location");
+
+        TextView storeAddress = findViewById(R.id.storeAddress);
+
+        storeAddress.setText(location.getAddress());
     }
 
     /**
@@ -49,8 +61,8 @@ public class StoreMapLocation extends FragmentActivity implements OnMapReadyCall
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng storeLocation = new LatLng(location.getLatitude(), location.getLongitude());
+        mMap.addMarker(new MarkerOptions().position(storeLocation).title(location.getAddress()));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation));
     }
 }

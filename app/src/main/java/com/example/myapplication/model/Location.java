@@ -1,6 +1,8 @@
 package com.example.myapplication.model;
 
-public class Location {
+import java.io.Serializable;
+
+public class Location implements Serializable {
     private String _id;
     private String address;
     private double latitude;

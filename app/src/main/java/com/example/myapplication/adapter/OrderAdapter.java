@@ -48,14 +48,6 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(order.get_id());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText("");
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(String.valueOf(order.getTotal()));
-        listItemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
-                getContext().startActivity(intent);
-            }
-        });
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {

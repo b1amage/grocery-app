@@ -10,12 +10,12 @@ public class Locations {
     public Locations(){
         this.locations = new ArrayList<>();
         this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
-        this.locations.add(new Location("123 HVB, P.13, Q.PN", 0, 0));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 10, 30));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 50, 100));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 40, 200));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 10, 10));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 10, 0));
+        this.locations.add(new Location("123 HVB, P.13, Q.PN", 18, 6));
 
     }
 

@@ -1,8 +1,9 @@
 package com.example.myapplication.model;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class Order {
+public class Order implements Serializable {
     private String _id;
     private String customerId;
     private List<OrderItem> orderItems;

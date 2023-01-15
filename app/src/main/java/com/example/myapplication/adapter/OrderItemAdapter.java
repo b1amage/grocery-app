@@ -20,7 +20,7 @@ import java.util.List;
 
 public class OrderItemAdapter extends ArrayAdapter<OrderItem> {
 
-    public OrderItemAdapter(@NonNull Context context, @NonNull OrderItem[] orderItems) {
+    public OrderItemAdapter(@NonNull Context context, @NonNull List<OrderItem> orderItems) {
         super(context, 0, orderItems);
     }
 
