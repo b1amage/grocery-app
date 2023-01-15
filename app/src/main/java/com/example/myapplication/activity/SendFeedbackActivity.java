@@ -59,7 +59,7 @@ public class SendFeedbackActivity extends BaseActivity {
                     (new APIHandler(SendFeedbackActivity.this)).postRequest(postData, "/feedback/create", new VolleyResponseListener() {
                         @Override
                         public void onError(String message, int statusCode) {
-                            if (statusCode == 401) {
+                            if (statusCode == 401 || statusCode == 403) {
                                 startActivity(new Intent(SendFeedbackActivity.this, SignInActivity.class));
                                 finish();
                             }

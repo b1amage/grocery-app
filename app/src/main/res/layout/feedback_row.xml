@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="10dp"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="15dp"
+    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:background="@drawable/rounded_edittext">
+
+    <TextView
+        android:id="@+id/feedback_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="15sp"
+        android:text="tuan09092002@gmail.com">
+    </TextView>
+    <TextView
+        android:id="@+id/feedback_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="hello">
+    </TextView>
+    <TextView
+        android:id="@+id/feedback_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:text="ffffffffffffffffffffffffffff\nfffffffffffffffffff">
+    </TextView>
+</LinearLayout>

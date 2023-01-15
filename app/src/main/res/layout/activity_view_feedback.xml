@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    tools:context=".activity.ViewFeedbackActivity">
+
+    <ProgressBar
+        android:id="@+id/waiting_for_feedbacks"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="150dp">
+    </ProgressBar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/back_bar">
+
+        <ImageButton
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:src="@drawable/arr_back"
+            android:background="@drawable/rounded"
+            android:backgroundTint="@color/primary_10"
+            android:id="@+id/back_to_dashboard"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:layout_toRightOf="@id/view_all_back_btn"
+            android:text="View feedbacks"
+            android:textColor="@color/black"
+            android:textSize="26dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/feedback_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingVertical="10dp"
+        android:divider="@null"
+        android:dividerHeight="10dp"
+        android:scrollbars="none"/>
+</LinearLayout>

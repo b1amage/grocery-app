@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import com.example.myapplication.R;
 
-public class SendFeedbackFinishedActivity extends AppCompatActivity {
+public class SendFeedbackFinishedActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
