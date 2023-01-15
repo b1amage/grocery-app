@@ -41,6 +41,16 @@ public class SendFeedbackActivity extends BaseActivity {
                 String title = inputTitle.getText().toString();
                 String description = inputDescription.getText().toString();
 
+                if (title.isEmpty()) {
+                    inputTitle.setError("title must not be empty");
+                    return;
+                }
+
+                if (description.isEmpty()) {
+                    inputDescription.setError("description must not be empty");
+                    return;
+                }
+
                 JSONObject postData = new JSONObject();
                 try {
                     postData.put("title", title);
