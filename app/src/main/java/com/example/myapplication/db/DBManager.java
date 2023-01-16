@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import com.example.myapplication.model.Item;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBManager {
     private DatabaseHelper dbHelper;
@@ -47,7 +48,7 @@ public class DBManager {
         database.close();
     }
 
-    public ArrayList<Item> fetchItemsFromCart() {
+    public List<Item> fetchItemsFromCart() {
         open();
         ArrayList<Item> favoriteBooks = new ArrayList<>();
         String[] columns = new String[] {

@@ -1,12 +1,16 @@
 package com.example.myapplication.adapter;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.db.DBManager;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.ImageLoader;
 import com.squareup.picasso.Picasso;
@@ -17,10 +21,17 @@ public class ItemAdapter extends BaseAdapter {
 
     private List<Item> items;
     private boolean isInCart;
+    private Context context;
 
     public ItemAdapter(List<Item> items) {
         this.items = items;
         this.isInCart = false;
+    }
+
+    public ItemAdapter(List<Item> items, boolean isInCart, Context context) {
+        this.items = items;
+        this.isInCart = isInCart;
+        this.context = context;
     }
 
     public ItemAdapter(List<Item> items, boolean isInCart) {
@@ -53,7 +64,8 @@ public class ItemAdapter extends BaseAdapter {
         View itemView;
         if (convertView == null) {
             itemView = View.inflate(parent.getContext(), isInCart ? R.layout.cart_item : R.layout.item, null);
-        } else itemView = convertView;
+        }
+        else itemView = convertView;
 
         Item item = (Item) getItem(i);
 
@@ -67,6 +79,33 @@ public class ItemAdapter extends BaseAdapter {
             ((TextView) itemView.findViewById(R.id.cart_item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.cart_item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.cart_item_price)).setText(String.valueOf(item.getPrice()));
+
+            ImageButton plusBtn = itemView.findViewById(R.id.cart_item_plus_btn);
+            ImageButton minusBtn = itemView.findViewById(R.id.cart_item_minus_btn);
+            TextView quantity = itemView.findViewById(R.id.cart_item_quantity);
+            quantity.setText(String.valueOf(item.getQuantity()));
+
+            plusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    (new DBManager(context)).increaseItemQuantity(item);
+
+                    items =  (new DBManager(context)).fetchItemsFromCart();
+                    updateResults(items);
+                    quantity.setText(String.valueOf(item.getQuantity()));
+                }
+            });
+
+            minusBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    (new DBManager(context)).decreaseItemQuantity(item);
+
+                    items =  (new DBManager(context)).fetchItemsFromCart();
+                    updateResults(items);
+                    quantity.setText(String.valueOf(item.getQuantity()));
+                }
+            });
         }
 
         return itemView;

@@ -4,7 +4,8 @@
     android:layout_height="wrap_content"
     android:paddingVertical="12dp"
     android:elevation="4dp"
-    android:background="@drawable/rounded_lg">
+    android:background="@drawable/rounded_lg"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
         android:layout_width="60dp"
@@ -69,7 +70,5 @@
             android:layout_alignParentRight="true"/>
     </RelativeLayout>
 
-
-
-
 </RelativeLayout>
+

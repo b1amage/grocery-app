@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
+import com.example.myapplication.db.DBManager;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.ImageLoader;
 import com.facebook.shimmer.ShimmerFrameLayout;
@@ -45,6 +46,8 @@ public class ItemDetail extends BaseActivity {
     private ShimmerFrameLayout shimmerFrameLayout;
     private ImageButton backButton;
     private TextView stock;
+    private Button addToCartButton;
+    private Item item;
 
 
     private void initUIComponents() {
@@ -58,6 +61,16 @@ public class ItemDetail extends BaseActivity {
         category = findViewById(R.id.category_tag);
         backButton = findViewById(R.id.detail_back_btn);
         stock = findViewById(R.id.item_detail_stock);
+        addToCartButton = findViewById(R.id.btn_add_to_cart);
+    }
+
+    private void setUpBtnAddToCart() {
+        addToCartButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                (new DBManager(ItemDetail.this)).insertItemToCart(item, 1);
+            }
+        });
     }
 
     private void setUpBackButton() {
@@ -120,10 +133,12 @@ public class ItemDetail extends BaseActivity {
             @Override
             public void onResponse(JSONObject response) throws JSONException {
                 JSONObject jsonObject = response.getJSONObject("item");
+                item = new Item(jsonObject.getString("_id"), jsonObject.getString("name"), jsonObject.getString("description"), jsonObject.getInt("price"), jsonObject.getString("category"), jsonObject.getString("image"), jsonObject.getInt("quantity"));
 
                 shimmerFrameLayout.stopShimmer();
                 setContentView(R.layout.activity_item_detail);
                 initUIComponents();
+                setUpBtnAddToCart();
                 handleDraggingSheet();
                 handleButtonClick();
                 setUpBackButton();
@@ -144,7 +159,6 @@ public class ItemDetail extends BaseActivity {
 
         shimmerFrameLayout.startShimmer();
         getItemDetail();
-
 
     }
 

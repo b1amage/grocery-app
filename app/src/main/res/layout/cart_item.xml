@@ -4,11 +4,12 @@
     android:layout_height="wrap_content"
     android:paddingVertical="12dp"
     android:elevation="4dp"
-    android:background="@drawable/rounded_lg">
+    android:background="@drawable/rounded_lg"
+    android:descendantFocusability="blocksDescendants">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:src="@drawable/dummy_item"
         android:id="@+id/cart_item_img"
         android:layout_centerVertical="true"
@@ -57,8 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/cart_quantity_ctn"
-        android:layout_toRightOf="@+id/cart_item_info"
-        android:layout_marginLeft="50dp"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true">
 
         <ImageButton
@@ -66,6 +66,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/remove"
+            android:descendantFocusability="blocksDescendants"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/primary_10"
             android:id="@+id/cart_item_minus_btn"/>
@@ -86,6 +87,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/plus"
+            android:descendantFocusability="blocksDescendants"
             android:background="@drawable/rounded"
             android:backgroundTint="@color/primary_100"
             android:id="@+id/cart_item_plus_btn"
@@ -93,10 +95,6 @@
 
 
     </RelativeLayout>
-
-
-
-
 
 
 </RelativeLayout>

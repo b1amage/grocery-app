@@ -64,8 +64,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/detail_item_dsc"
         android:layout_marginTop="20dp"
-        android:text="Add to cart"
         android:background="@drawable/gradient_btn"
         android:drawableRight="@drawable/detail_cart"
-        android:paddingHorizontal="100dp"/>
+        android:paddingHorizontal="100dp"
+        android:text="Add to cart"
+        android:id="@+id/btn_add_to_cart"/>
 </RelativeLayout>

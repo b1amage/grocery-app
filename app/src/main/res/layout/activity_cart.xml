@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activity.CartActivity"
-    android:padding="24dp">
+    android:padding="24dp"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -65,13 +66,13 @@
     </RelativeLayout>
 
     <ListView
-        android:divider="@android:color/transparent"
+        android:id="@+id/cart_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/cart_search_section"
         android:layout_marginTop="20dp"
-        android:id="@+id/cart_list_view"
-        android:dividerHeight="10dp"/>
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10dp" />
 
     <RelativeLayout
         android:layout_width="match_parent"
