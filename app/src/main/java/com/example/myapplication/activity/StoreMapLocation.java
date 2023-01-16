@@ -63,6 +63,6 @@ public class StoreMapLocation extends FragmentActivity implements OnMapReadyCall
         // Add a marker in Sydney and move the camera
         LatLng storeLocation = new LatLng(location.getLatitude(), location.getLongitude());
         mMap.addMarker(new MarkerOptions().position(storeLocation).title(location.getAddress()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(storeLocation));
+        mMap.moveCamera(CameraUpdateFactory.zoomTo(15));
     }
 }

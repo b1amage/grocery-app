@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.OrderAdapter;
 import com.example.myapplication.components.ActionBar;
-import com.example.myapplication.components.FilterCategory;
+//import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Orders;
 import com.example.myapplication.model.Order;
@@ -33,7 +33,7 @@ public class OrderManagement extends BaseActivity {
     private ListView ordersView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
+//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
@@ -53,8 +53,6 @@ public class OrderManagement extends BaseActivity {
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
-
-        filterCategory.selectCategory();
 
         ImageButton logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
