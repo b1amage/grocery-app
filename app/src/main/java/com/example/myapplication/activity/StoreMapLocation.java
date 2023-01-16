@@ -3,8 +3,6 @@ package com.example.myapplication.activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import androidx.fragment.app.FragmentActivity;
-
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.content.Locations;
@@ -19,7 +17,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 
-public class StoreMapLocation extends FragmentActivity implements OnMapReadyCallback {
+public class StoreMapLocation extends BaseActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
     private ActivityStoreMapLocationBinding binding;
