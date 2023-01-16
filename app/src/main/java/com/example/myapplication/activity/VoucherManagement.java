@@ -1,5 +1,6 @@
 package com.example.myapplication.activity;
 
+import com.example.myapplication.adapter.CategoryItemAdapter;
 import com.example.myapplication.adapter.VoucherAdapter;
 import com.example.myapplication.components.ActionBar;
 
@@ -10,6 +11,8 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -17,9 +20,10 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 //import com.example.myapplication.adapter.CategoryAdapter;
-import com.example.myapplication.components.FilterCategory;
+//import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Vouchers;
+import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
@@ -29,16 +33,16 @@ import java.util.ArrayList;
 
 public class VoucherManagement extends BaseActivity {
     private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
-    private String[] categories = new Categories().getVoucherTypes();
     private ListView categoryView;
 //    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
+//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
-
+    private EditText searchBox;
+    private ImageButton searchButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +51,9 @@ public class VoucherManagement extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        setUpSearchBtn();
 
         ImageButton logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -67,7 +74,7 @@ public class VoucherManagement extends BaseActivity {
         categoryView = findViewById(R.id.categoryList);
         VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
         categoryView.setAdapter(categoryAdapter);
-        filterCategory.selectCategory();
+//        filterCategory.selectCategory();
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
@@ -100,6 +107,40 @@ public class VoucherManagement extends BaseActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    private void setUpSearchBtn() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchBox.getText().toString();
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+
+                ArrayList<Voucher> itemArrayList = new ArrayList<>();
+
+                if (query.isEmpty()){
+                    itemArrayList.addAll(vouchers);
+                } else{
+                    for (Voucher v : vouchers){
+                        if (v.getCode().toLowerCase().contains(query.toLowerCase()) || v.getTitle().toLowerCase().contains(query.toLowerCase())){
+                            itemArrayList.add(v);
+                        }
+                    }
+                }
+
+                VoucherAdapter itemAdapter = new VoucherAdapter(VoucherManagement.this, itemArrayList);
+                categoryView.setAdapter(itemAdapter);
+
+//                categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                    @Override
+//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                        Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
+//                        intent.putExtra("voucher", vouchers.get(position).get_id());
+//                        startActivityForResult(intent, 104);
+//                    }
+//                });
             }
         });
     }
