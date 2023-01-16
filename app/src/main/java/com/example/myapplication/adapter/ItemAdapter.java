@@ -75,6 +75,7 @@ public class ItemAdapter extends BaseAdapter {
             ((TextView) itemView.findViewById(R.id.item_category)).setText(item.getCategory());
             ((TextView) itemView.findViewById(R.id.item_price)).setText(String.valueOf(item.getPrice()));
         } else {
+
             ImageLoader.loadImg(item.getImageURL(), itemView.findViewById(R.id.cart_item_img));
             ((TextView) itemView.findViewById(R.id.cart_item_name)).setText(item.getName());
             ((TextView) itemView.findViewById(R.id.cart_item_category)).setText(item.getCategory());
@@ -83,6 +84,8 @@ public class ItemAdapter extends BaseAdapter {
             ImageButton plusBtn = itemView.findViewById(R.id.cart_item_plus_btn);
             ImageButton minusBtn = itemView.findViewById(R.id.cart_item_minus_btn);
             TextView quantity = itemView.findViewById(R.id.cart_item_quantity);
+            ImageButton deleteBtn =  itemView.findViewById(R.id.cart_delete_btn);
+
             quantity.setText(String.valueOf(item.getQuantity()));
 
             plusBtn.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +107,15 @@ public class ItemAdapter extends BaseAdapter {
                     items =  (new DBManager(context)).fetchItemsFromCart();
                     updateResults(items);
                     quantity.setText(String.valueOf(item.getQuantity()));
+                }
+            });
+
+            deleteBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    (new DBManager(context)).deleteItemFromCart(item);
+                    items =  (new DBManager(context)).fetchItemsFromCart();
+                    updateResults(items);
                 }
             });
         }
