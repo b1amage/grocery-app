@@ -2,6 +2,7 @@ package com.example.myapplication.utilities;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.util.Log;
 import android.view.Window;
 import android.widget.TextView;
 
@@ -13,11 +14,17 @@ public class CustomDialog {
     private static Dialog dialog = null;
 
     public CustomDialog(Context context, String message) {
+        if (dialog != null) {
+            dialog.dismiss();
+        }
         this.context = context;
         this.message = message;
     }
 
     public void showDialog(){
+        if (dialog != null) {
+            dialog.dismiss();
+        }
         dialog = new Dialog(context);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setCancelable(false);
@@ -31,6 +38,7 @@ public class CustomDialog {
 
     public void dismissDialog() {
         if (dialog != null) {
+            Log.i("dialog:", "close");
             dialog.dismiss();
         }
     }
