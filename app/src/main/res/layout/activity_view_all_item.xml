@@ -73,7 +73,8 @@
             android:layout_height="50dp"
             android:layout_alignParentRight="true"
             android:layout_width="50dp"
-            android:src="@drawable/filter" />
+            android:src="@drawable/filter"
+            android:id="@+id/view_all_btn_filter"/>
 
     </RelativeLayout>
 

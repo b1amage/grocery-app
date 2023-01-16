@@ -33,6 +33,7 @@ public class ViewAllItemActivity extends BaseActivity {
     private EditText searchBox;
     private ImageButton searchButton;
     ItemAdapter itemAdapter;
+    private ImageButton filterButton;
 
     private void initUIComponents() {
         listView = findViewById(R.id.view_all_list_view);
@@ -40,6 +41,17 @@ public class ViewAllItemActivity extends BaseActivity {
         shimmerFrameLayout = findViewById(R.id.shimmer_view_all);
         searchBox = findViewById(R.id.view_all_search);
         searchButton = findViewById(R.id.view_all_btn_search);
+        filterButton = findViewById(R.id.view_all_btn_filter);
+    }
+
+    private void setUpFilterButton() {
+        filterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewAllItemActivity.this, FilterActivity.class);
+                startActivityForResult(intent, 201);
+            }
+        });
     }
 
     private void setUpSearchBtn() {
@@ -187,5 +199,6 @@ public class ViewAllItemActivity extends BaseActivity {
         setBackButtonListener();
         setUpSearchBtn();
         getAllItems();
+        setUpFilterButton();
     }
 }
