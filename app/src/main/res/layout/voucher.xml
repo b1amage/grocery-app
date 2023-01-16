@@ -17,6 +17,14 @@
             android:textSize="20dp"
             android:id="@+id/voucher_title"
             android:textStyle="bold"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="code"
+            android:layout_below="@+id/voucher_title"
+            android:id="@+id/voucher_code"
+            android:textColor="@color/white"
+            android:textSize="14dp"/>
 
         <TextView
             android:layout_width="wrap_content"

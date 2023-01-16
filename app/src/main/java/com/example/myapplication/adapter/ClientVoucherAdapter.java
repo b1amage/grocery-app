@@ -43,6 +43,8 @@ public class ClientVoucherAdapter extends BaseAdapter {
         ((TextView) itemView.findViewById(R.id.voucher_title)).setText(voucher.getTitle());
         ((TextView) itemView.findViewById(R.id.voucher_value)).setText(String.valueOf(voucher.getValue()) + (voucher.getType().equals("percentage") ? "%" : "VND"));
         ((TextView) itemView.findViewById(R.id.voucher_description)).setText(voucher.getDescription());
+        ((TextView) itemView.findViewById(R.id.voucher_code)).setText(voucher.getCode());
+
 
         return itemView;
     }

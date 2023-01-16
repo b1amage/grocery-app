@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -40,6 +41,7 @@ public class MainActivity extends BaseActivity {
     private ImageButton searchButton;
     private ImageButton filterButton;
     ItemAdapter itemAdapter;
+    private Button voucherButton;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -50,6 +52,7 @@ public class MainActivity extends BaseActivity {
         searchBox = findViewById(R.id.home_search);
         searchButton = findViewById(R.id.main_btn_search);
         filterButton = findViewById(R.id.main_filter_btn);
+        voucherButton = findViewById(R.id.main_voucher_btn);
     }
 
     private void setUpFilterButton() {
@@ -58,6 +61,16 @@ public class MainActivity extends BaseActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, FilterActivity.class);
                 startActivityForResult(intent, 200);
+            }
+        });
+    }
+
+    private void setUpVoucherButton() {
+        voucherButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, VoucherList.class);
+                startActivity(intent);
             }
         });
     }
@@ -257,6 +270,7 @@ public class MainActivity extends BaseActivity {
         initUIComponents();
         initContent();
         startLoading();
+        setUpVoucherButton();
         setUpSearchBtn();
         setViewAllTextListener();
         setUpButtonToAccount();

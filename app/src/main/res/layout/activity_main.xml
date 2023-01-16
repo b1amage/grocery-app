@@ -126,7 +126,7 @@
             android:layout_marginTop="12dp"
             android:layout_toRightOf="@id/hero_img"
             android:layout_width="wrap_content"
-            android:text="Special Deal for December"
+            android:text="Special Deal is coming!"
             android:textColor="@color/white"
             android:textSize="24dp"
             android:textStyle="bold" />
@@ -141,7 +141,8 @@
             android:layout_width="wrap_content"
             android:paddingHorizontal="18dp"
             android:paddingVertical="4dp"
-            android:text="Buy now"
+            android:text="Explore voucher"
+            android:id="@+id/main_voucher_btn"
             android:textStyle="bold" />
 
     </RelativeLayout>
