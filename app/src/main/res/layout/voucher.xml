@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/gradient_bg"
+    android:padding="12dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/voucher_title_ctn">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Voucher title"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:id="@+id/voucher_title"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:text="1000000"
+            android:layout_centerVertical="true"
+            android:textSize="18dp"
+            android:id="@+id/voucher_value"
+            android:textColor="@color/white"
+            android:textStyle="bold"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/voucher_title_ctn"
+        android:layout_marginTop="10dp"
+        android:id="@+id/voucher_description_ctn">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/voucher_description"
+            android:text="Description go here Description go hereDescription go hereDescription go hereDescription go hereDescription go hereDescription go here"
+            android:textSize="14dp"
+            android:textColor="@color/neutral"/>
+
+    </RelativeLayout>
+
+
+
+
+
+
+</RelativeLayout>
