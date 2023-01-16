@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.LocationAdapter;
 import com.example.myapplication.components.ActionBar;
-import com.example.myapplication.components.FilterCategory;
+//import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Locations;
 import com.example.myapplication.model.Location;
@@ -30,11 +30,11 @@ import java.util.ArrayList;
 
 public class LocationManagement extends BaseActivity {
     private ArrayList<Location> locations = new Locations().getLocations();
-    private String[] categories = new Categories().getLocations();
+//    private String[] categories = new Categories().getLocations();
     private ListView locationsView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
+//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
@@ -78,7 +78,7 @@ public class LocationManagement extends BaseActivity {
             }
         });
 
-        filterCategory.selectCategory();
+//        filterCategory.selectCategory();
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());

@@ -27,7 +27,7 @@ public class SplashActivity extends BaseActivity {
             public void run() {
                 boolean isLogin = (new CookieManager(SplashActivity.this)).isLogin();
                 if (!isLogin) {
-                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                    startActivity(new Intent(SplashActivity.this, Dashboard.class));
                 } else {
                     startActivity(new Intent(SplashActivity.this, CartActivity.class));
 //                    String role = (new CookieManager(SplashActivity.this)).getRole();
