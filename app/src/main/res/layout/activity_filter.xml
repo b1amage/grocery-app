@@ -32,32 +32,10 @@
             android:textStyle="bold" />
     </RelativeLayout>
 
-
-    <RelativeLayout
-        android:id="@+id/search_section_filter"
-        android:layout_below="@+id/back_bar_filter"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:layout_width="match_parent">
-
-        <EditText
-            android:background="@drawable/custom_edt"
-            android:backgroundTint="@color/neutral"
-            android:drawableRight="@drawable/search"
-            android:hint="Search"
-            android:id="@+id/filter_search"
-            android:layout_height="wrap_content"
-            android:layout_width="match_parent"
-            android:paddingHorizontal="28dp"
-            android:paddingVertical="12dp"
-            android:textSize="16dp" />
-
-    </RelativeLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/search_section_filter"
+        android:layout_below="@+id/back_bar_filter"
         android:layout_marginTop="24dp"
         android:id="@+id/select_ctn">
         <com.example.myapplication.utilities.CustomSpinner
