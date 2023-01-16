@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.LocationAdapter;
+import com.example.myapplication.adapter.OrderAdapter;
 import com.example.myapplication.components.ActionBar;
 //import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
@@ -39,6 +41,9 @@ public class LocationManagement extends BaseActivity {
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
 
+    private EditText searchBox;
+    private ImageButton searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +52,10 @@ public class LocationManagement extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        setUpSearchBtn();
 
         ImageButton logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
@@ -115,6 +124,39 @@ public class LocationManagement extends BaseActivity {
         });
     }
 
+    private void setUpSearchBtn() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchBox.getText().toString();
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+
+                ArrayList<Location> itemArrayList = new ArrayList<>();
+
+                if (query.isEmpty()){
+                    itemArrayList.addAll(locations);
+                } else{
+                    for (Location l : locations){
+                        if (l.getAddress().toLowerCase().contains(query.toLowerCase())){
+                            itemArrayList.add(l);
+                        }
+                    }
+                }
+
+                LocationAdapter itemAdapter = new LocationAdapter(LocationManagement.this, itemArrayList);
+                locationsView.setAdapter(itemAdapter);
+
+                locationsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getApplicationContext(), StoreMapLocation.class);
+                        intent.putExtra("location", locations.get(position));
+                        startActivityForResult(intent, 104);
+                    }
+                });
+            }
+        });
+    }
     private View.OnClickListener onClickAddButton(){
         return new View.OnClickListener() {
             @Override

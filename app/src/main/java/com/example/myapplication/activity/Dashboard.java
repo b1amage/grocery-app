@@ -3,6 +3,8 @@ package com.example.myapplication.activity;
 import com.example.myapplication.adapter.CategoryAdapter;
 import com.example.myapplication.adapter.CategoryItemAdapter;
 import com.example.myapplication.adapter.ItemAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 
 import androidx.annotation.NonNull;
@@ -13,6 +15,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -32,8 +35,13 @@ import com.example.myapplication.utilities.CustomSpinner;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEventsListener{
 //    private String[] categories = new Categories().getCategories();
@@ -49,6 +57,9 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
     private CustomSpinner spinner;
     private String categorySelected = "";
 
+    private EditText searchBox;
+    private ImageButton searchButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +68,11 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        setUpSearchBtn();
+
         spinner = findViewById(R.id.filter_spinner);
 
         spinner.setSpinnerEventsListener(this);
@@ -109,9 +125,6 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         addButton.setOnClickListener(onClickAddButton());
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
 
-//        categorySelected = filterCategory.selectCategory();
-//        System.out.println(categorySelected);
-
         ImageButton logoutButton = findViewById(R.id.logout);
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -152,6 +165,40 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
                         return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    private void setUpSearchBtn() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchBox.getText().toString();
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+
+                ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                if (query.isEmpty()){
+                    itemArrayList.addAll(items);
+                } else{
+                    for (Item item : items){
+                        if (item.getName().toLowerCase().contains(query.toLowerCase())){
+                            itemArrayList.add(item);
+                        }
+                    }
+                }
+
+                CategoryItemAdapter itemAdapter = new CategoryItemAdapter(Dashboard.this, itemArrayList);
+                categoryView.setAdapter(itemAdapter);
+
+                categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
+                        intent.putExtra("_id", items.get(position).get_id());
+                        startActivityForResult(intent, 104);
+                    }
+                });
             }
         });
     }

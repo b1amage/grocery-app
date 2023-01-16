@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -15,11 +16,13 @@ import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.OrderAdapter;
+import com.example.myapplication.adapter.VoucherAdapter;
 import com.example.myapplication.components.ActionBar;
 //import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Orders;
 import com.example.myapplication.model.Order;
+import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -29,7 +32,6 @@ import java.util.ArrayList;
 
 public class OrderManagement extends BaseActivity {
     private ArrayList<Order> orders = new Orders().getOrders();
-    private String[] categories = new Categories().getTimes();
     private ListView ordersView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
@@ -38,6 +40,8 @@ public class OrderManagement extends BaseActivity {
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
 
+    private EditText searchBox;
+    private ImageButton searchButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,10 @@ public class OrderManagement extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        setUpSearchBtn();
 
         deleteNotification = findViewById(R.id.deleteNotification);
         deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
@@ -109,6 +117,40 @@ public class OrderManagement extends BaseActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+    }
+
+    private void setUpSearchBtn() {
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String query = searchBox.getText().toString();
+                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+
+                ArrayList<Order> itemArrayList = new ArrayList<>();
+
+                if (query.isEmpty()){
+                    itemArrayList.addAll(orders);
+                } else{
+                    for (Order o : orders){
+                        if (o.get_id().toLowerCase().contains(query.toLowerCase())){
+                            itemArrayList.add(o);
+                        }
+                    }
+                }
+
+                OrderAdapter itemAdapter = new OrderAdapter(OrderManagement.this, itemArrayList);
+                ordersView.setAdapter(itemAdapter);
+
+                ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
+                        intent.putExtra("order", orders.get(position));
+                        startActivityForResult(intent, 104);
+                    }
+                });
             }
         });
     }
