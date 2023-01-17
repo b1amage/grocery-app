@@ -85,6 +85,14 @@ public class OrderManagement extends BaseActivity {
             }
         });
 
+        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
+        viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ViewFeedbackActivity.class));
+            }
+        });
+
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 

@@ -1,6 +1,7 @@
 package com.example.myapplication.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.text.Editable;
@@ -52,6 +53,16 @@ public class CreateItemForm extends BaseActivity {
         inputItemDescriptionText.addTextChangedListener(getInputValue(inputItemDescriptionText));
         inputItemQuantityText.addTextChangedListener(getInputValue(inputItemQuantityText));
 
+        Item item = (Item) getIntent().getSerializableExtra("item");
+        System.out.println(item);
+        if (item != null){
+            newItem = item;
+            inputItemNameText.setText(item.getName());
+            inputItemCategoryText.setText(item.getCategory());
+            inputItemDescriptionText.setText(item.getDescription());
+            inputItemPriceText.setText(String.valueOf(item.getPrice()));
+            inputItemQuantityText.setText(String.valueOf(item.getQuantity()));
+        }
     }
 
     private TextWatcher getInputValue(EditText editText){
@@ -85,7 +96,8 @@ public class CreateItemForm extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(CreateItemForm.this, "Create", Toast.LENGTH_LONG).show();
+                Toast.makeText(CreateItemForm.this, newItem.toString(), Toast.LENGTH_LONG).show();
+                finish();
             }
         };
     }

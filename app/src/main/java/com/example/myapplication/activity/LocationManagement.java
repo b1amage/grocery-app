@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -44,6 +45,8 @@ public class LocationManagement extends BaseActivity {
     private EditText searchBox;
     private ImageButton searchButton;
 
+    private LinearLayout mask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,6 +55,8 @@ public class LocationManagement extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        mask = findViewById(R.id.ll_mask);
 
         searchBox = findViewById(R.id.searchBox);
         searchButton = findViewById(R.id.searchButton);
@@ -88,6 +93,13 @@ public class LocationManagement extends BaseActivity {
         });
 
 //        filterCategory.selectCategory();
+        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
+        viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ViewFeedbackActivity.class));
+            }
+        });
 
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
@@ -171,6 +183,7 @@ public class LocationManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mask.setVisibility(View.GONE);
                 deleteNotification.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
@@ -181,7 +194,9 @@ public class LocationManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mask.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
+                deleteNotification.setVisibility(View.INVISIBLE);
             }
         };
     }

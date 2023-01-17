@@ -57,7 +57,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/inputItemDescriptionText"
+                android:id="@+id/inputItemText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Item name ..."
@@ -83,7 +83,7 @@
                 android:textColor="@color/black"/>
 
             <EditText
-                android:id="@+id/inputItemText"
+                android:id="@+id/inputItemDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Describe the item"

@@ -12,6 +12,8 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
+import com.example.myapplication.model.Location;
+import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 
 public class StoreForm extends BaseActivity {
@@ -20,11 +22,11 @@ public class StoreForm extends BaseActivity {
     private Button storeFormButton = new Button(R.id.storeFormButton, this);
     private ImageButton uploadImageButton;
 
-
     private EditText inputAddressText;
     private EditText inputLatitudeText;
     private EditText inputLongitudeText;
 
+    private Location newLocation;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,6 +43,15 @@ public class StoreForm extends BaseActivity {
         inputAddressText.addTextChangedListener(getInputValue(inputAddressText));
         inputLatitudeText.addTextChangedListener(getInputValue(inputLatitudeText));
         inputLongitudeText.addTextChangedListener(getInputValue(inputLongitudeText));
+
+        Location location = (Location) getIntent().getSerializableExtra("location");
+        System.out.println(location);
+        if (location != null){
+            inputAddressText.setText(location.getAddress());
+            inputLatitudeText.setText(String.valueOf(location.getLatitude()));
+            inputLongitudeText.setText(String.valueOf(location.getLongitude()));
+            newLocation = location;
+        }
     }
 
     private TextWatcher getInputValue(EditText editText){
@@ -74,7 +85,8 @@ public class StoreForm extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(StoreForm.this, "Create", Toast.LENGTH_LONG).show();
+                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
+                finish();
             }
         };
     }
