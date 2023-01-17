@@ -129,8 +129,19 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
+                (new APIHandler(Dashboard.this)).logoutRequest("/auth/logout", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 

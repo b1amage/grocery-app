@@ -42,6 +42,7 @@ public class MainActivity extends BaseActivity {
     private ImageButton filterButton;
     ItemAdapter itemAdapter;
     private Button voucherButton;
+    private ImageButton mainButtonLogout;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -53,6 +54,26 @@ public class MainActivity extends BaseActivity {
         searchButton = findViewById(R.id.main_btn_search);
         filterButton = findViewById(R.id.main_filter_btn);
         voucherButton = findViewById(R.id.main_voucher_btn);
+        mainButtonLogout = findViewById(R.id.main_btn_logout);
+
+        mainButtonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                (new APIHandler(MainActivity.this)).logoutRequest("/auth/logout", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
     }
 
     private void setUpFilterButton() {
