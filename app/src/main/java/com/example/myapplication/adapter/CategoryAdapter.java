@@ -23,7 +23,7 @@ public class CategoryAdapter extends BaseAdapter {
         this.context = context;
         this.categoryList = new ArrayList<>(
                 Arrays.asList(
-                        new Category(1, "all", R.drawable.bg_spinner),
+                        new Category(1, "all", 0),
                         new Category(2, "vegetable", R.drawable.vegetable),
                         new Category(3, "meat", R.drawable.meat),
                         new Category(4, "fruit", R.drawable.fruit),
@@ -60,11 +60,6 @@ public class CategoryAdapter extends BaseAdapter {
 
         ImageView img = rootView.findViewById(R.id.category_select_img);
         TextView text = rootView.findViewById(R.id.category_select_name);
-
-        if (!categoryList.get(i).getCategoryName().equals("all")) {
-        } else {
-            img.setImageResource(0);
-        }
 
         img.setImageResource(categoryList.get(i).getImg());
         text.setText(categoryList.get(i).getCategoryName());
