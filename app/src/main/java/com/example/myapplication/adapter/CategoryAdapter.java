@@ -62,10 +62,11 @@ public class CategoryAdapter extends BaseAdapter {
         TextView text = rootView.findViewById(R.id.category_select_name);
 
         if (!categoryList.get(i).getCategoryName().equals("all")) {
-            img.setImageResource(categoryList.get(i).getImg());
         } else {
             img.setImageResource(0);
         }
+
+        img.setImageResource(categoryList.get(i).getImg());
         text.setText(categoryList.get(i).getCategoryName());
 
         return rootView;
