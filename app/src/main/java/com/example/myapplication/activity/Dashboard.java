@@ -45,11 +45,10 @@ import java.util.List;
 import java.util.Locale;
 
 public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEventsListener{
-//    private String[] categories = new Categories().getCategories();
     private ListView categoryView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
+    private ImageButton viewFeedbackButton;
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
@@ -60,45 +59,49 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
     private EditText searchBox;
     private ImageButton searchButton;
     private LinearLayout mask;
+    private ImageButton logoutButton;
+    private BottomNavigationView bottomNavigationView;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-
-        if (getSupportActionBar() != null){
-            getSupportActionBar().hide();
-        }
-
+    private void initUIComponents() {
         mask = findViewById(R.id.ll_mask);
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        spinner = findViewById(R.id.filter_spinner);
+        categoryView = findViewById(R.id.categoryList);
+        deleteNotification = findViewById(R.id.deleteNotification);
+        viewFeedbackButton = findViewById(R.id.viewFeedback);
+        addButton = findViewById(R.id.addButton);
+        logoutButton = findViewById(R.id.logout);
+        bottomNavigationView = findViewById(R.id.bottomNav);
 
-        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
-        viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
+        deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
+        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
+    }
+
+
+    private void setUpButton(){
+        addButton.setOnClickListener(onClickAddButton());
+        cancelButton.createInactiveButton("Cancel", onClickCancelButton());
+        deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
+        viewFeedbackButton.setOnClickListener(viewFeedBackButtonOnClick());
+    }
+
+    private View.OnClickListener viewFeedBackButtonOnClick(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ViewFeedbackActivity.class));
             }
-        });
+        };
+    }
 
-        searchBox = findViewById(R.id.searchBox);
-        searchButton = findViewById(R.id.searchButton);
-        setUpSearchBtn();
-
-        spinner = findViewById(R.id.filter_spinner);
-
+    private void setUpSpinner(){
         spinner.setSpinnerEventsListener(this);
         categoryAdapter = new CategoryAdapter(this);
         spinner.setAdapter(categoryAdapter);
-
-        categoryView = findViewById(R.id.categoryList);
-        CategoryItemAdapter categoryAdapter = new CategoryItemAdapter(this, items);
-        categoryView.setAdapter(categoryAdapter);
-
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(FilterActivity.this, ((Category) spinner.getSelectedItem()).getCategoryName(), Toast.LENGTH_SHORT).show();
-//                getAllItems(String.format("/item/view?category=%s", ((Category) spinner.getSelectedItem()).getCategoryName()));
                 ArrayList<Item> itemsList = new ArrayList<>();
                 categorySelected = ((Category) spinner.getSelectedItem()).getCategoryName();
                 if (categorySelected.isEmpty()){
@@ -128,15 +131,14 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
 
             }
         });
+    }
 
-        deleteNotification = findViewById(R.id.deleteNotification);
-        deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
+    private void setUpListViewItem(){
+        CategoryItemAdapter categoryItemAdapter = new CategoryItemAdapter(this, items);
+        categoryView.setAdapter(categoryItemAdapter);
+    }
 
-        addButton = findViewById(R.id.addButton);
-        addButton.setOnClickListener(onClickAddButton());
-        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
-
-        ImageButton logoutButton = findViewById(R.id.logout);
+    private void setUpLogOutButton(){
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -155,11 +157,8 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
                 });
             }
         });
-
-        cancelButton.createInactiveButton("Cancel", onClickCancelButton());
-        deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
-
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+    }
+    private void setUpBottomNavigation(){
         bottomNavigationView.setSelectedItemId(R.id.items);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -265,5 +264,23 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
     @Override
     public void onPopupWindowClosed(Spinner spinner) {
 //        spinner.setBackground(getResources().getDrawable(R.drawable.bg_spinner));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_dashboard);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
+        initUIComponents();
+        setUpButton();
+        setUpSpinner();
+        setUpSearchBtn();
+        setUpLogOutButton();
+        setUpListViewItem();
+        setUpBottomNavigation();
     }
 }
