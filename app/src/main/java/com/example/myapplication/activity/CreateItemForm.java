@@ -3,6 +3,7 @@ package com.example.myapplication.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -16,10 +17,11 @@ import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
+import com.example.myapplication.utilities.ImageLoader;
 import com.example.myapplication.utilities.Input;
+import com.squareup.picasso.Picasso;
 
 public class CreateItemForm extends BaseActivity {
-
     private ActionBar itemFormActionBar = new ActionBar(R.id.itemFormActionBar, this);
     private Button submitButton = new Button(R.id.submitButton, this);
 
@@ -40,7 +42,6 @@ public class CreateItemForm extends BaseActivity {
         itemFormActionBar.createActionBar("Create new item", R.drawable.ic_back, R.drawable.navbutton_shape);
         submitButton.createActiveButton("Create", onSubmitFormClick());
         uploadImageButton = findViewById(R.id.uploadImageButton);
-//        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
         inputItemNameText = findViewById(R.id.inputItemText);
         inputItemCategoryText = findViewById(R.id.inputItemCategoryText);
         inputItemPriceText = findViewById(R.id.inputPriceText);
@@ -56,12 +57,29 @@ public class CreateItemForm extends BaseActivity {
         Item item = (Item) getIntent().getSerializableExtra("item");
         System.out.println(item);
         if (item != null){
-            newItem = item;
             inputItemNameText.setText(item.getName());
             inputItemCategoryText.setText(item.getCategory());
             inputItemDescriptionText.setText(item.getDescription());
             inputItemPriceText.setText(String.valueOf(item.getPrice()));
             inputItemQuantityText.setText(String.valueOf(item.getQuantity()));
+            ImageLoader.loadImg(item.getImageURL(), uploadImageButton);
+        }
+
+        uploadImageButton.setOnClickListener(uploadImageOnClick());
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (resultCode == RESULT_OK) {
+            if (requestCode == 200) {
+                // Get the url of the image from data
+                Uri selectedImageUri = data.getData();
+                if (null != selectedImageUri) {
+                    uploadImageButton.setImageURI(selectedImageUri);
+                    System.out.println(selectedImageUri);
+                }
+            }
         }
     }
 
@@ -88,8 +106,16 @@ public class CreateItemForm extends BaseActivity {
             }
         };
     }
-    private void uploadImageOnClick(){
-
+    private View.OnClickListener uploadImageOnClick(){
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i = new Intent();
+                i.setType("image/*");
+                i.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(i, "Select Picture"), 200);
+            }
+        };
     }
     private View.OnClickListener onSubmitFormClick(){
         return new View.OnClickListener() {
