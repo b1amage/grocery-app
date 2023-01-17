@@ -35,63 +35,59 @@ import java.util.ArrayList;
 public class VoucherManagement extends BaseActivity {
     private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
     private ListView categoryView;
-//    private Items items = new Items();
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
     private EditText searchBox;
     private ImageButton searchButton;
     private LinearLayout mask;
+    private ImageButton logoutButton;
+    private ImageButton viewFeedbackButton;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_voucher_management);
-
-        if (getSupportActionBar() != null){
-            getSupportActionBar().hide();
-        }
-        mask = findViewById(R.id.ll_mask);
-
-        searchBox = findViewById(R.id.searchBox);
-        searchButton = findViewById(R.id.searchButton);
-        setUpSearchBtn();
-
-        ImageButton logoutButton = findViewById(R.id.logout);
-        logoutButton.setOnClickListener(new View.OnClickListener() {
+    private View.OnClickListener logOutOnClickButton(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
                 startActivity(intent);
             }
-        });
-
-        deleteNotification = findViewById(R.id.deleteNotification);
-        deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
-
-        addButton = findViewById(R.id.addButton);
-        addButton.setOnClickListener(onClickAddButton());
-        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
-
-        categoryView = findViewById(R.id.categoryList);
+        };
+    }
+    private void setUpListViewVoucher(){
         VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
         categoryView.setAdapter(categoryAdapter);
-//        filterCategory.selectCategory();
+    }
 
-        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
-        viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
+    private View.OnClickListener setViewFeedbackButtonOnClick(){
+        return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ViewFeedbackActivity.class));
             }
-        });
+        };
+    }
+    private void initUIComponent(){
+        mask = findViewById(R.id.ll_mask);
+        searchBox = findViewById(R.id.searchBox);
+        searchButton = findViewById(R.id.searchButton);
+        deleteNotification = findViewById(R.id.deleteNotification);
+        addButton = findViewById(R.id.addButton);
+        logoutButton = findViewById(R.id.logout);
+        viewFeedbackButton = findViewById(R.id.viewFeedback);
+        categoryView = findViewById(R.id.categoryList);
 
+    }
+    private void setUpButton(){
+        addButton.setOnClickListener(onClickAddButton());
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
+        viewFeedbackButton.setOnClickListener(setViewFeedbackButtonOnClick());
+        logoutButton.setOnClickListener(logOutOnClickButton());
+    }
 
+    private void setUpBottomNavigation(){
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setSelectedItemId(R.id.vouchers);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -123,7 +119,6 @@ public class VoucherManagement extends BaseActivity {
             }
         });
     }
-
     private void setUpSearchBtn() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,15 +140,6 @@ public class VoucherManagement extends BaseActivity {
 
                 VoucherAdapter itemAdapter = new VoucherAdapter(VoucherManagement.this, itemArrayList);
                 categoryView.setAdapter(itemAdapter);
-
-//                categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                    @Override
-//                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                        Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
-//                        intent.putExtra("voucher", vouchers.get(position).get_id());
-//                        startActivityForResult(intent, 104);
-//                    }
-//                });
             }
         });
     }
@@ -188,5 +174,26 @@ public class VoucherManagement extends BaseActivity {
                 deleteNotification.setVisibility(View.INVISIBLE);
             }
         };
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_voucher_management);
+
+        if (getSupportActionBar() != null){
+            getSupportActionBar().hide();
+        }
+
+        initUIComponent();
+
+        setUpButton();
+        setUpSearchBtn();
+        setUpListViewVoucher();
+        setUpBottomNavigation();
+
+        deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
+
+        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
     }
 }
