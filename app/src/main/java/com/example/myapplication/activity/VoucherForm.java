@@ -7,6 +7,8 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -18,13 +20,14 @@ import com.example.myapplication.utilities.Button;
 public class VoucherForm extends BaseActivity {
     private ActionBar voucherFormActionBar = new ActionBar(R.id.voucherFormActionBar, this);
     private Button voucherFormButton = new Button(R.id.voucherSubmitButton, this);
-
     private EditText inputVoucherCodeText;
     private EditText inputVoucherTitleText;
     private EditText inputVoucherDescriptionText;
-    private EditText inputVoucherTypeDiscountText;
+    private RadioButton percentageRadio;
+    private RadioButton currencyRadio;
+    private Voucher voucher;
     private EditText inputVoucherValueText;
-
+    private String typeSelection;
     private Voucher newVoucher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,24 +41,29 @@ public class VoucherForm extends BaseActivity {
         inputVoucherCodeText = findViewById(R.id.inputVoucherCodeText);
         inputVoucherTitleText = findViewById(R.id.inputVoucherTitleText);
         inputVoucherDescriptionText = findViewById(R.id.inputVoucherDescriptionText);
-        inputVoucherTypeDiscountText = findViewById(R.id.inputVoucherTypeDiscountText);
+        percentageRadio = findViewById(R.id.percentage);
+        currencyRadio = findViewById(R.id.currency);
         inputVoucherValueText = findViewById(R.id.inputVoucherValueText);
 
         inputVoucherCodeText.addTextChangedListener(getInputValue(inputVoucherCodeText));
         inputVoucherTitleText.addTextChangedListener(getInputValue(inputVoucherTitleText));
         inputVoucherDescriptionText.addTextChangedListener(getInputValue(inputVoucherDescriptionText));
-        inputVoucherTypeDiscountText.addTextChangedListener(getInputValue(inputVoucherTypeDiscountText));
         inputVoucherValueText.addTextChangedListener(getInputValue(inputVoucherValueText));
 
-        Voucher voucher = (Voucher) getIntent().getSerializableExtra("voucher");
-        System.out.println(voucher);
+        voucher = (Voucher) getIntent().getSerializableExtra("voucher");
+
         if (voucher != null){
             inputVoucherCodeText.setText(voucher.getCode());
             inputVoucherTitleText.setText(voucher.getTitle());
             inputVoucherDescriptionText.setText(voucher.getDescription());
-            inputVoucherTypeDiscountText.setText(String.valueOf(voucher.getType()));
+            if (voucher.getType().equalsIgnoreCase(percentageRadio.getText().toString())){
+                percentageRadio.setChecked(true);
+                typeSelection = percentageRadio.getText().toString();
+            } else {
+                currencyRadio.setChecked(true);
+                typeSelection = currencyRadio.getText().toString();
+            }
             inputVoucherValueText.setText(String.valueOf(voucher.getValue()));
-            newVoucher = voucher;
         }
     }
 
@@ -82,14 +90,29 @@ public class VoucherForm extends BaseActivity {
             }
         };
     }
-    private void uploadImageOnClick(){
 
+    public void onRadioButtonClicked(View view) {
+        // Is the button now checked?
+        boolean checked = ((RadioButton) view).isChecked();
+
+        // Check which radio button was clicked
+        switch(view.getId()) {
+            case R.id.percentage:
+                if (checked)
+                    typeSelection = percentageRadio.getText().toString();
+                    break;
+            case R.id.currency:
+                if (checked)
+                    typeSelection = currencyRadio.getText().toString();
+                break;
+        }
     }
+
     private View.OnClickListener onSubmitFormClick(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
+                newVoucher = new Voucher(voucher.get_id(), inputVoucherCodeText.getText().toString(), inputVoucherTitleText.getText().toString(), inputVoucherDescriptionText.getText().toString(), typeSelection,Integer.parseInt(String.valueOf(inputVoucherValueText.getText())));
                 Toast.makeText(VoucherForm.this, newVoucher.toString(), Toast.LENGTH_LONG).show();
                 finish();
             }

@@ -1,26 +1,28 @@
 package com.example.myapplication.activity;
 
 import android.graphics.drawable.GradientDrawable;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
-import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Location;
-import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class StoreForm extends BaseActivity {
 
     private ActionBar storeFormActionBar = new ActionBar(R.id.storeFormActionBar, this);
     private Button storeFormButton = new Button(R.id.storeFormButton, this);
-    private ImageButton uploadImageButton;
 
     private EditText inputAddressText;
     private EditText inputLatitudeText;
@@ -35,7 +37,6 @@ public class StoreForm extends BaseActivity {
         storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
         storeFormButton.createActiveButton("Create", onSubmitFormClick());
 
-//        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
         inputAddressText = findViewById(R.id.inputAddressText);
         inputLatitudeText = findViewById(R.id.inputLatitudeText);
         inputLongitudeText = findViewById(R.id.inputLongitudeText);
@@ -77,16 +78,31 @@ public class StoreForm extends BaseActivity {
             }
         };
     }
-    private void uploadImageOnClick(){
 
-    }
     private View.OnClickListener onSubmitFormClick(){
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
-                finish();
+                String address = inputAddressText.getText().toString();
+                Geocoder coder = new Geocoder(getApplicationContext());
+                try {
+                    ArrayList<Address> addresses = (ArrayList<Address>) coder.getFromLocationName(address, 50);
+                    if (addresses.size() > 0){
+                        inputLatitudeText.setText(String.valueOf(addresses.get(0).getLatitude()));
+                        inputLongitudeText.setText(String.valueOf(addresses.get(0).getLongitude()));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                newLocation = new Location(address, addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+                                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
+                                finish();
+                            }
+                        }, 2000);
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
             }
         };
     }
