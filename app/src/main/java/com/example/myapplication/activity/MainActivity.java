@@ -43,6 +43,8 @@ public class MainActivity extends BaseActivity {
     ItemAdapter itemAdapter;
     private Button voucherButton;
     private ImageButton mainButtonLogout;
+    private ImageButton btnToCart;
+    private ImageButton btnToFeedback;
 
     private void initUIComponents() {
         listView = findViewById(R.id.item_listview);
@@ -55,6 +57,8 @@ public class MainActivity extends BaseActivity {
         filterButton = findViewById(R.id.main_filter_btn);
         voucherButton = findViewById(R.id.main_voucher_btn);
         mainButtonLogout = findViewById(R.id.main_btn_logout);
+        btnToCart = findViewById(R.id.btn_to_cart);
+        btnToFeedback = findViewById(R.id.btn_to_feedback);
 
         mainButtonLogout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +76,26 @@ public class MainActivity extends BaseActivity {
                         startActivity(intent);
                     }
                 });
+            }
+        });
+    }
+
+    private void setUpBtnToCart() {
+        btnToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void setUpBtnToFeedback() {
+        btnToFeedback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, SendFeedbackActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -290,6 +314,8 @@ public class MainActivity extends BaseActivity {
 
         initUIComponents();
         initContent();
+        setUpBtnToCart();
+        setUpBtnToFeedback();
         startLoading();
         setUpVoucherButton();
         setUpSearchBtn();
