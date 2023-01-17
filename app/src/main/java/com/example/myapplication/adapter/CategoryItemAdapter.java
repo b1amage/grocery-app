@@ -2,6 +2,7 @@ package com.example.myapplication.adapter;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
+import com.example.myapplication.activity.CreateItemForm;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
 
@@ -26,10 +28,12 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
     private ImageView edit;
     private LinearLayout deleteLayout;
     private RelativeLayout deleteNotification;
+    private LinearLayout mask;
 
     public CategoryItemAdapter(@NonNull Context context, ArrayList<Item> categoryItems) {
         super(context, 0, categoryItems);
         deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
+        mask = ((Activity) context).findViewById(R.id.ll_mask);
     }
 
     @NonNull
@@ -56,12 +60,16 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
 //                getContext().startActivity(intent);
 //            }
 //        });
+        mask.setVisibility(View.INVISIBLE);
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent = new Intent(getContext(), CreateItemForm.class);
+                intent.putExtra("item", item);
                 Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
+                getContext().startActivity(intent);
             }
         });
 
@@ -70,6 +78,7 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
             @Override
             public void onClick(View view) {
                 deleteNotification.setVisibility(View.VISIBLE);
+                mask.setVisibility(View.VISIBLE);
             }
         });
 

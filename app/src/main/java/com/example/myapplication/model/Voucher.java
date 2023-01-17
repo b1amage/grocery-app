@@ -1,6 +1,8 @@
 package com.example.myapplication.model;
 
-public class Voucher {
+import java.io.Serializable;
+
+public class Voucher implements Serializable {
     private String _id;
     private String code;
     private String title;
@@ -71,5 +73,17 @@ public class Voucher {
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    @Override
+    public String toString() {
+        return "Voucher{" +
+                "_id='" + _id + '\'' +
+                ", code='" + code + '\'' +
+                ", title='" + title + '\'' +
+                ", description='" + description + '\'' +
+                ", type='" + type + '\'' +
+                ", value=" + value +
+                '}';
     }
 }

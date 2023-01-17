@@ -30,9 +30,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         String role = (new CookieManager(getApplicationContext())).getRole();
         if (role.equals("customer")) {
-            completeOrderButton.createInactiveButton("Cancel", onClickCancelOrder());
+            completeOrderButton.createInactiveButton("Cancel",onClickCancelOrder());
         } else {
-            completeOrderButton.createInactiveButton("Complete", onClickCompleteOrder());
+            completeOrderButton.createInactiveButton("Complete",onClickCompleteOrder());
         }
 
         Order order = (Order) getIntent().getSerializableExtra("order");

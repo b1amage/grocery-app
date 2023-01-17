@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -56,9 +57,9 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
     private ArrayList<Item> items = Items.getItems();
     private CustomSpinner spinner;
     private String categorySelected = "";
-
     private EditText searchBox;
     private ImageButton searchButton;
+    private LinearLayout mask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +69,16 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        mask = findViewById(R.id.ll_mask);
+
+        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
+        viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ViewFeedbackActivity.class));
+            }
+        });
 
         searchBox = findViewById(R.id.searchBox);
         searchButton = findViewById(R.id.searchButton);
@@ -217,6 +228,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mask.setVisibility(View.GONE);
                 deleteNotification.setVisibility(View.INVISIBLE);
                 Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
@@ -227,7 +239,9 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                mask.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
+                deleteNotification.setVisibility(View.INVISIBLE);
             }
         };
     }

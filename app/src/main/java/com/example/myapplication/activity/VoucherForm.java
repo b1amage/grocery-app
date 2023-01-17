@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.example.myapplication.R;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
+import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 
 public class VoucherForm extends BaseActivity {
@@ -24,6 +25,7 @@ public class VoucherForm extends BaseActivity {
     private EditText inputVoucherTypeDiscountText;
     private EditText inputVoucherValueText;
 
+    private Voucher newVoucher;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,6 +47,16 @@ public class VoucherForm extends BaseActivity {
         inputVoucherTypeDiscountText.addTextChangedListener(getInputValue(inputVoucherTypeDiscountText));
         inputVoucherValueText.addTextChangedListener(getInputValue(inputVoucherValueText));
 
+        Voucher voucher = (Voucher) getIntent().getSerializableExtra("voucher");
+        System.out.println(voucher);
+        if (voucher != null){
+            inputVoucherCodeText.setText(voucher.getCode());
+            inputVoucherTitleText.setText(voucher.getTitle());
+            inputVoucherDescriptionText.setText(voucher.getDescription());
+            inputVoucherTypeDiscountText.setText(String.valueOf(voucher.getType()));
+            inputVoucherValueText.setText(String.valueOf(voucher.getValue()));
+            newVoucher = voucher;
+        }
     }
 
     private TextWatcher getInputValue(EditText editText){
@@ -78,7 +90,8 @@ public class VoucherForm extends BaseActivity {
             @Override
             public void onClick(View view) {
 //                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-                Toast.makeText(VoucherForm.this, "Create", Toast.LENGTH_LONG).show();
+                Toast.makeText(VoucherForm.this, newVoucher.toString(), Toast.LENGTH_LONG).show();
+                finish();
             }
         };
     }

@@ -26,11 +26,11 @@ import java.util.ArrayList;
 public class OrderAdapter extends ArrayAdapter<Order> {
     private ImageView edit;
     private LinearLayout deleteLayout;
-    private RelativeLayout deleteNotification;
+//    private RelativeLayout deleteNotification;
 
     public OrderAdapter(@NonNull Context context, ArrayList<Order> orders) {
         super(context, 0, orders);
-        deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
+//        deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
     }
 
     @NonNull
@@ -46,24 +46,21 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.orders);
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(order.get_id());
-        ((TextView) listItemView.findViewById(R.id.itemInfo)).setText("");
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(String.valueOf(order.getTotal()));
+        ((TextView) listItemView.findViewById(R.id.itemInfo)).setVisibility(View.GONE);
+        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(order.getTotal() + " " + "VND");
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
+                intent.putExtra("order", order);
+                getContext().startActivity(intent);
             }
         });
 
         deleteLayout = listItemView.findViewById(R.id.delete);
-        deleteLayout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                deleteNotification.setVisibility(View.VISIBLE);
-            }
-        });
+        deleteLayout.setVisibility(View.GONE);
 
         return listItemView;
     }

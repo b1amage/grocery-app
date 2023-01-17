@@ -24,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ViewAllItemActivity extends BaseActivity {
-
     private ListView listView;
     private ImageButton backBtn;
     private ShimmerFrameLayout shimmerFrameLayout;
