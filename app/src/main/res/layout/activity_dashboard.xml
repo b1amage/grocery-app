@@ -74,6 +74,12 @@
             android:src="@drawable/add" />
     </RelativeLayout>
 
+    <ProgressBar
+        android:id="@+id/waiting_for_items_dashboard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="150dp" />
+
     <ListView
         android:id="@+id/categoryList"
         android:layout_width="match_parent"

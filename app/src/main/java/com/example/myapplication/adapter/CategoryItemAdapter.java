@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,20 +21,44 @@ import com.example.myapplication.R;
 import com.example.myapplication.activity.CreateItemForm;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
+import com.example.myapplication.utilities.ImageLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class CategoryItemAdapter extends ArrayAdapter<Item> {
+public class CategoryItemAdapter extends BaseAdapter {
 
     private ImageView edit;
     private LinearLayout deleteLayout;
     private RelativeLayout deleteNotification;
     private LinearLayout mask;
+    private List<Item> items;
 
     public CategoryItemAdapter(@NonNull Context context, ArrayList<Item> categoryItems) {
-        super(context, 0, categoryItems);
         deleteNotification = ((Activity) context).findViewById(R.id.deleteNotification);
         mask = ((Activity) context).findViewById(R.id.ll_mask);
+        items = categoryItems;
+    }
+
+
+    public void updateResults(List<Item> items) {
+        this.items = items;
+        notifyDataSetChanged();
+    }
+
+    @Override
+    public int getCount() {
+        return items.size();
+    }
+
+    @Override
+    public Object getItem(int i) {
+        return items.get(i);
+    }
+
+    @Override
+    public long getItemId(int i) {
+        return i;
     }
 
     @NonNull
@@ -42,15 +67,16 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
         View listItemView = convertView;
         if (listItemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
+            listItemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.category_card, parent, false);
         }
 
         Item item = (Item) getItem(position);
 
 //        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(item.getImg());
+        ImageLoader.loadImg(item.getImageURL(), listItemView.findViewById(R.id.itemImage));
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(item.getName());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(item.getCategory());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText("$" + String.valueOf(item.getPrice()));
+        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText("VND" + String.valueOf(item.getPrice()));
 //        listItemView.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -66,10 +92,10 @@ public class CategoryItemAdapter extends ArrayAdapter<Item> {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), CreateItemForm.class);
+                Intent intent = new Intent(parent.getContext(), CreateItemForm.class);
                 intent.putExtra("item", item);
-                Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
-                getContext().startActivity(intent);
+                Toast.makeText(parent.getContext(), "Edit", Toast.LENGTH_LONG).show();
+                parent.getContext().startActivity(intent);
             }
         });
 
