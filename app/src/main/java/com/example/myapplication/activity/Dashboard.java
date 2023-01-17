@@ -14,11 +14,13 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -61,6 +63,9 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
     private LinearLayout mask;
     private ImageButton logoutButton;
     private BottomNavigationView bottomNavigationView;
+    private String nextCursor = "";
+    private CategoryItemAdapter categoryItemAdapter;
+    private ProgressBar waitingForItemsDashboard;
 
     private void initUIComponents() {
         mask = findViewById(R.id.ll_mask);
@@ -68,6 +73,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         searchButton = findViewById(R.id.searchButton);
         spinner = findViewById(R.id.filter_spinner);
         categoryView = findViewById(R.id.categoryList);
+        categoryView.setVisibility(View.GONE);
         deleteNotification = findViewById(R.id.deleteNotification);
         viewFeedbackButton = findViewById(R.id.viewFeedback);
         addButton = findViewById(R.id.addButton);
@@ -76,6 +82,8 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
 
         deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
+
+        waitingForItemsDashboard = findViewById(R.id.waiting_for_items_dashboard);
     }
 
 
@@ -102,26 +110,52 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                ArrayList<Item> itemsList = new ArrayList<>();
+//                ArrayList<Item> itemsList = new ArrayList<>();
                 categorySelected = ((Category) spinner.getSelectedItem()).getCategoryName();
-                if (categorySelected.isEmpty()){
-                    itemsList.addAll(items);
-                } else {
-                    for (Item item : items){
-                        if (item.getCategory().toLowerCase().contains(categorySelected)){
-                            itemsList.add(item);
-                        }
-                    }
-                }
-                CategoryItemAdapter itemAdapter = new CategoryItemAdapter(Dashboard.this, itemsList);
-                categoryView.setAdapter(itemAdapter);
+//                if (categorySelected.isEmpty()){
+//                    itemsList.addAll(items);
+//                } else {
+//                    for (Item item : items){
+//                        if (item.getCategory().toLowerCase().contains(categorySelected)){
+//                            itemsList.add(item);
+//                        }
+//                    }
+//                }
 
-                categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                itemAdapter = new CategoryItemAdapter(Dashboard.this, itemsList);
+//                categoryView.setAdapter(itemAdapter);
+                startLoading();
+                if (categorySelected.isEmpty()) return;
+                String endpoint = "/item/view";
+                if (!categorySelected.equals("all")) {
+                    endpoint = String.format("/item/view?category=%s", categorySelected);
+                }
+                (new APIHandler(Dashboard.this)).getRequest(endpoint, new VolleyResponseListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
-                        intent.putExtra("_id", items.get(position).get_id());
-                        startActivityForResult(intent, 104);
+                    public void onError(String message, int statusCode) {
+                        System.out.println(message);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        System.out.println(response);
+                        JSONArray jsonArray = response.getJSONArray("results");
+                        nextCursor = response.getString("next_cursor");
+                        ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++){
+
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                System.out.println("object" + object);
+                                itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                            }
+
+                            setUpListViewItem(itemArrayList);
+                            items = itemArrayList;
+                        }
+
+                        stopLoading();
                     }
                 });
             }
@@ -133,9 +167,38 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         });
     }
 
-    private void setUpListViewItem(){
-        CategoryItemAdapter categoryItemAdapter = new CategoryItemAdapter(this, items);
+    private void setUpListViewItem(ArrayList<Item> itemList){
+        categoryItemAdapter = new CategoryItemAdapter(this, itemList);
         categoryView.setAdapter(categoryItemAdapter);
+
+        // onScroll: load more item if scroll to bottom
+        categoryView.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int scrollState) {
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE
+                        && (categoryView.getLastVisiblePosition() - categoryView.getHeaderViewsCount() -
+                        categoryView.getFooterViewsCount()) >= (categoryItemAdapter.getCount() - 1)) {
+                    if (nextCursor != null) {
+                        // load more
+                        loadMoreItems();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+
+            }
+        });
+
+        categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
+                intent.putExtra("_id", items.get(position).get_id());
+                startActivityForResult(intent, 104);
+            }
+        });
     }
 
     private void setUpLogOutButton(){
@@ -190,36 +253,110 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         });
     }
 
+    private void stopLoading() {
+        waitingForItemsDashboard.setVisibility(View.GONE);
+        categoryView.setVisibility(View.VISIBLE);
+    }
+
+    private void startLoading() {
+        waitingForItemsDashboard.setVisibility(View.VISIBLE);
+        categoryView.setVisibility(View.GONE);
+    }
+
+    private void loadMoreItems() {
+        (new APIHandler(Dashboard.this)).getRequest(String.format("/item/view?next_cursor=%s", nextCursor), new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                JSONArray jsonArray = response.getJSONArray("results");
+                nextCursor = response.getString("next_cursor");
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        items.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                    }
+
+                    categoryItemAdapter.updateResults(items);
+                }
+            }
+        });
+    }
+
     private void setUpSearchBtn() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 String query = searchBox.getText().toString();
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
+                if (query.isEmpty()) return;
 
-                ArrayList<Item> itemArrayList = new ArrayList<>();
+                startLoading();
 
-                if (query.isEmpty()){
-                    itemArrayList.addAll(items);
-                } else{
-                    for (Item item : items){
-                        if (item.getName().toLowerCase().contains(query.toLowerCase())){
-                            itemArrayList.add(item);
-                        }
-                    }
-                }
-
-                CategoryItemAdapter itemAdapter = new CategoryItemAdapter(Dashboard.this, itemArrayList);
-                categoryView.setAdapter(itemAdapter);
-
-                categoryView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                (new APIHandler(Dashboard.this)).getRequest(String.format("/item/view?name=%s", query), new VolleyResponseListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(getApplicationContext(), ItemDetail.class);
-                        intent.putExtra("_id", items.get(position).get_id());
-                        startActivityForResult(intent, 104);
+                    public void onError(String message, int statusCode) {
+                        System.out.println(message);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        System.out.println(response);
+                        JSONArray jsonArray = response.getJSONArray("results");
+                        nextCursor = response.getString("next_cursor");
+                        ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                        if (jsonArray != null) {
+                            for (int i = 0; i < jsonArray.length(); i++){
+
+                                JSONObject object = jsonArray.getJSONObject(i);
+                                System.out.println("object" + object);
+                                itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                            }
+
+                            setUpListViewItem(itemArrayList);
+                            items = itemArrayList;
+                        }
+
+                        stopLoading();
                     }
                 });
+            }
+        });
+    }
+
+    private void getAllItems() {
+        (new APIHandler(Dashboard.this)).getRequest("/item/view", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                System.out.println(response);
+                JSONArray jsonArray = response.getJSONArray("results");
+                nextCursor = response.getString("next_cursor");
+                ArrayList<Item> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                    }
+
+                    setUpListViewItem(itemArrayList);
+                    items = itemArrayList;
+                }
+
+                stopLoading();
             }
         });
     }
@@ -280,7 +417,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         setUpSpinner();
         setUpSearchBtn();
         setUpLogOutButton();
-        setUpListViewItem();
         setUpBottomNavigation();
+        getAllItems();
     }
 }

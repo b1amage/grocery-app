@@ -22,6 +22,7 @@ import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.db.DBManager;
 import com.example.myapplication.model.Item;
+import com.example.myapplication.utilities.CookieManager;
 import com.example.myapplication.utilities.ImageLoader;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
@@ -62,6 +63,9 @@ public class ItemDetail extends BaseActivity {
         backButton = findViewById(R.id.detail_back_btn);
         stock = findViewById(R.id.item_detail_stock);
         addToCartButton = findViewById(R.id.btn_add_to_cart);
+        if ((new CookieManager(ItemDetail.this)).getRole().equals("staff")) {
+            addToCartButton.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void setUpBtnAddToCart() {
