@@ -3,6 +3,7 @@ package com.example.myapplication.adapter;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +20,17 @@ import androidx.annotation.Nullable;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.CreateItemForm;
+import com.example.myapplication.activity.Dashboard;
+import com.example.myapplication.activity.SignInActivity;
+import com.example.myapplication.activity.VoucherManagement;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ImageLoader;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +107,34 @@ public class CategoryItemAdapter extends BaseAdapter {
             public void onClick(View view) {
                 deleteNotification.setVisibility(View.VISIBLE);
                 mask.setVisibility(View.VISIBLE);
+
+                LinearLayout deleteButton = deleteNotification.findViewById(R.id.deleteButton);
+
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+//                        Toast.makeText(getContext(), voucher.toString(), Toast.LENGTH_LONG).show();
+                        (new APIHandler(parent.getContext())).deleteRequest("/item/delete", item.get_id(), new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message, int statusCode) {
+                                System.err.println(message);
+                                parent.getContext().startActivity(new Intent(parent.getContext(), SignInActivity.class));
+                            }
+
+                            @Override
+                            public void onResponse(JSONObject response) throws JSONException {
+                                System.out.println(response);
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        parent.getContext().startActivity(new Intent(parent.getContext(), Dashboard.class));
+                                    }
+                                }, 2000);
+                            }
+
+                        });
+                    }
+                });
             }
         });
 

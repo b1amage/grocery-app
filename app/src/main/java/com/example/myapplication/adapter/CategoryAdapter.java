@@ -38,6 +38,27 @@ public class CategoryAdapter extends BaseAdapter {
         );
     }
 
+    public CategoryAdapter(Context context, boolean forCreateForm) {
+        this.context = context;
+
+        if (forCreateForm) {
+            this.categoryList = new ArrayList<>(
+                    Arrays.asList(
+                            new Category(1, "vegetable", R.drawable.vegetable),
+                            new Category(2, "meat", R.drawable.meat),
+                            new Category(3, "fruit", R.drawable.fruit),
+                            new Category(4, "dairy", R.drawable.diary),
+                            new Category(5, "canned", R.drawable.canned),
+                            new Category(6, "snack", R.drawable.snack),
+                            new Category(7, "drink", R.drawable.drink),
+                            new Category(8, "spice", R.drawable.spice),
+                            new Category(9, "household", R.drawable.household),
+                            new Category(10, "personal hygiene", R.drawable.hygine)
+                    )
+            );
+        }
+    }
+
     @Override
     public int getCount() {
         return categoryList.size();
