@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -53,6 +54,7 @@ public class VoucherManagement extends BaseActivity {
     private ImageButton logoutButton;
     private ImageButton viewFeedbackButton;
     private ProgressBar waitingForItemsDashboard;
+    private VoucherAdapter categoryAdapter;
 
     private View.OnClickListener logOutOnClickButton(){
         return new View.OnClickListener() {
@@ -65,7 +67,7 @@ public class VoucherManagement extends BaseActivity {
     }
 
     private void setUpListViewVoucher(ArrayList<Voucher> vouchers){
-        VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
+        categoryAdapter = new VoucherAdapter(this, vouchers);
         categoryView.setAdapter(categoryAdapter);
     }
 
@@ -222,6 +224,28 @@ public class VoucherManagement extends BaseActivity {
                 mask.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
                 deleteNotification.setVisibility(View.INVISIBLE);
+
+//                (new APIHandler(VoucherManagement.this)).deleteRequest(String.format("/voucher/delete/%s", ), new VolleyResponseListener() {
+//                    @Override
+//                    public void onError(String message, int statusCode) {
+//                        System.err.println(message);
+//                        overallError.setText("* " + message);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) throws JSONException {
+//                        System.out.println(response);
+//                        overallError.setText("Location created successful!");
+//                        overallError.setTextColor(getResources().getColor(R.color.primary_100));
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                            }
+//                        }, 2000);
+//                    }
+//
+//                });
             }
         };
     }
