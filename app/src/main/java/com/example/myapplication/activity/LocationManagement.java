@@ -12,27 +12,37 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.LocationAdapter;
 import com.example.myapplication.adapter.OrderAdapter;
+import com.example.myapplication.adapter.VoucherAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 //import com.example.myapplication.components.FilterCategory;
 import com.example.myapplication.content.Categories;
 import com.example.myapplication.content.Locations;
+import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Location;
 import com.example.myapplication.model.Order;
+import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 
 public class LocationManagement extends BaseActivity {
-    private ArrayList<Location> locations = new Locations().getLocations();
+    private ArrayList<Location> locations = new ArrayList<>();
 //    private String[] categories = new Categories().getLocations();
     private ListView locationsView;
     private ImageButton addButton;
@@ -46,6 +56,7 @@ public class LocationManagement extends BaseActivity {
     private ImageButton searchButton;
 
     private LinearLayout mask;
+    private ProgressBar waitingForItemsDashboard;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +68,12 @@ public class LocationManagement extends BaseActivity {
         }
 
         mask = findViewById(R.id.ll_mask);
+        waitingForItemsDashboard = findViewById(R.id.waiting_for_items_dashboard);
 
         searchBox = findViewById(R.id.searchBox);
         searchButton = findViewById(R.id.searchButton);
+
+        getAllItems();
         setUpSearchBtn();
 
         ImageButton logoutButton = findViewById(R.id.logout);
@@ -79,8 +93,8 @@ public class LocationManagement extends BaseActivity {
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
 
         locationsView = findViewById(R.id.categoryList);
-        LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
-        locationsView.setAdapter(categoryAdapter);
+        setUpListViewLocation(locations);
+
         locationsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -134,6 +148,50 @@ public class LocationManagement extends BaseActivity {
                 return false;
             }
         });
+    }
+
+    private void getAllItems() {
+        (new APIHandler(LocationManagement.this)).getRequest("/location/view", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                System.out.println(response);
+                JSONArray jsonArray = response.getJSONArray("locations");
+                ArrayList<Location> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Location(object.getString("_id"), object.getString("address"), object.getDouble("latitude"), object.getDouble("longitude")));
+                    }
+
+                    setUpListViewLocation(itemArrayList);
+                    locations = itemArrayList;
+                }
+
+                stopLoading();
+            }
+        });
+    }
+
+    private void setUpListViewLocation(ArrayList<Location> locations){
+        LocationAdapter categoryAdapter = new LocationAdapter(this, locations);
+        locationsView.setAdapter(categoryAdapter);
+    }
+
+    private void stopLoading() {
+        waitingForItemsDashboard.setVisibility(View.GONE);
+        locationsView.setVisibility(View.VISIBLE);
+    }
+
+    private void startLoading() {
+        waitingForItemsDashboard.setVisibility(View.VISIBLE);
+        locationsView.setVisibility(View.GONE);
     }
 
     private void setUpSearchBtn() {

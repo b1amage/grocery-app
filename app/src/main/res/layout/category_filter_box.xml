@@ -7,7 +7,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="80dp"
         android:id="@+id/select_ctn">
         <com.example.myapplication.utilities.CustomSpinner
             android:layout_width="match_parent"

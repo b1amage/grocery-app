@@ -9,7 +9,7 @@
             android:backgroundTint="@color/neutral"
             android:hint="Search"
             android:id="@+id/searchBox"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_width="match_parent"
             android:paddingHorizontal="28dp"
             android:paddingVertical="12dp"

@@ -59,10 +59,10 @@ public class StoreMapLocation extends BaseActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         // Add a marker in Sydney and move the camera
-//        LatLng storeLocation = new LatLng(location.getLatitude(), location.getLongitude());
-        LatLng storeLocation = new LatLng(10.82302, 106.62965);
+        LatLng storeLocation = new LatLng(location.getLatitude(), location.getLongitude());
+//        LatLng storeLocation = new LatLng(10.82302, 106.62965);
         mMap.addMarker(new MarkerOptions().position(storeLocation).title(location.getAddress()));
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(storeLocation, 20));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(storeLocation, 15));
         mMap.getUiSettings().setZoomControlsEnabled(true);
     }
 }
