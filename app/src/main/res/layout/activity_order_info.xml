@@ -1,9 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.OrderInfoActivity">
+    tools:context=".activity.OrderInfoActivity"
+    android:paddingVertical="24dp"
+    android:paddingHorizontal="44dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+<ImageView
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:src="@drawable/okay"
+    android:id="@+id/okay_img"
+    android:layout_marginTop="40dp"
+    android:layout_centerHorizontal="true"/>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/gradient_bg"
+        android:layout_below="@+id/okay_img"
+        android:layout_marginTop="48dp"
+        android:padding="24dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Subtotal"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000000 VND"
+                android:id="@+id/info_subtotal"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Discount"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000000 VND"
+                android:id="@+id/info_discount"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:textSize="18dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1000000 VND"
+                android:id="@+id/info_total"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:layout_marginLeft="20dp"
+                android:layout_alignParentRight="true"/>
+        </RelativeLayout>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/secondary"
+            android:text="Ok"
+            android:textStyle="bold"
+            android:layout_marginTop="24dp"
+            android:textSize="18dp"
+            android:id="@+id/info_ok_btn"/>
+
+    </LinearLayout>
+
+</RelativeLayout>

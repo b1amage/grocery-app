@@ -114,6 +114,12 @@ public class CartActivity extends BaseActivity {
                         int subTotal = response.getJSONObject("order").getInt("subTotal");
                         int discount = response.getJSONObject("order").getInt("discount");
                         int total = response.getJSONObject("order").getInt("total");
+
+                        Intent intent = new Intent(CartActivity.this, OrderInfoActivity.class);
+                        intent.putExtra("subTotal", subTotal);
+                        intent.putExtra("discount", discount);
+                        intent.putExtra("total", total);
+                        startActivity(intent);
                     }
                 });
             }
