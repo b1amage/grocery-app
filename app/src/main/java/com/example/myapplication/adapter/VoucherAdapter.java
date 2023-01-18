@@ -55,15 +55,6 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(voucher.getCode());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(voucher.getDescription());
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? "$" + voucher.getValue() : voucher.getValue() + "VND");
-//        listItemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(getContext(), CategoryDetails.class);
-//                intent.putExtra("actionBarTitle", categoryTitle.getText().toString());
-//                getContext().startActivity(intent);
-//            }
-//        });
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {
@@ -71,6 +62,7 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), VoucherForm.class);
                 intent.putExtra("voucher", voucher);
+                intent.putExtra("title", "Update voucher");
                 Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
                 getContext().startActivity(intent);
             }

@@ -60,13 +60,13 @@
             android:id="@+id/filterCategory"
             layout="@layout/category_filter_box"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="80dp"
             android:layout_toLeftOf="@id/addButton" />
 
         <ImageButton
             android:id="@+id/addButton"
-            android:layout_width="56dp"
-            android:layout_height="56dp"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dp"

@@ -39,8 +39,14 @@ public class CreateItemForm extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item_form);
 
-        itemFormActionBar.createActionBar("Create new item", R.drawable.ic_back, R.drawable.navbutton_shape);
-        submitButton.createActiveButton("Create", onSubmitFormClick());
+        if (getIntent().getStringExtra("title") == null){
+            itemFormActionBar.createActionBar("Create new item", R.drawable.ic_back, R.drawable.navbutton_shape);
+            submitButton.createActiveButton("Create", onSubmitFormClick());
+        } else{
+            itemFormActionBar.createActionBar(getIntent().getStringExtra("title"), R.drawable.ic_back, R.drawable.navbutton_shape);
+            submitButton.createActiveButton("Update", onSubmitFormClick());
+        }
+
         uploadImageButton = findViewById(R.id.uploadImageButton);
         inputItemNameText = findViewById(R.id.inputItemText);
         inputItemCategoryText = findViewById(R.id.inputItemCategoryText);

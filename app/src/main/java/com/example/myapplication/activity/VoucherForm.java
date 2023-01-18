@@ -34,10 +34,14 @@ public class VoucherForm extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voucher_form);
 
-        voucherFormActionBar.createActionBar("Create voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
-        voucherFormButton.createActiveButton("Create", onSubmitFormClick());
+        if (getIntent().getStringExtra("title") == null){
+            voucherFormActionBar.createActionBar("Create voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
+            voucherFormButton.createActiveButton("Create", onSubmitFormClick());
+        } else{
+            voucherFormActionBar.createActionBar("Update voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
+            voucherFormButton.createActiveButton("Update", onSubmitFormClick());
+        }
 
-//        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
         inputVoucherCodeText = findViewById(R.id.inputVoucherCodeText);
         inputVoucherTitleText = findViewById(R.id.inputVoucherTitleText);
         inputVoucherDescriptionText = findViewById(R.id.inputVoucherDescriptionText);
