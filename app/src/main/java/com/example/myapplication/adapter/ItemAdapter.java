@@ -105,11 +105,12 @@ public class ItemAdapter extends BaseAdapter {
                     (new DBManager(context)).increaseItemQuantity(item);
 
                     items =  (new DBManager(context)).fetchItemsFromCart();
-                    updateResults(items);
+
                     quantity.setText(String.valueOf(item.getQuantity()));
                     if (subTotal != null) {
                         subTotal.setText(String.valueOf((new DBManager(context)).getSubTotal()));
                     }
+                    updateResults(items);
                 }
             });
 
@@ -119,11 +120,12 @@ public class ItemAdapter extends BaseAdapter {
                     (new DBManager(context)).decreaseItemQuantity(item);
 
                     items =  (new DBManager(context)).fetchItemsFromCart();
-                    updateResults(items);
+
                     quantity.setText(String.valueOf(item.getQuantity()));
                     if (subTotal != null) {
                         subTotal.setText(String.valueOf((new DBManager(context)).getSubTotal()));
                     }
+                    updateResults(items);
 
 //                    textView.setText(String.valueOf((new DBManager(context)).getSubTotal()));
                 }

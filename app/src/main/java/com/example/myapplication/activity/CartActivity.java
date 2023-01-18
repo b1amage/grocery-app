@@ -55,15 +55,11 @@ public class CartActivity extends BaseActivity {
         prePrice = findViewById(R.id.preview_price);
     }
 
-    private void calPrePrice() {
-        int subTotal = (new DBManager(CartActivity.this)).getSubTotal();
-        prePrice.setText("Subtotal: " + subTotal);
-    }
-
     private void setUpOrderBtn() {
         orderBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                getCartItem();
                 String voucher = voucherEdt.getText().toString();
                 List<String> vouchers;
 
