@@ -34,8 +34,13 @@ public class StoreForm extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_form);
 
-        storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
-        storeFormButton.createActiveButton("Create", onSubmitFormClick());
+        if (getIntent().getStringExtra("title") == null){
+            storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
+            storeFormButton.createActiveButton("Create", onSubmitFormClick());
+        } else {
+            storeFormActionBar.createActionBar("Update store location", R.drawable.ic_back, R.drawable.navbutton_shape);
+            storeFormButton.createActiveButton("Update", onSubmitFormClick());
+        }
 
         inputAddressText = findViewById(R.id.inputAddressText);
         inputLatitudeText = findViewById(R.id.inputLatitudeText);

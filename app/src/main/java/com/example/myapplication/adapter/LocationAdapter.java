@@ -56,7 +56,6 @@ public class LocationAdapter extends ArrayAdapter<Location> {
         ((TextView) listItemView.findViewById(R.id.itemName)).setInputType(InputType.TYPE_TEXT_FLAG_MULTI_LINE);
         ((TextView) listItemView.findViewById(R.id.itemName)).setSingleLine(false);
 
-
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setVisibility(View.GONE);
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setVisibility(View.GONE);
 
@@ -66,6 +65,7 @@ public class LocationAdapter extends ArrayAdapter<Location> {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), StoreForm.class);
                 intent.putExtra("location", location);
+                intent.putExtra("title", "Update location");
                 Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
                 getContext().startActivity(intent);
             }
