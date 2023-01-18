@@ -22,6 +22,7 @@ public class ItemAdapter extends BaseAdapter {
     private List<Item> items;
     private boolean isInCart;
     private Context context;
+    private TextView subTotal;
 
     public ItemAdapter(List<Item> items) {
         this.items = items;
@@ -32,6 +33,13 @@ public class ItemAdapter extends BaseAdapter {
         this.items = items;
         this.isInCart = isInCart;
         this.context = context;
+    }
+
+    public ItemAdapter(List<Item> items, boolean isInCart, Context context, TextView subTotal) {
+        this.items = items;
+        this.isInCart = isInCart;
+        this.context = context;
+        this.subTotal = subTotal;
     }
 
     public ItemAdapter(List<Item> items, boolean isInCart) {
@@ -87,6 +95,9 @@ public class ItemAdapter extends BaseAdapter {
             ImageButton deleteBtn =  itemView.findViewById(R.id.cart_delete_btn);
 
             quantity.setText(String.valueOf(item.getQuantity()));
+            if (subTotal != null) {
+                subTotal.setText(String.valueOf((new DBManager(context)).getSubTotal()));
+            }
 
             plusBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,8 +105,12 @@ public class ItemAdapter extends BaseAdapter {
                     (new DBManager(context)).increaseItemQuantity(item);
 
                     items =  (new DBManager(context)).fetchItemsFromCart();
-                    updateResults(items);
+
                     quantity.setText(String.valueOf(item.getQuantity()));
+                    if (subTotal != null) {
+                        subTotal.setText(String.valueOf((new DBManager(context)).getSubTotal()));
+                    }
+                    updateResults(items);
                 }
             });
 
@@ -105,8 +120,14 @@ public class ItemAdapter extends BaseAdapter {
                     (new DBManager(context)).decreaseItemQuantity(item);
 
                     items =  (new DBManager(context)).fetchItemsFromCart();
-                    updateResults(items);
+
                     quantity.setText(String.valueOf(item.getQuantity()));
+                    if (subTotal != null) {
+                        subTotal.setText(String.valueOf((new DBManager(context)).getSubTotal()));
+                    }
+                    updateResults(items);
+
+//                    textView.setText(String.valueOf((new DBManager(context)).getSubTotal()));
                 }
             });
 
