@@ -124,14 +124,8 @@ public class CategoryItemAdapter extends BaseAdapter {
                             @Override
                             public void onResponse(JSONObject response) throws JSONException {
                                 System.out.println(response);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        parent.getContext().startActivity(new Intent(parent.getContext(), Dashboard.class));
-                                    }
-                                }, 2000);
+                                parent.getContext().startActivity(new Intent(parent.getContext(), Dashboard.class));
                             }
-
                         });
                     }
                 });
