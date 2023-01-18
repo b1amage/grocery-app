@@ -50,7 +50,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         System.out.println(order);
 
         orderId.setText(order.get_id());
-        customerId.setText(order.getCustomerId());
+        customerId.setText(order.getCustomer().getUsername());
         subTotalValue.setText(String.valueOf(order.getSubTotal()));
         discountValue.setText(String.valueOf(order.getDiscount()));
         totalValue.setText(String.valueOf(order.getTotal()));

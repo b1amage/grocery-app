@@ -32,7 +32,6 @@ public class VoucherList extends AppCompatActivity {
 
     private ListView listView;
     private ClientVoucherAdapter voucherAdapter;
-    private String nextCursor = "";
     private List<Voucher> vouchers;
     private ShimmerFrameLayout shimmerFrameLayout;
     private ImageButton backBtn;
@@ -90,8 +89,7 @@ public class VoucherList extends AppCompatActivity {
 
             @Override
             public void onResponse(JSONObject response) throws JSONException {
-                JSONArray jsonArray = response.getJSONArray("results");
-                nextCursor = response.getString("next_cursor");
+                JSONArray jsonArray = response.getJSONArray("vouchers");
                 ArrayList<Voucher> voucherArrayList = new ArrayList<>();
 
                 if (jsonArray != null) {

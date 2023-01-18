@@ -35,7 +35,7 @@ public class OrderItemAdapter extends ArrayAdapter<OrderItem> {
 
         OrderItem orderItem = (OrderItem) getItem(position);
 
-        ((TextView) listItemView.findViewById(R.id.orderItemName)).setText(orderItem.getItemId());
+        ((TextView) listItemView.findViewById(R.id.orderItemName)).setText(orderItem.getOrderItemId());
         ((TextView) listItemView.findViewById(R.id.orderItemQuantity)).setText("x" + String.valueOf(orderItem.getQuantity()));
 
         return listItemView;

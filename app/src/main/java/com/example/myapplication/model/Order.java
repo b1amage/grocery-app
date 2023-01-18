@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Order implements Serializable {
     private String _id;
-    private String customerId;
+    private Customer customer;
     private List<OrderItem> orderItems;
     private int subTotal;
     private int convertedPoints;
@@ -14,9 +14,9 @@ public class Order implements Serializable {
     private int total;
     private boolean isFulfilled;
 
-    public Order(String _id, String customerId, List<OrderItem> orderItems, int subTotal, int convertedPoints, List<String> voucherApplied, int discount, int total, boolean isFulfilled) {
+    public Order(String _id, Customer customer, List<OrderItem> orderItems, int subTotal, int convertedPoints, List<String> voucherApplied, int discount, int total, boolean isFulfilled) {
         this._id = _id;
-        this.customerId = customerId;
+        this.customer = customer;
         this.orderItems = orderItems;
         this.subTotal = subTotal;
         this.convertedPoints = convertedPoints;
@@ -40,12 +40,12 @@ public class Order implements Serializable {
         this._id = _id;
     }
 
-    public String getCustomerId() {
-        return customerId;
+    public Customer getCustomer() {
+        return customer;
     }
 
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
     public List<OrderItem> getOrderItems() {

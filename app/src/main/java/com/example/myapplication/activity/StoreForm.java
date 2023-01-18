@@ -9,12 +9,18 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Location;
 import com.example.myapplication.utilities.Button;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -28,18 +34,27 @@ public class StoreForm extends BaseActivity {
     private EditText inputLatitudeText;
     private EditText inputLongitudeText;
 
-    private Location newLocation;
+    private TextView addressError;
+    private TextView overallError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_form);
 
-        storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
-        storeFormButton.createActiveButton("Create", onSubmitFormClick());
+        if (getIntent().getStringExtra("title") == null){
+            storeFormActionBar.createActionBar("Create store location", R.drawable.ic_back, R.drawable.navbutton_shape);
+            storeFormButton.createActiveButton("Create", onSubmitFormClick());
+        } else {
+            storeFormActionBar.createActionBar("Update store location", R.drawable.ic_back, R.drawable.navbutton_shape);
+            storeFormButton.createActiveButton("Update", onSubmitFormClick());
+        }
 
         inputAddressText = findViewById(R.id.inputAddressText);
         inputLatitudeText = findViewById(R.id.inputLatitudeText);
         inputLongitudeText = findViewById(R.id.inputLongitudeText);
+        addressError = findViewById(R.id.inputAddressError);
+        overallError = findViewById(R.id.overallError);
 
         inputAddressText.addTextChangedListener(getInputValue(inputAddressText));
         inputLatitudeText.addTextChangedListener(getInputValue(inputLatitudeText));
@@ -51,7 +66,6 @@ public class StoreForm extends BaseActivity {
             inputAddressText.setText(location.getAddress());
             inputLatitudeText.setText(String.valueOf(location.getLatitude()));
             inputLongitudeText.setText(String.valueOf(location.getLongitude()));
-            newLocation = location;
         }
     }
 
@@ -84,7 +98,18 @@ public class StoreForm extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String address = inputAddressText.getText().toString();
+                addressError.setText("");
+                boolean hasError = false;
                 Geocoder coder = new Geocoder(getApplicationContext());
+                if (address.isEmpty()){
+                    addressError.setText("* Please provide the address");
+                    hasError = true;
+                }
+
+                if (hasError){
+                    return;
+                }
+
                 try {
                     ArrayList<Address> addresses = (ArrayList<Address>) coder.getFromLocationName(address, 50);
                     if (addresses.size() > 0){
@@ -93,11 +118,43 @@ public class StoreForm extends BaseActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                newLocation = new Location(address, addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-                                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
-                                finish();
+//                                newLocation = new Location(address, addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
+//                                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
+
+                                JSONObject postData = new JSONObject();
+                                try {
+                                    postData.put("address", address);
+                                    postData.put("latitude", addresses.get(0).getLatitude());
+                                    postData.put("longitude", addresses.get(0).getLongitude());
+
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+                                (new APIHandler(StoreForm.this)).postRequest(postData, "/location/create", new VolleyResponseListener() {
+                                    @Override
+                                    public void onError(String message, int statusCode) {
+                                        System.err.println(message);
+                                        overallError.setText("* " + message);
+                                    }
+
+                                    @Override
+                                    public void onResponse(JSONObject response) throws JSONException {
+                                        System.out.println(response);
+                                        overallError.setText("Location created successful!");
+                                        overallError.setTextColor(getResources().getColor(R.color.primary_100));
+                                        new Handler().postDelayed(new Runnable() {
+                                            @Override
+                                            public void run() {
+                                                finish();
+                                            }
+                                        }, 2000);
+                                    }
+
+                                });
                             }
                         }, 2000);
+                    } else{
+                        addressError.setText("* Location is not identify");
                     }
                 } catch (IOException e) {
                     e.printStackTrace();

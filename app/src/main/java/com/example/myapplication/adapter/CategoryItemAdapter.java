@@ -77,15 +77,7 @@ public class CategoryItemAdapter extends BaseAdapter {
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(item.getName());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(item.getCategory());
         ((TextView) listItemView.findViewById(R.id.itemPrice)).setText("VND" + String.valueOf(item.getPrice()));
-//        listItemView.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Toast.makeText(getContext(), categoryTitle.getText().toString(), Toast.LENGTH_LONG).show();
-//                Intent intent = new Intent(getContext(), CategoryDetails.class);
-//                intent.putExtra("actionBarTitle", categoryTitle.getText().toString());
-//                getContext().startActivity(intent);
-//            }
-//        });
+
         mask.setVisibility(View.INVISIBLE);
 
         edit = listItemView.findViewById(R.id.editButton);
@@ -94,6 +86,7 @@ public class CategoryItemAdapter extends BaseAdapter {
             public void onClick(View view) {
                 Intent intent = new Intent(parent.getContext(), CreateItemForm.class);
                 intent.putExtra("item", item);
+                intent.putExtra("title", "Update item");
                 Toast.makeText(parent.getContext(), "Edit", Toast.LENGTH_LONG).show();
                 parent.getContext().startActivity(intent);
             }

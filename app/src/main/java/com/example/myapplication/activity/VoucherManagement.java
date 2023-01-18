@@ -2,6 +2,8 @@ package com.example.myapplication.activity;
 
 import com.example.myapplication.adapter.CategoryItemAdapter;
 import com.example.myapplication.adapter.VoucherAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 
 import androidx.annotation.NonNull;
@@ -9,6 +11,7 @@ import androidx.annotation.NonNull;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +19,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
@@ -30,10 +34,14 @@ import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class VoucherManagement extends BaseActivity {
-    private ArrayList<Voucher> vouchers = new Vouchers().getVouchers();
+    private ArrayList<Voucher> vouchers;
     private ListView categoryView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
@@ -45,6 +53,8 @@ public class VoucherManagement extends BaseActivity {
     private LinearLayout mask;
     private ImageButton logoutButton;
     private ImageButton viewFeedbackButton;
+    private ProgressBar waitingForItemsDashboard;
+    private VoucherAdapter categoryAdapter;
 
     private View.OnClickListener logOutOnClickButton(){
         return new View.OnClickListener() {
@@ -55,8 +65,9 @@ public class VoucherManagement extends BaseActivity {
             }
         };
     }
-    private void setUpListViewVoucher(){
-        VoucherAdapter categoryAdapter = new VoucherAdapter(this, vouchers);
+
+    private void setUpListViewVoucher(ArrayList<Voucher> vouchers){
+        categoryAdapter = new VoucherAdapter(this, vouchers);
         categoryView.setAdapter(categoryAdapter);
     }
 
@@ -77,7 +88,7 @@ public class VoucherManagement extends BaseActivity {
         logoutButton = findViewById(R.id.logout);
         viewFeedbackButton = findViewById(R.id.viewFeedback);
         categoryView = findViewById(R.id.categoryList);
-
+        waitingForItemsDashboard = findViewById(R.id.waiting_for_items_dashboard);
     }
     private void setUpButton(){
         addButton.setOnClickListener(onClickAddButton());
@@ -119,6 +130,47 @@ public class VoucherManagement extends BaseActivity {
             }
         });
     }
+
+    private void getAllVouchers() {
+        (new APIHandler(VoucherManagement.this)).getRequest("/voucher/view", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                System.out.println(response);
+                JSONArray jsonArray = response.getJSONArray("vouchers");
+                ArrayList<Voucher> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Voucher(object.getString("_id"), object.getString("code"), object.getString("title"), object.getString("description"), object.getString("type"), object.getInt("value")));
+                    }
+
+                    setUpListViewVoucher(itemArrayList);
+                    vouchers = itemArrayList;
+                }
+
+                stopLoading();
+            }
+        });
+    }
+
+    private void stopLoading() {
+        waitingForItemsDashboard.setVisibility(View.GONE);
+        categoryView.setVisibility(View.VISIBLE);
+    }
+
+    private void startLoading() {
+        waitingForItemsDashboard.setVisibility(View.VISIBLE);
+        categoryView.setVisibility(View.GONE);
+    }
+
     private void setUpSearchBtn() {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,6 +224,28 @@ public class VoucherManagement extends BaseActivity {
                 mask.setVisibility(View.GONE);
                 Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
                 deleteNotification.setVisibility(View.INVISIBLE);
+
+//                (new APIHandler(VoucherManagement.this)).deleteRequest(String.format("/voucher/delete/%s", ), new VolleyResponseListener() {
+//                    @Override
+//                    public void onError(String message, int statusCode) {
+//                        System.err.println(message);
+//                        overallError.setText("* " + message);
+//                    }
+//
+//                    @Override
+//                    public void onResponse(JSONObject response) throws JSONException {
+//                        System.out.println(response);
+//                        overallError.setText("Location created successful!");
+//                        overallError.setTextColor(getResources().getColor(R.color.primary_100));
+//                        new Handler().postDelayed(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                finish();
+//                            }
+//                        }, 2000);
+//                    }
+//
+//                });
             }
         };
     }
@@ -186,12 +260,10 @@ public class VoucherManagement extends BaseActivity {
         }
 
         initUIComponent();
-
+        getAllVouchers();
         setUpButton();
         setUpSearchBtn();
-        setUpListViewVoucher();
         setUpBottomNavigation();
-
         deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
 
         actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);

@@ -44,7 +44,7 @@
         android:id="@+id/searchBar"
         layout="@layout/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="56dp"
         android:layout_below="@id/actionBarContainer"
         android:layout_margin="24dp" />
 
@@ -60,7 +60,7 @@
             android:id="@+id/filterCategory"
             layout="@layout/category_filter_box"
             android:layout_width="match_parent"
-            android:layout_height="56dp"
+            android:layout_height="80dp"
             android:layout_toLeftOf="@id/addButton" />
 
         <ImageButton

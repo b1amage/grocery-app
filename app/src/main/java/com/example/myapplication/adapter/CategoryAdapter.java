@@ -23,7 +23,7 @@ public class CategoryAdapter extends BaseAdapter {
         this.context = context;
         this.categoryList = new ArrayList<>(
                 Arrays.asList(
-                        new Category(1, "all", 0),
+                        new Category(1, "all", R.drawable.shop),
                         new Category(2, "vegetable", R.drawable.vegetable),
                         new Category(3, "meat", R.drawable.meat),
                         new Category(4, "fruit", R.drawable.fruit),

@@ -1,7 +1,9 @@
 package com.example.myapplication.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -9,13 +11,22 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.util.Locale;
 
 public class VoucherForm extends BaseActivity {
     private ActionBar voucherFormActionBar = new ActionBar(R.id.voucherFormActionBar, this);
@@ -28,22 +39,39 @@ public class VoucherForm extends BaseActivity {
     private Voucher voucher;
     private EditText inputVoucherValueText;
     private String typeSelection;
-    private Voucher newVoucher;
+    private TextView voucherCodeError;
+    private TextView voucherTitleError;
+    private TextView voucherDescriptionError;
+    private TextView voucherTypeError;
+    private TextView voucherValueError;
+    private TextView overallError;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_voucher_form);
 
-        voucherFormActionBar.createActionBar("Create voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
-        voucherFormButton.createActiveButton("Create", onSubmitFormClick());
+        if (getIntent().getStringExtra("title") == null){
+            voucherFormActionBar.createActionBar("Create voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
+            voucherFormButton.createActiveButton("Create", onSubmitFormClick());
+        } else{
+            voucherFormActionBar.createActionBar("Update voucher", R.drawable.ic_back, R.drawable.navbutton_shape);
+            voucherFormButton.createActiveButton("Update", onSubmitFormClick());
+        }
 
-//        inputItemName.createInput("Item image", 20, R.color.black, "Item name ...");
         inputVoucherCodeText = findViewById(R.id.inputVoucherCodeText);
         inputVoucherTitleText = findViewById(R.id.inputVoucherTitleText);
         inputVoucherDescriptionText = findViewById(R.id.inputVoucherDescriptionText);
         percentageRadio = findViewById(R.id.percentage);
         currencyRadio = findViewById(R.id.currency);
         inputVoucherValueText = findViewById(R.id.inputVoucherValueText);
+
+        voucherCodeError = findViewById(R.id.inputVoucherCodeError);
+        voucherTitleError = findViewById(R.id.inputVoucherTitleError);
+        voucherDescriptionError = findViewById(R.id.inputVoucherDescriptionError);
+        voucherTypeError = findViewById(R.id.inputVoucherTypeError);
+        voucherValueError = findViewById(R.id.inputVoucherValueError);
+        overallError = findViewById(R.id.overallError);
 
         inputVoucherCodeText.addTextChangedListener(getInputValue(inputVoucherCodeText));
         inputVoucherTitleText.addTextChangedListener(getInputValue(inputVoucherTitleText));
@@ -112,10 +140,96 @@ public class VoucherForm extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                newVoucher = new Voucher(voucher.get_id(), inputVoucherCodeText.getText().toString(), inputVoucherTitleText.getText().toString(), inputVoucherDescriptionText.getText().toString(), typeSelection,Integer.parseInt(String.valueOf(inputVoucherValueText.getText())));
-                Toast.makeText(VoucherForm.this, newVoucher.toString(), Toast.LENGTH_LONG).show();
-                finish();
+                boolean hasError = false;
+
+                voucherCodeError.setText("");
+                voucherTitleError.setText("");
+                voucherDescriptionError.setText("");
+                voucherTypeError.setText("");
+                voucherValueError.setText("");
+                overallError.setText("");
+
+                if (inputVoucherCodeText.getText().toString().isEmpty()){
+                    voucherCodeError.setText("* Please provide a code");
+                    hasError = true;
+                }
+                if (inputVoucherTitleText.getText().toString().isEmpty()) {
+                    voucherTitleError.setText("* Please provide voucher title");
+                    hasError = true;
+                }
+                if (inputVoucherDescriptionText.getText().toString().isEmpty()) {
+                    voucherDescriptionError.setText("* Please provide a description");
+                    hasError = true;
+                }
+
+                if (typeSelection == null) {
+                    voucherTypeError.setText("* Please provide a voucher type");
+                    hasError = true;
+                }
+
+                if (inputVoucherValueText.getText().toString().isEmpty() || !isInteger(inputVoucherValueText.getText().toString())){
+                    voucherValueError.setText("* Please provide voucher value");
+                    hasError = true;
+                } else{
+                    if (typeSelection.equalsIgnoreCase("percentage")){
+                        if ((Integer.parseInt(String.valueOf(inputVoucherValueText.getText())) <= 0 || Integer.parseInt(String.valueOf(inputVoucherValueText.getText())) > 100)) {
+                            voucherValueError.setText("* Value must be higher than 0 and lower 100");
+                            hasError = true;
+                        }
+                    } else {
+                        if (Integer.parseInt(String.valueOf(inputVoucherValueText.getText())) <= 0) {
+                            voucherValueError.setText("* Value must be higher than 0");
+                            hasError = true;
+                        }
+                    }
+                }
+
+                if (hasError){
+                     return;
+                }
+
+                JSONObject postData = new JSONObject();
+                try {
+                    postData.put("code", inputVoucherCodeText.getText().toString().toUpperCase());
+                    postData.put("title", inputVoucherTitleText.getText().toString());
+                    postData.put("description", inputVoucherDescriptionText.getText().toString());
+                    postData.put("type", typeSelection.toLowerCase());
+                    postData.put("value", Integer.parseInt(String.valueOf(inputVoucherValueText.getText())));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                (new APIHandler(VoucherForm.this)).postRequest(postData, "/voucher/create", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        System.err.println(message);
+                        overallError.setText("* " + message);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        System.out.println(response);
+                        overallError.setText("Voucher created successful!");
+                        overallError.setTextColor(getResources().getColor(R.color.primary_100));
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                finish();
+                            }
+                        }, 2000);
+                    }
+
+                });
             }
         };
+    }
+
+    private boolean isInteger(String s) {
+        try {
+            Integer.parseInt(s);
+        } catch(NumberFormatException | NullPointerException e) {
+            return false;
+        }
+        // only got here if we didn't return false
+        return true;
     }
 }
