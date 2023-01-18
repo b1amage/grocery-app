@@ -54,7 +54,7 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
         ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.voucher);
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(voucher.getCode());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(voucher.getDescription());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? "$" + voucher.getValue() : voucher.getValue() + "VND");
+        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? voucher.getValue() + "%" : voucher.getValue() + "VND");
 
         edit = listItemView.findViewById(R.id.editButton);
         edit.setOnClickListener(new View.OnClickListener() {

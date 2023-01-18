@@ -1,18 +1,19 @@
 package com.example.myapplication.model;
 
-public class User {
+public class Customer {
     private String _id;
     private String username;
     private String email;
     private String phone;
     private String address;
-    private String password;
+    private String role;
 
-    public User(String _id, String username, String email, String phone, String address) {
+    public Customer(String _id, String username, String email, String phone, String role, String address) {
         this._id = _id;
         this.username = username;
         this.email = email;
         this.phone = phone;
+        this.role = role;
         this.address = address;
     }
 
@@ -28,39 +29,39 @@ public class User {
         return username;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
     }
 
     public void setEmail(String email) {
         this.email = email;
     }
 
+    public String getPhone() {
+        return phone;
+    }
+
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
     }
 
     public void setAddress(String address) {
         this.address = address;
     }
 
-    public void setPassword(String password) {
-        this.password = password;
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

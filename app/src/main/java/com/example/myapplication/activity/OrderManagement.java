@@ -11,27 +11,32 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.OrderAdapter;
-import com.example.myapplication.adapter.VoucherAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
-//import com.example.myapplication.components.FilterCategory;
-import com.example.myapplication.content.Categories;
-import com.example.myapplication.content.Orders;
+import com.example.myapplication.model.Customer;
+import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Order;
-import com.example.myapplication.model.Voucher;
+import com.example.myapplication.model.OrderItem;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.io.Serializable;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class OrderManagement extends BaseActivity {
-    private ArrayList<Order> orders = new Orders().getOrders();
+    private ArrayList<Order> orders;
     private ListView ordersView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
@@ -42,6 +47,8 @@ public class OrderManagement extends BaseActivity {
 
     private EditText searchBox;
     private ImageButton searchButton;
+
+    private ProgressBar waitingForItemsDashboard;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,6 +57,8 @@ public class OrderManagement extends BaseActivity {
         if (getSupportActionBar() != null){
             getSupportActionBar().hide();
         }
+
+        waitingForItemsDashboard = findViewById(R.id.waiting_for_items_dashboard);
 
         searchBox = findViewById(R.id.searchBox);
         searchButton = findViewById(R.id.searchButton);
@@ -72,8 +81,8 @@ public class OrderManagement extends BaseActivity {
         });
 
         ordersView = findViewById(R.id.categoryList);
-        OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
-        ordersView.setAdapter(categoryAdapter);
+
+        getAllOrders();
         ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
@@ -127,6 +136,71 @@ public class OrderManagement extends BaseActivity {
                 return false;
             }
         });
+    }
+
+
+    private void getAllOrders() {
+        (new APIHandler(OrderManagement.this)).getRequest("/order/view?isFulfilled=false", new VolleyResponseListener() {
+            @Override
+            public void onError(String message, int statusCode) {
+                System.out.println(message);
+            }
+
+            @Override
+            public void onResponse(JSONObject response) throws JSONException {
+                System.out.println(response);
+                JSONArray jsonArray = response.getJSONArray("orders");
+                ArrayList<Order> itemArrayList = new ArrayList<>();
+
+                if (jsonArray != null) {
+                    for (int i = 0; i < jsonArray.length(); i++){
+                        JSONObject object = jsonArray.getJSONObject(i);
+                        JSONObject customerObject = object.getJSONObject("customer");
+                        JSONArray orderItems = object.getJSONArray("orderItems");
+                        JSONArray vouchersApplied = object.getJSONArray("voucherApplied");
+
+                        Customer customer = new Customer(customerObject.getString("_id"), customerObject.getString("username"), customerObject.getString("email"), customerObject.getString("phone"), customerObject.getString("role"), customerObject.getString("address"));
+                        List<OrderItem>  orderItemList = new ArrayList<>();
+                        List<String> voucherAppliedList = new ArrayList<>();
+
+                        for (int j = 0; j < orderItems.length(); j++){
+                            JSONObject orderItemObject = orderItems.getJSONObject(j);
+                            JSONObject itemObject = orderItemObject.getJSONObject("item");
+
+                            Item item = new Item(itemObject.getString("_id"), itemObject.getString("name"), "", itemObject.getInt("price"), itemObject.getString("category"), itemObject.getString("image"), itemObject.getInt("quantity"));
+                            orderItemList.add(new OrderItem(orderItemObject.getString("_id"), orderItemObject.getInt("quantity"), item));
+                        }
+
+                        for (int j = 0; j < vouchersApplied.length(); j++){
+                            voucherAppliedList.add(vouchersApplied.getString(j));
+                        }
+
+                        System.out.println("object" + object);
+                        itemArrayList.add(new Order(object.getString("_id"), customer, orderItemList, object.getInt("subTotal"), object.getInt("convertedPoints"), voucherAppliedList, object.getInt("discount"), object.getInt("total"), object.getBoolean("isFulfilled")));
+                    }
+
+                    setUpListViewOrders(itemArrayList);
+                    orders = itemArrayList;
+                }
+
+                stopLoading();
+            }
+        });
+    }
+
+    private void setUpListViewOrders(ArrayList<Order> orders){
+        OrderAdapter categoryAdapter = new OrderAdapter(this, orders);
+        ordersView.setAdapter(categoryAdapter);
+    }
+
+    private void stopLoading() {
+        waitingForItemsDashboard.setVisibility(View.GONE);
+        ordersView.setVisibility(View.VISIBLE);
+    }
+
+    private void startLoading() {
+        waitingForItemsDashboard.setVisibility(View.VISIBLE);
+        ordersView.setVisibility(View.GONE);
     }
 
     private void setUpSearchBtn() {
