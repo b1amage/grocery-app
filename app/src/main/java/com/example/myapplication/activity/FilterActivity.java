@@ -41,6 +41,7 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
     private String nextCursor = "";
     private String categorySelected = "dairy";
     private ImageButton backBtn;
+    private ItemAdapter itemAdapter;
 
     private void initUIComponents() {
         spinner = findViewById(R.id.filter_spinner);
@@ -61,7 +62,7 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
     }
 
     private void setUpListView(List<Item> itemList) {
-        ItemAdapter itemAdapter = new ItemAdapter(itemList);
+        itemAdapter = new ItemAdapter(itemList);
         listView.setAdapter(itemAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -144,7 +145,7 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
                         items.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
-                    setUpListView(items);
+                    itemAdapter.updateResults(items);
                 }
             }
         });
@@ -158,8 +159,14 @@ public class FilterActivity extends AppCompatActivity implements CustomSpinner.O
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(FilterActivity.this, ((Category) spinner.getSelectedItem()).getCategoryName(), Toast.LENGTH_SHORT).show();
-                getAllItems(String.format("/item/view?category=%s", ((Category) spinner.getSelectedItem()).getCategoryName()));
+                String category = ((Category) spinner.getSelectedItem()).getCategoryName();
+                String endpoint = "";
+                if (category.equals("all")) {
+                    endpoint = "/item/view";
+                } else {
+                    endpoint = String.format("/item/view?category=%s", category);
+                }
+                getAllItems(endpoint);
             }
 
             @Override
