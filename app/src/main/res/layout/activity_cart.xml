@@ -46,145 +46,56 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/cart_list_view"
-        android:layout_marginTop="24dp"
+        android:layout_height="220dp"
         android:background="@drawable/gradient_bg"
-        android:padding="20dp">
+        android:layout_alignParentBottom="true"
+        android:padding="16dp">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_sub_total_ctn">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cart_sub_total_txt"
-                android:text="Subtotal"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cart_sub_total_txt"
-                android:id="@+id/cart_sub_total"
-                android:text="$12"
-                android:textColor="@color/white"
-                android:layout_marginLeft="200dp"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_delivery_fee_ctn"
-            android:layout_below="@id/cart_sub_total_ctn"
-            android:layout_marginTop="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cart_delivery_fee_txt"
-                android:text="Delivery"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cart_delivery_fee_txt"
-                android:id="@+id/cart_delivery_fee"
-                android:text="$12"
-                android:textColor="@color/white"
-                android:layout_marginLeft="205dp"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/cart_discount_ctn"
-            android:layout_below="@id/cart_delivery_fee_ctn"
-            android:layout_marginTop="4dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cart_discount_txt"
-                android:text="Discount"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cart_discount_txt"
-                android:id="@+id/cart_discount"
-                android:text="$12"
-                android:textColor="@color/white"
-                android:layout_marginLeft="198dp"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-        </RelativeLayout>
-
-        <View
+        <EditText
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/white"
-            android:layout_below="@id/cart_discount_ctn"
-            android:layout_marginTop="8dp"
-            android:id="@+id/cart_line"/>
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/cart_total_ctn"
-            android:layout_below="@id/cart_line"
-            android:layout_marginTop="12dp">
+            android:hint="Voucher code"
+            android:id="@+id/voucher_edt"
+            android:background="@color/neutral"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="10dp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/cart_total_txt"
-                android:text="Total"
-                android:textColor="@color/white"
-                android:textSize="16dp"
-                android:layout_centerVertical="true" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/cart_total_txt"
-                android:id="@+id/cart_total"
-                android:text="$12"
-                android:textColor="@color/white"
-                android:layout_marginLeft="225dp"
-                android:textStyle="bold"
-                android:textSize="20dp"/>
-        </RelativeLayout>
-
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Point"
+            android:text="0"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/voucher_edt"
+            android:id="@+id/point_edt"
+            android:background="@color/neutral"
+            android:paddingVertical="8dp"
+            android:paddingHorizontal="10dp"/>
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="1200000"
+            android:layout_below="@+id/point_edt"
+            android:layout_marginTop="10dp"
+            android:textSize="20dp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:id="@+id/preview_price"/>
+
+        <Button
             android:textAlignment="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/cart_total_ctn"
+            android:layout_alignParentBottom="true"
             android:layout_marginTop="8dp"
             android:textSize="16dp"
+            android:id="@+id/order_btn"
             android:text="Place my order"
             android:paddingVertical="12dp"
-            android:textColor="@color/primary_100"
-            android:backgroundTint="@color/white"
-            android:background="@drawable/cart_btn"/>
-
-
+            android:textColor="@color/white"
+            android:backgroundTint="@color/secondary"/>
     </RelativeLayout>
+
 
 </RelativeLayout>

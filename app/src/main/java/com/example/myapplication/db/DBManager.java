@@ -42,6 +42,15 @@ public class DBManager {
         database.close();
     }
 
+    public int getSubTotal() {
+        open();
+        List<Item> items = fetchItemsFromCart();
+        int subTotal = 0;
+        for (Item item : items) subTotal += item.getPrice() * item.getQuantity();
+        database.close();
+        return subTotal;
+    }
+
     public void deleteItemFromCart(Item item) {
         open();
         database.delete(DatabaseHelper.TABLE_NAME, DatabaseHelper._id + "=?" , new String[]{item.get_id()});
