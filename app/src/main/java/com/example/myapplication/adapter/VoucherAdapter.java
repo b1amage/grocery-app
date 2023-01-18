@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -37,8 +38,7 @@ import android.os.Handler;
 
 public class VoucherAdapter extends ArrayAdapter<Voucher> {
 
-    private ImageView edit;
-    private LinearLayout deleteLayout;
+    private ImageButton deleteButton;
     private RelativeLayout deleteNotification;
     private LinearLayout mask;
 
@@ -54,38 +54,36 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
         View listItemView = convertView;
         if (listItemView == null) {
             // Layout Inflater inflates each item to be displayed in GridView.
-            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.category_card, parent, false);
+            listItemView = LayoutInflater.from(getContext()).inflate(R.layout.order_card, parent, false);
         }
 
         mask.setVisibility(View.INVISIBLE);
 
         Voucher voucher = (Voucher) getItem(position);
 
-        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(R.drawable.voucher);
-        ((TextView) listItemView.findViewById(R.id.itemName)).setText(voucher.getCode());
-        ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(voucher.getDescription());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(voucher.getType().equals("percentage") ? voucher.getValue() + "%" : voucher.getValue() + "VND");
+        ((TextView) listItemView.findViewById(R.id.orderTitle)).setText(voucher.getCode());
+        ((TextView) listItemView.findViewById(R.id.description)).setVisibility(View.VISIBLE);
+        ((TextView) listItemView.findViewById(R.id.description)).setText(voucher.getDescription());
+        ((TextView) listItemView.findViewById(R.id.orderPrice)).setText(voucher.getType().equals("percentage") ? voucher.getValue() + "%" : voucher.getValue() + "VND");
 
-        edit = listItemView.findViewById(R.id.editButton);
-        edit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getContext(), VoucherForm.class);
-                intent.putExtra("voucher", voucher);
-                intent.putExtra("title", "Update voucher");
-                Toast.makeText(getContext(), "Edit", Toast.LENGTH_LONG).show();
-                getContext().startActivity(intent);
-            }
-        });
-
-        deleteLayout = listItemView.findViewById(R.id.delete);
-        deleteLayout.setOnClickListener(new View.OnClickListener() {
+        deleteButton = listItemView.findViewById(R.id.deleteButton);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mask.setVisibility(View.VISIBLE);
                 deleteNotification.setVisibility(View.VISIBLE);
-                LinearLayout deleteButton = deleteNotification.findViewById(R.id.deleteButton);
 
+                LinearLayout cancelButton = deleteNotification.findViewById(R.id.cancelButton);
+                cancelButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        mask.setVisibility(View.INVISIBLE);
+                        deleteNotification.setVisibility(View.INVISIBLE);
+//                Toast.makeText(getContext(), order.toString(), Toast.LENGTH_LONG).show();
+                    }
+                });
+
+                LinearLayout deleteButton = deleteNotification.findViewById(R.id.deleteButton);
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -100,12 +98,7 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
                             @Override
                             public void onResponse(JSONObject response) throws JSONException {
                                 System.out.println(response);
-                                new Handler().postDelayed(new Runnable() {
-                                    @Override
-                                    public void run() {
-                                        getContext().startActivity(new Intent(getContext(), VoucherManagement.class));
-                                    }
-                                }, 2000);
+                                getContext().startActivity(new Intent(getContext(), VoucherManagement.class));
                             }
 
                         });

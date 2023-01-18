@@ -1,6 +1,8 @@
 package com.example.myapplication.model;
 
-public class Customer {
+import java.io.Serializable;
+
+public class Customer implements Serializable {
     private String _id;
     private String username;
     private String email;

@@ -83,16 +83,6 @@ public class OrderManagement extends BaseActivity {
         ordersView = findViewById(R.id.categoryList);
 
         getAllOrders();
-        ordersView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Order order = (Order) ordersView.getItemAtPosition(i);
-                Intent intent = new Intent(getApplicationContext(), OrderDetailsActivity.class);
-                intent.putExtra("order", order);
-                System.out.println(order);
-                startActivity(intent);
-            }
-        });
 
         ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
         viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
@@ -113,22 +103,18 @@ public class OrderManagement extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.items:
-                        Toast.makeText(getApplicationContext(), "Items", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.vouchers:
-                        Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
-                        Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
-                        Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;

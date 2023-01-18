@@ -86,5 +86,14 @@
         app:menu="@menu/admin_dashboard_menu"
 
         />
+
+    <LinearLayout
+        android:id="@+id/ll_mask"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/transparent"
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:visibility="invisible" />
     <include layout="@layout/delete_bottom_sheet"  android:id="@+id/deleteNotification" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_above="@+id/bottomNav" />
 </RelativeLayout>
