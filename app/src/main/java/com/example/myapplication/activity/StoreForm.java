@@ -11,7 +11,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
@@ -119,9 +118,6 @@ public class StoreForm extends BaseActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-//                                newLocation = new Location(address, addresses.get(0).getLatitude(), addresses.get(0).getLongitude());
-//                                Toast.makeText(StoreForm.this, newLocation.toString(), Toast.LENGTH_LONG).show();
-
                                 JSONObject postData = new JSONObject();
                                 try {
                                     postData.put("address", address);

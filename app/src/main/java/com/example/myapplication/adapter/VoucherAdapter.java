@@ -79,7 +79,6 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
                     public void onClick(View view) {
                         mask.setVisibility(View.INVISIBLE);
                         deleteNotification.setVisibility(View.INVISIBLE);
-//                Toast.makeText(getContext(), order.toString(), Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -87,7 +86,6 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Toast.makeText(getContext(), voucher.toString(), Toast.LENGTH_LONG).show();
                         (new APIHandler(getContext())).deleteRequest("/voucher/delete", voucher.get_id(), new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {

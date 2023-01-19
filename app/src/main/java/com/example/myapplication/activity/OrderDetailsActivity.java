@@ -73,7 +73,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Cancel Order", Toast.LENGTH_LONG).show();
+
             }
         };
     }
@@ -82,7 +82,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Complete Order", Toast.LENGTH_LONG).show();
                 JSONObject orderObject = new JSONObject();
                 try {
                     orderObject.put("order", order);

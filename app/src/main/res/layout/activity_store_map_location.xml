@@ -3,13 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:map="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
 
     <include layout="@layout/action_bar" android:id="@+id/storeInformationActionBar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="24dp" android:layout_marginBottom="24dp" />
 
     <fragment
         android:id="@+id/map"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_below="@+id/storeInformationActionBar"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"

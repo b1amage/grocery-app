@@ -8,25 +8,19 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.myapplication.R;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
-import com.example.myapplication.model.Item;
 import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.Locale;
 
 public class VoucherForm extends BaseActivity {
     private ActionBar voucherFormActionBar = new ActionBar(R.id.voucherFormActionBar, this);

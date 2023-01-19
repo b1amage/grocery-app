@@ -32,6 +32,7 @@ import com.example.myapplication.model.Order;
 import com.example.myapplication.model.Voucher;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.ColorTransparentUtils;
+import com.example.myapplication.utilities.CookieManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import org.json.JSONArray;
@@ -43,11 +44,9 @@ import java.util.ArrayList;
 
 public class LocationManagement extends BaseActivity {
     private ArrayList<Location> locations = new ArrayList<>();
-//    private String[] categories = new Categories().getLocations();
     private ListView locationsView;
     private ImageButton addButton;
     private ActionBar actionBar = new ActionBar(R.id.actionBar, this);
-//    private FilterCategory filterCategory = new FilterCategory(categories, this, R.layout.category_item);
     private Button cancelButton = new Button(R.id.cancelButton, this);
     private Button deleteButton = new Button(R.id.deleteButton, this);
     private RelativeLayout deleteNotification;
@@ -93,19 +92,33 @@ public class LocationManagement extends BaseActivity {
                 });
             }
         });
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
+        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
 
         deleteNotification = findViewById(R.id.deleteNotification);
         deleteNotification.setBackgroundColor(Color.parseColor(ColorTransparentUtils.transparentColor(R.color.black,70)));
 
         addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(onClickAddButton());
-        actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
+
+        String role = (new CookieManager(getApplicationContext())).getRole();
+        if (role.equals("customer")) {
+            actionBar.createActionBar("Location", R.drawable.ic_back, R.drawable.navbutton_shape);
+            bottomNavigationView.setVisibility(View.GONE);
+            viewFeedbackButton.setVisibility(View.GONE);
+            logoutButton.setVisibility(View.GONE);
+            addButton.setVisibility(View.GONE);
+        } else if (role.equals("staff")) {
+            actionBar.createActionBar("Dashboard", R.drawable.logo_icon, 0);
+            bottomNavigationView.setVisibility(View.VISIBLE);
+            viewFeedbackButton.setVisibility(View.VISIBLE);
+            logoutButton.setVisibility(View.VISIBLE);
+            addButton.setVisibility(View.VISIBLE);
+        }
 
         locationsView = findViewById(R.id.categoryList);
         setUpListViewLocation(locations);
 
-//        filterCategory.selectCategory();
-        ImageButton viewFeedbackButton = findViewById(R.id.viewFeedback);
         viewFeedbackButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,29 +129,24 @@ public class LocationManagement extends BaseActivity {
         cancelButton.createInactiveButton("Cancel", onClickCancelButton());
         deleteButton.createActiveButton("Yes, delete", onClickDeleteButton());
 
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
         bottomNavigationView.setSelectedItemId(R.id.store);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.items:
-
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.vouchers:
-
                         startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
-
                         startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
-
                         startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -239,9 +247,7 @@ public class LocationManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mask.setVisibility(View.GONE);
-//                deleteNotification.setVisibility(View.INVISIBLE);
-//                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+
             }
         };
     }
