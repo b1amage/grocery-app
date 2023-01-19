@@ -75,8 +75,19 @@ public class OrderManagement extends BaseActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
+                (new APIHandler(getApplicationContext())).logoutRequest("/auth/logout", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -237,8 +248,8 @@ public class OrderManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                deleteNotification.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+//                deleteNotification.setVisibility(View.INVISIBLE);
+//                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -247,7 +258,7 @@ public class OrderManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
             }
         };
     }

@@ -221,6 +221,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
             }
         });
     }
+
     private void setUpBottomNavigation(){
         bottomNavigationView.setSelectedItemId(R.id.items);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -228,22 +229,18 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.items:
-                        Toast.makeText(getApplicationContext(), "Items", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.vouchers:
-                        Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
-                        Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
-                        Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;

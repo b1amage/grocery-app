@@ -60,8 +60,19 @@ public class VoucherManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
+                (new APIHandler(getApplicationContext())).logoutRequest("/auth/logout", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         };
     }
@@ -106,22 +117,18 @@ public class VoucherManagement extends BaseActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.items:
-                        Toast.makeText(getApplicationContext(), "Items", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), Dashboard.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.vouchers:
-                        Toast.makeText(getApplicationContext(), "Vouchers", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.orders:
-                        Toast.makeText(getApplicationContext(), "Orders", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), OrderManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.store:
-                        Toast.makeText(getApplicationContext(), "Locations", Toast.LENGTH_LONG).show();
                         startActivity(new Intent(getApplicationContext(), LocationManagement.class));
                         overridePendingTransition(0, 0);
                         return true;
@@ -210,9 +217,9 @@ public class VoucherManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mask.setVisibility(View.GONE);
-                deleteNotification.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+//                mask.setVisibility(View.GONE);
+//                deleteNotification.setVisibility(View.INVISIBLE);
+//                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -221,31 +228,9 @@ public class VoucherManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mask.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
-                deleteNotification.setVisibility(View.INVISIBLE);
-
-//                (new APIHandler(VoucherManagement.this)).deleteRequest(String.format("/voucher/delete/%s", ), new VolleyResponseListener() {
-//                    @Override
-//                    public void onError(String message, int statusCode) {
-//                        System.err.println(message);
-//                        overallError.setText("* " + message);
-//                    }
-//
-//                    @Override
-//                    public void onResponse(JSONObject response) throws JSONException {
-//                        System.out.println(response);
-//                        overallError.setText("Location created successful!");
-//                        overallError.setTextColor(getResources().getColor(R.color.primary_100));
-//                        new Handler().postDelayed(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                finish();
-//                            }
-//                        }, 2000);
-//                    }
-//
-//                });
+//                mask.setVisibility(View.GONE);
+//                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
+//                deleteNotification.setVisibility(View.INVISIBLE);
             }
         };
     }

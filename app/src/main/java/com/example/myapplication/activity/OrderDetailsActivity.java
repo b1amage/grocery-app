@@ -1,9 +1,12 @@
 package com.example.myapplication.activity;
 
 import com.example.myapplication.adapter.OrderItemAdapter;
+import com.example.myapplication.api.APIHandler;
+import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.components.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -16,9 +19,11 @@ import com.example.myapplication.model.OrderItem;
 import com.example.myapplication.utilities.Button;
 import com.example.myapplication.utilities.CookieManager;
 
-public class OrderDetailsActivity extends AppCompatActivity {
+import org.json.JSONException;
+import org.json.JSONObject;
 
-//    OrderItem[] orders = new OrderItem[]{ new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2), new OrderItem("Items", 2)};
+public class OrderDetailsActivity extends AppCompatActivity {
+    private Order order;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +40,7 @@ public class OrderDetailsActivity extends AppCompatActivity {
             completeOrderButton.createInactiveButton("Complete",onClickCompleteOrder());
         }
 
-        Order order = (Order) getIntent().getSerializableExtra("order");
+        order = (Order) getIntent().getSerializableExtra("order");
 
         OrderItemAdapter orderItemAdapter = new OrderItemAdapter(getApplicationContext(), order.getOrderItems());
         ListView orderItemListView = findViewById(R.id.orderItemList);
@@ -71,6 +76,26 @@ public class OrderDetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getApplicationContext(), "Complete Order", Toast.LENGTH_LONG).show();
+                JSONObject orderObject = new JSONObject();
+                try {
+                    orderObject.put("order", order);
+                    (new APIHandler(OrderDetailsActivity.this)).updateRequest(orderObject,"/order/fulfill/" + order.get_id(), new VolleyResponseListener() {
+                        @Override
+                        public void onError(String message, int statusCode) {
+                            System.err.println(message);
+                            startActivity(new Intent(OrderDetailsActivity.this, SignInActivity.class));
+                        }
+
+                        @Override
+                        public void onResponse(JSONObject response) throws JSONException {
+                            System.out.println(response);
+                            startActivity(new Intent(OrderDetailsActivity.this, OrderManagement.class));
+                        }
+
+                    });
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         };
     }
