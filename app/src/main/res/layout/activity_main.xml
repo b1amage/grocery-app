@@ -124,6 +124,16 @@
                 android:id="@+id/main_filter_btn"
                 android:layout_weight=".5"/>
 
+            <ImageButton
+                android:background="@drawable/rounded"
+                android:backgroundTint="@color/primary_10"
+                android:layout_height="50dp"
+                android:layout_width="50dp"
+                android:id="@+id/btn_to_location"
+                android:src="@drawable/location"
+                android:layout_marginLeft="8dp"
+                android:layout_weight=".5"/>
+
         </LinearLayout>
 
 
