@@ -16,21 +16,23 @@
 
 ### Contributors
 - Supervisor: Mr. Minh Vu Thanh
-- Contributor: Nguyen Luu Quoc Bao (s3877698)
-- Contributor: Dao Kha Tuan (s3877347)
-- Contributor: Bui Quang An (s3877482)
-- Contributor: Trieu Hoang Khang (s3878466)
+- Contributor: Nguyen Luu Quoc Bao (s3877698) -> 25%
+- Contributor: Dao Kha Tuan (s3877347) -> 25%
+- Contributor: Bui Quang An (s3877482) -> 25%
+- Contributor: Trieu Hoang Khang (s3878466) -> 25%
 
 ### Project Information
 - Project name: GRMIT Application
 - Purpose: Shopping
-- Functionalities: Get user initial information (name, age, body indexes, gender, goal), Calculate the time working out (various kind of sport), Calculate calories in (meal recommendation), Calculate BMI, TDEE.
-- Technologies used: Java (jdk16)
+- Functionalities: View items, view items detail, sign in, sign up, forgot&reset password, place order, filter item, add to cart, search item, CRUD item, dashboard CMS
+- Technologies used: Java (jdk16), SQLite, Picasso, MongoDB, NodeJS, ExpressJS, Restful API, Volley, Google Map, Json Web Token, Shimmer, Service, Broadcase Receiver
 
 
 - Project started date: 8 December 2022
 - Project finished date: 20 January 2023
     
+### Known bug
+No known bug found
 
 ### To Run
 - Run the SplashActivity
