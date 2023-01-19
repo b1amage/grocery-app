@@ -38,6 +38,7 @@ public class OTPActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+        button_goback = (ImageButton) findViewById(R.id.button_goback);
         code1 = findViewById(R.id.code1);
         code2 = findViewById(R.id.code2);
         code3 = findViewById(R.id.code3);
