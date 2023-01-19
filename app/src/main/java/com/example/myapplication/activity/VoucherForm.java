@@ -213,7 +213,7 @@ public class VoucherForm extends BaseActivity {
                         new Handler().postDelayed(new Runnable() {
                             @Override
                             public void run() {
-                                finish();
+                                startActivity(new Intent(getApplicationContext(), VoucherManagement.class));
                             }
                         }, 2000);
                     }

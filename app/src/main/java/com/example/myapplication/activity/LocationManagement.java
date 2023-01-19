@@ -55,7 +55,6 @@ public class LocationManagement extends BaseActivity {
     private EditText searchBox;
     private ImageButton searchButton;
 
-    private LinearLayout mask;
     private ProgressBar waitingForItemsDashboard;
 
     @Override
@@ -67,7 +66,6 @@ public class LocationManagement extends BaseActivity {
             getSupportActionBar().hide();
         }
 
-        mask = findViewById(R.id.ll_mask);
         waitingForItemsDashboard = findViewById(R.id.waiting_for_items_dashboard);
 
         searchBox = findViewById(R.id.searchBox);
@@ -80,8 +78,19 @@ public class LocationManagement extends BaseActivity {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
-                startActivity(intent);
+                (new APIHandler(getApplicationContext())).logoutRequest("/auth/logout", new VolleyResponseListener() {
+                    @Override
+                    public void onError(String message, int statusCode) {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onResponse(JSONObject response) throws JSONException {
+                        Intent intent = new Intent(getApplicationContext(), SignInActivity.class);
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -230,9 +239,9 @@ public class LocationManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mask.setVisibility(View.GONE);
-                deleteNotification.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+//                mask.setVisibility(View.GONE);
+//                deleteNotification.setVisibility(View.INVISIBLE);
+//                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -241,9 +250,9 @@ public class LocationManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mask.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
-                deleteNotification.setVisibility(View.INVISIBLE);
+//                mask.setVisibility(View.GONE);
+//                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
+//                deleteNotification.setVisibility(View.INVISIBLE);
             }
         };
     }

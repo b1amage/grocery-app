@@ -1,5 +1,6 @@
 package com.example.myapplication.activity;
 
+import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
 import android.location.Address;
 import android.location.Geocoder;
@@ -145,7 +146,8 @@ public class StoreForm extends BaseActivity {
                                         new Handler().postDelayed(new Runnable() {
                                             @Override
                                             public void run() {
-                                                finish();
+
+                                                startActivity(new Intent(StoreForm.this, LocationManagement.class));
                                             }
                                         }, 2000);
                                     }

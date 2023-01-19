@@ -64,7 +64,7 @@ public class VoucherAdapter extends ArrayAdapter<Voucher> {
         ((TextView) listItemView.findViewById(R.id.orderTitle)).setText(voucher.getCode());
         ((TextView) listItemView.findViewById(R.id.description)).setVisibility(View.VISIBLE);
         ((TextView) listItemView.findViewById(R.id.description)).setText(voucher.getDescription());
-        ((TextView) listItemView.findViewById(R.id.orderPrice)).setText(voucher.getType().equals("percentage") ? voucher.getValue() + "%" : voucher.getValue() + "VND");
+        ((TextView) listItemView.findViewById(R.id.orderPrice)).setText(voucher.getType().equals("percentage") ? voucher.getValue() + " %" : voucher.getValue() + " VND");
 
         deleteButton = listItemView.findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
