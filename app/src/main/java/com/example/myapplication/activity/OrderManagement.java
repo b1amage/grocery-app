@@ -205,7 +205,6 @@ public class OrderManagement extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String query = searchBox.getText().toString();
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
 
                 ArrayList<Order> itemArrayList = new ArrayList<>();
 
@@ -213,7 +212,7 @@ public class OrderManagement extends BaseActivity {
                     itemArrayList.addAll(orders);
                 } else{
                     for (Order o : orders){
-                        if (o.get_id().toLowerCase().contains(query.toLowerCase())){
+                        if (o.getCustomer().getUsername().toLowerCase().contains(query.toLowerCase())){
                             itemArrayList.add(o);
                         }
                     }
