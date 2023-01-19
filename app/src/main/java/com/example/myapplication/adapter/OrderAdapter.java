@@ -59,7 +59,7 @@ public class OrderAdapter extends ArrayAdapter<Order> {
 
         Order order = (Order) getItem(position);
 
-        ((TextView) listItemView.findViewById(R.id.orderTitle)).setText("Order from " + order.getCustomer().getUsername());
+        ((TextView) listItemView.findViewById(R.id.orderTitle)).setText(order.getCustomer().getUsername());
         ((TextView) listItemView.findViewById(R.id.description)).setVisibility(View.VISIBLE);
         ((TextView) listItemView.findViewById(R.id.description)).setText("ID: " + order.get_id());
         ((TextView) listItemView.findViewById(R.id.orderPrice)).setText(order.getTotal() + " " + "VND");

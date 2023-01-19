@@ -183,7 +183,6 @@ public class VoucherManagement extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String query = searchBox.getText().toString();
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
 
                 ArrayList<Voucher> itemArrayList = new ArrayList<>();
 
@@ -191,7 +190,7 @@ public class VoucherManagement extends BaseActivity {
                     itemArrayList.addAll(vouchers);
                 } else{
                     for (Voucher v : vouchers){
-                        if (v.getCode().toLowerCase().contains(query.toLowerCase()) || v.getTitle().toLowerCase().contains(query.toLowerCase())){
+                        if (v.getCode().toLowerCase().contains(query.toLowerCase())){
                             itemArrayList.add(v);
                         }
                     }
@@ -217,9 +216,7 @@ public class VoucherManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mask.setVisibility(View.GONE);
-//                deleteNotification.setVisibility(View.INVISIBLE);
-//                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
+
             }
         };
     }
@@ -228,9 +225,7 @@ public class VoucherManagement extends BaseActivity {
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                mask.setVisibility(View.GONE);
-//                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
-//                deleteNotification.setVisibility(View.INVISIBLE);
+
             }
         };
     }
