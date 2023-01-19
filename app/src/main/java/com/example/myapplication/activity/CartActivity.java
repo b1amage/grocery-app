@@ -149,8 +149,7 @@ public class CartActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(CartActivity.this, MainActivity.class);
-                setResult(RESULT_OK, intent);
-                finish();
+                startActivity(intent);
             }
         });
     }
