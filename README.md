@@ -24,7 +24,7 @@
 ### Project Information
 - Project name: GRMIT Application
 - Purpose: Shopping
-- Functionalities: View items, view items detail, sign in, sign up, forgot&reset password, place order, filter item, add to cart, search item, CRUD item, dashboard CMS
+- Functionalities: View items, view items detail, sign in, sign up, forgot&reset password, place order, filter item, add to cart, search item, CRUD item, dashboard CMS, goole map location
 - Technologies used: Java (jdk16), SQLite, Picasso, MongoDB, NodeJS, ExpressJS, Restful API, Volley, Google Map, Json Web Token, Shimmer, Service, Broadcase Receiver
 
 
