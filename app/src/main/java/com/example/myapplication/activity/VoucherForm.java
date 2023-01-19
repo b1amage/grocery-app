@@ -201,6 +201,11 @@ public class VoucherForm extends BaseActivity {
                 (new APIHandler(VoucherForm.this)).postRequest(postData, "/voucher/create", new VolleyResponseListener() {
                     @Override
                     public void onError(String message, int statusCode) {
+                        if (statusCode == 401 || statusCode == 403) {
+                            startActivity(new Intent(VoucherForm.this, SignInActivity.class));
+                            finish();
+                            return;
+                        }
                         System.err.println(message);
                         overallError.setText("* " + message);
                     }

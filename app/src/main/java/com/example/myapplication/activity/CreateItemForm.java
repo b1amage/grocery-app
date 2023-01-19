@@ -333,6 +333,11 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
                         (new APIHandler(CreateItemForm.this)).postRequest(postData, "/item/create", new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {
+                                if (statusCode == 401 || statusCode == 403) {
+                                    startActivity(new Intent(CreateItemForm.this, SignInActivity.class));
+                                    finish();
+                                    return;
+                                }
                                 overallItemError.setText("* " + message);
                             }
 
@@ -352,6 +357,11 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
                         (new APIHandler(CreateItemForm.this)).updateRequest(postData, "/item/update/" + itemID, new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {
+                                if (statusCode == 401 || statusCode == 403) {
+                                    startActivity(new Intent(CreateItemForm.this, SignInActivity.class));
+                                    finish();
+                                    return;
+                                }
                                 overallItemError.setText("* " + message);
                             }
 

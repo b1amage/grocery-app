@@ -98,6 +98,11 @@ public class CartActivity extends BaseActivity {
                 (new APIHandler(CartActivity.this)).postRequest(postData, "/order/create", new VolleyResponseListener() {
                     @Override
                     public void onError(String message, int statusCode) {
+                        if (statusCode == 401 || statusCode == 403) {
+                            startActivity(new Intent(CartActivity.this, SignInActivity.class));
+                            finish();
+                            return;
+                        }
                         System.err.println(message);
                         Intent intent = new Intent(CartActivity.this, ErrorActivity.class);
                         intent.putExtra("error", message);

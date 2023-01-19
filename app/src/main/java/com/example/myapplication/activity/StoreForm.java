@@ -134,6 +134,11 @@ public class StoreForm extends BaseActivity {
                                 (new APIHandler(StoreForm.this)).postRequest(postData, "/location/create", new VolleyResponseListener() {
                                     @Override
                                     public void onError(String message, int statusCode) {
+                                        if (statusCode == 401 || statusCode == 403) {
+                                            startActivity(new Intent(StoreForm.this, SignInActivity.class));
+                                            finish();
+                                            return;
+                                        }
                                         System.err.println(message);
                                         overallError.setText("* " + message);
                                     }

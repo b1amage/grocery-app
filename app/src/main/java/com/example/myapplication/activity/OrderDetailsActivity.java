@@ -89,6 +89,11 @@ public class OrderDetailsActivity extends AppCompatActivity {
                     (new APIHandler(OrderDetailsActivity.this)).updateRequest(orderObject,"/order/fulfill/" + order.get_id(), new VolleyResponseListener() {
                         @Override
                         public void onError(String message, int statusCode) {
+                            if (statusCode == 401 || statusCode == 403) {
+                                startActivity(new Intent(OrderDetailsActivity.this, SignInActivity.class));
+                                finish();
+                                return;
+                            }
                             System.err.println(message);
                             startActivity(new Intent(OrderDetailsActivity.this, SignInActivity.class));
                         }

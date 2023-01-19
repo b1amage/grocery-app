@@ -117,6 +117,10 @@ public class CategoryItemAdapter extends BaseAdapter {
                         (new APIHandler(parent.getContext())).deleteRequest("/item/delete", item.get_id(), new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {
+                                if (statusCode == 401 || statusCode == 403) {
+                                    parent.getContext().startActivity(new Intent(parent.getContext(), SignInActivity.class));
+                                    return;
+                                }
                                 System.err.println(message);
                                 parent.getContext().startActivity(new Intent(parent.getContext(), SignInActivity.class));
                             }
