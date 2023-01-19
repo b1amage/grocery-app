@@ -71,7 +71,7 @@
 
         User has Cash on Delivery (COD) payment 
 
-        * Others 
+     # Others 
 
         User can view stores on Google map 
 
