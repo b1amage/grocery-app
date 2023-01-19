@@ -205,8 +205,6 @@ public class LocationManagement extends BaseActivity {
             @Override
             public void onClick(View view) {
                 String query = searchBox.getText().toString();
-                Toast.makeText(getApplicationContext(), query, Toast.LENGTH_SHORT).show();
-
                 ArrayList<Location> itemArrayList = new ArrayList<>();
 
                 if (query.isEmpty()){
