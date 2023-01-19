@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.example.myapplication.R;
@@ -22,6 +23,7 @@ public class OTPActivity extends BaseActivity {
 
     private EditText code1, code2, code3, code4, code5, code6;
     private Button button_next;
+    private ImageButton button_goback;
     private TextView text_receive, text_resend, text_second;
     private JSONObject jsonObject;
 
@@ -36,6 +38,7 @@ public class OTPActivity extends BaseActivity {
             e.printStackTrace();
         }
 
+        button_goback = (ImageButton) findViewById(R.id.button_goback);
         code1 = findViewById(R.id.code1);
         code2 = findViewById(R.id.code2);
         code3 = findViewById(R.id.code3);
@@ -49,6 +52,15 @@ public class OTPActivity extends BaseActivity {
 
         setUpOTP();
         reverseTimer();
+        button_goback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(OTPActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
+
         button_next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
