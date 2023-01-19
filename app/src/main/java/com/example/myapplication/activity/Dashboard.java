@@ -110,20 +110,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                ArrayList<Item> itemsList = new ArrayList<>();
                 categorySelected = ((Category) spinner.getSelectedItem()).getCategoryName();
-//                if (categorySelected.isEmpty()){
-//                    itemsList.addAll(items);
-//                } else {
-//                    for (Item item : items){
-//                        if (item.getCategory().toLowerCase().contains(categorySelected)){
-//                            itemsList.add(item);
-//                        }
-//                    }
-//                }
-
-//                itemAdapter = new CategoryItemAdapter(Dashboard.this, itemsList);
-//                categoryView.setAdapter(itemAdapter);
                 startLoading();
                 if (categorySelected.isEmpty()) return;
                 String endpoint = "/item/view";
@@ -346,7 +333,7 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
 
                         JSONObject object = jsonArray.getJSONObject(i);
                         System.out.println("object" + object);
-                        itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), "", object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
+                        itemArrayList.add(new Item(object.getString("_id"), object.getString("name"), object.getString("description"), object.getInt("price"), object.getString("category"), object.getString("image"), object.getInt("quantity")));
                     }
 
                     setUpListViewItem(itemArrayList);
@@ -415,6 +402,12 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
         setUpSearchBtn();
         setUpLogOutButton();
         setUpBottomNavigation();
+        getAllItems();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         getAllItems();
     }
 }

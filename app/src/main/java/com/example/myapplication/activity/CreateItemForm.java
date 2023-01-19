@@ -15,6 +15,7 @@ import android.provider.MediaStore;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -49,10 +50,7 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
     private ActionBar itemFormActionBar = new ActionBar(R.id.itemFormActionBar, this);
     private Button submitButton = new Button(R.id.submitButton, this);
 
-    private Item newItem;
-
     private EditText inputItemNameText;
-//    private EditText inputItemCategoryText;
     private CustomSpinner categorySpinner;
     private EditText inputItemPriceText;
     private EditText inputItemQuantityText;
@@ -69,22 +67,25 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
     private String imageURL = "";
     private String itemCategory = "";
 
+    private String title = "";
+    private String itemID = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_item_form);
 
-        if (getIntent().getStringExtra("title") == null){
+        if (getIntent().getStringExtra("title") == null) {
+            title = "create";
             itemFormActionBar.createActionBar("Create new item", R.drawable.ic_back, R.drawable.navbutton_shape);
             submitButton.createActiveButton("Create", onSubmitFormClick());
-        } else{
+        } else {
+            title = "update";
             itemFormActionBar.createActionBar(getIntent().getStringExtra("title"), R.drawable.ic_back, R.drawable.navbutton_shape);
             submitButton.createActiveButton("Update", onSubmitFormClick());
         }
 
         uploadImageButton = findViewById(R.id.uploadImageButton);
         inputItemNameText = findViewById(R.id.inputItemText);
-//        inputItemCategoryText = findViewById(R.id.inputItemCategoryText);
         categorySpinner = findViewById(R.id.filter_spinner);
         inputItemPriceText = findViewById(R.id.inputPriceText);
         inputItemDescriptionText = findViewById(R.id.inputItemDescriptionText);
@@ -92,8 +93,6 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
         overallItemError = findViewById(R.id.overallItemError);
 
         inputItemNameText.addTextChangedListener(getInputValue(inputItemNameText));
-//        inputItemCategoryText.addTextChangedListener(getInputValue(inputItemCategoryText));
-        setUpSpinner();
         inputItemPriceText.addTextChangedListener(getInputValue(inputItemPriceText));
         inputItemDescriptionText.addTextChangedListener(getInputValue(inputItemDescriptionText));
         inputItemQuantityText.addTextChangedListener(getInputValue(inputItemQuantityText));
@@ -106,21 +105,41 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
         Item item = (Item) getIntent().getSerializableExtra("item");
         System.out.println(item);
         if (item != null){
+            itemID = item.get_id();
             inputItemNameText.setText(item.getName());
-//            inputItemCategoryText.setText(item.getCategory());
+            System.out.println("des" + item.getDescription());
+            itemCategory = item.getCategory();
             inputItemDescriptionText.setText(item.getDescription());
             inputItemPriceText.setText(String.valueOf(item.getPrice()));
             inputItemQuantityText.setText(String.valueOf(item.getQuantity()));
+            imageURL = item.getImageURL();
             ImageLoader.loadImg(item.getImageURL(), uploadImageButton);
         }
 
+        setUpSpinner();
         uploadImageButton.setOnClickListener(uploadImageOnClick());
     }
 
+    private int getIndexSpinner(Adapter categoryAdapter, String value) {
+        for (int index = 0, count = categoryAdapter.getCount(); index < count; ++index) {
+            if (((Category) categoryAdapter.getItem(index)).getCategoryName().equals(value)) {
+                return index;
+            }
+        }
+
+        return -1;
+    }
+
     private void setUpSpinner(){
+        System.err.println("title " + title);
+        System.err.println("itemCateg: " + itemCategory);
         categorySpinner.setSpinnerEventsListener(this);
         categoryAdapter = new CategoryAdapter(this, true);
         categorySpinner.setAdapter(categoryAdapter);
+
+        if (title.equals("update")) {
+            categorySpinner.setSelection(getIndexSpinner(categoryAdapter, itemCategory));
+        }
         categorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -129,24 +148,12 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
 
             @Override
             public void onNothingSelected(AdapterView<?> adapterView) {
-                itemCategory = "vegetable";
             }
         });
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-//        if (resultCode == RESULT_OK) {
-//            if (requestCode == 200) {
-//                // Get the url of the image from data
-//                Uri selectedImageUri = data.getData();
-//                if (null != selectedImageUri) {
-//                    uploadImageButton.setImageURI(selectedImageUri);
-//                    System.out.println(selectedImageUri);
-//                }
-//            }
-//        }
-
         if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri picUri = data.getData();
             String filePath = getPath(picUri);
@@ -245,8 +252,6 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
         return new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                newItem = new Item(6, inputItemText.getText().toString(), R.drawable.dummy_item, inputShopText.getText().toString(), Double.parseDouble(inputPriceText.getText().toString()));
-//                Toast.makeText(CreateItemForm.this, newItem.toString(), Toast.LENGTH_LONG).show();
                 inputItemNameError.setText(null);
                 inputItemPriceError.setText(null);
                 inputItemQuantityError.setText(null);
@@ -324,24 +329,45 @@ public class CreateItemForm extends BaseActivity implements CustomSpinner.OnSpin
                     postData.put("category", itemCategory);
                     postData.put("quantity", quantity);
 
-                    (new APIHandler(CreateItemForm.this)).postRequest(postData, "/item/create", new VolleyResponseListener() {
-                        @Override
-                        public void onError(String message, int statusCode) {
-                            overallItemError.setText("* " + message);
-                        }
+                    if (title.equals("create")) {
+                        (new APIHandler(CreateItemForm.this)).postRequest(postData, "/item/create", new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message, int statusCode) {
+                                overallItemError.setText("* " + message);
+                            }
 
-                        @Override
-                        public void onResponse(JSONObject response) throws JSONException {
-                            overallItemError.setText("Item created successful!");
-                            overallItemError.setTextColor(getResources().getColor(R.color.primary_100));
-                            new Handler().postDelayed(new Runnable() {
-                                @Override
-                                public void run() {
-                                    finish();
-                                }
-                            }, 2000);
-                        }
-                    });
+                            @Override
+                            public void onResponse(JSONObject response) throws JSONException {
+                                overallItemError.setText("Item created successful!");
+                                overallItemError.setTextColor(getResources().getColor(R.color.primary_100));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, 2000);
+                            }
+                        });
+                    } else if (title.equals("update")) {
+                        (new APIHandler(CreateItemForm.this)).updateRequest(postData, "/item/update/" + itemID, new VolleyResponseListener() {
+                            @Override
+                            public void onError(String message, int statusCode) {
+                                overallItemError.setText("* " + message);
+                            }
+
+                            @Override
+                            public void onResponse(JSONObject response) throws JSONException {
+                                overallItemError.setText("Item updated successful!");
+                                overallItemError.setTextColor(getResources().getColor(R.color.primary_100));
+                                new Handler().postDelayed(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        finish();
+                                    }
+                                }, 2000);
+                            }
+                        });
+                    }
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }

@@ -30,13 +30,13 @@ public class SplashActivity extends BaseActivity {
                 if (!isLogin) {
                     startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 } else {
-                    startActivity(new Intent(SplashActivity.this, Dashboard.class));
-//                    String role = (new CookieManager(SplashActivity.this)).getRole();
-//                    if (role.equals("customer")) {
-//                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
-//                    } else if (role.equals("staff")) {
-//                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
-//                    }
+//                    startActivity(new Intent(SplashActivity.this, Dashboard.class));
+                    String role = (new CookieManager(SplashActivity.this)).getRole();
+                    if (role.equals("customer")) {
+                        startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    } else if (role.equals("staff")) {
+                        startActivity(new Intent(SplashActivity.this, Dashboard.class));
+                    }
                 }
                 finish();
             }
