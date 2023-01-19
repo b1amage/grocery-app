@@ -81,11 +81,10 @@ public class CategoryItemAdapter extends BaseAdapter {
 
         Item item = (Item) getItem(position);
 
-//        ((ImageView) listItemView.findViewById(R.id.itemImage)).setImageResource(item.getImg());
         ImageLoader.loadImg(item.getImageURL(), listItemView.findViewById(R.id.itemImage));
         ((TextView) listItemView.findViewById(R.id.itemName)).setText(item.getName());
         ((TextView) listItemView.findViewById(R.id.itemInfo)).setText(item.getCategory());
-        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText("VND" + String.valueOf(item.getPrice()));
+        ((TextView) listItemView.findViewById(R.id.itemPrice)).setText(item.getPrice() + " VND");
 
         mask.setVisibility(View.INVISIBLE);
 
@@ -96,7 +95,6 @@ public class CategoryItemAdapter extends BaseAdapter {
                 Intent intent = new Intent(parent.getContext(), CreateItemForm.class);
                 intent.putExtra("item", item);
                 intent.putExtra("title", "Update item");
-                Toast.makeText(parent.getContext(), "Edit", Toast.LENGTH_LONG).show();
                 parent.getContext().startActivity(intent);
             }
         });
@@ -113,7 +111,6 @@ public class CategoryItemAdapter extends BaseAdapter {
                 deleteButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        Toast.makeText(getContext(), voucher.toString(), Toast.LENGTH_LONG).show();
                         (new APIHandler(parent.getContext())).deleteRequest("/item/delete", item.get_id(), new VolleyResponseListener() {
                             @Override
                             public void onError(String message, int statusCode) {

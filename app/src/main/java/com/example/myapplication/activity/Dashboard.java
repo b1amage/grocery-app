@@ -361,7 +361,6 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
             public void onClick(View view) {
                 mask.setVisibility(View.GONE);
                 deleteNotification.setVisibility(View.INVISIBLE);
-                Toast.makeText(getApplicationContext(), "Cancel", Toast.LENGTH_LONG).show();
             }
         };
     }
@@ -371,7 +370,6 @@ public class Dashboard extends BaseActivity implements CustomSpinner.OnSpinnerEv
             @Override
             public void onClick(View view) {
                 mask.setVisibility(View.GONE);
-                Toast.makeText(getApplicationContext(), "Delete", Toast.LENGTH_LONG).show();
                 deleteNotification.setVisibility(View.INVISIBLE);
             }
         };

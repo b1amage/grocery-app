@@ -29,6 +29,7 @@ import com.example.myapplication.activity.VoucherForm;
 import com.example.myapplication.api.APIHandler;
 import com.example.myapplication.api.VolleyResponseListener;
 import com.example.myapplication.model.Location;
+import com.example.myapplication.utilities.CookieManager;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -64,6 +65,13 @@ public class LocationAdapter extends ArrayAdapter<Location> {
         ((TextView) listItemView.findViewById(R.id.orderPrice)).setVisibility(View.GONE);
 
         deleteButton = listItemView.findViewById(R.id.deleteButton);
+
+        String role = (new CookieManager(getContext())).getRole();
+        if (role.equals("customer")) {
+            deleteButton.setVisibility(View.GONE);
+        } else if (role.equals("staff")) {
+            deleteButton.setVisibility(View.VISIBLE);
+        }
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

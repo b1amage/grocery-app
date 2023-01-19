@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.example.myapplication.R;
 import com.example.myapplication.activity.LocationManagement;
@@ -64,46 +65,15 @@ public class OrderAdapter extends ArrayAdapter<Order> {
         ((TextView) listItemView.findViewById(R.id.orderPrice)).setText(order.getTotal() + " " + "VND");
 
         deleteButton = listItemView.findViewById(R.id.deleteButton);
+        deleteButton.setImageResource(R.drawable.small_edit);
+        deleteButton.setBackgroundTintList(ContextCompat.getColorStateList(getContext(), R.color.primary_100));
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                mask.setVisibility(View.VISIBLE);
-                deleteNotification.setVisibility(View.VISIBLE);
-
-                LinearLayout deleteButton = deleteNotification.findViewById(R.id.deleteButton);
-                deleteButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mask.setVisibility(View.INVISIBLE);
-                        deleteNotification.setVisibility(View.INVISIBLE);
-                        Toast.makeText(getContext(), order.toString(), Toast.LENGTH_LONG).show();
-                        (new APIHandler(getContext())).deleteRequest("/order/delete", order.get_id(), new VolleyResponseListener() {
-                            @Override
-                            public void onError(String message, int statusCode) {
-                                System.err.println(message);
-                                getContext().startActivity(new Intent(getContext(), SignInActivity.class));
-                            }
-
-                            @Override
-                            public void onResponse(JSONObject response) throws JSONException {
-                                System.out.println(response);
-                                getContext().startActivity(new Intent(getContext(), OrderManagement.class));
-
-                            }
-
-                        });
-                    }
-                });
-
-                LinearLayout cancelButton = deleteNotification.findViewById(R.id.cancelButton);
-                cancelButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        mask.setVisibility(View.INVISIBLE);
-                        deleteNotification.setVisibility(View.INVISIBLE);
-//                        Toast.makeText(getContext(), order.toString(), Toast.LENGTH_LONG).show();
-                    }
-                });
+                Intent intent = new Intent(getContext(), OrderDetailsActivity.class);
+                intent.putExtra("order", order);
+                System.out.println(order);
+                getContext().startActivity(intent);
             }
         });
 
