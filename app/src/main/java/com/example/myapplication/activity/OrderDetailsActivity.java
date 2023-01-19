@@ -48,6 +48,10 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         TextView orderId = findViewById(R.id.orderId);
         TextView customerId = findViewById(R.id.customerId);
+        TextView phone = findViewById(R.id.customerPhone);
+        TextView email = findViewById(R.id.customerEmail);
+        TextView address = findViewById(R.id.customerAddress);
+
         TextView subTotalValue = findViewById(R.id.subTotalValue);
         TextView discountValue = findViewById(R.id.discountValue);
         TextView totalValue = findViewById(R.id.totalValue);
@@ -56,6 +60,9 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
         orderId.setText(order.get_id());
         customerId.setText(order.getCustomer().getUsername());
+        phone.setText(order.getCustomer().getPhone());
+        email.setText(order.getCustomer().getEmail());
+        address.setText(order.getCustomer().getAddress());
         subTotalValue.setText(order.getSubTotal() + " VND");
         discountValue.setText(order.getDiscount() + " VND");
         totalValue.setText(order.getTotal() + " VND");

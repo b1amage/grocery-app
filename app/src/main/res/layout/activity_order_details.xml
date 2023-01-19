@@ -91,9 +91,93 @@
         </RelativeLayout>
 
         <RelativeLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/customerIdContainer"
+            android:id="@+id/customerPhoneContainer"
+            >
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone: "
+                android:id="@+id/customerPhoneTitle"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customerPhone"
+                android:text="{id}"
+                android:layout_toRightOf="@id/customerPhoneTitle"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customerPhoneContainer"
+            android:id="@+id/customerEmailContainer"
+            >
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email: "
+                android:id="@+id/customerEmailTitle"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customerEmail"
+                android:text="{id}"
+                android:layout_toRightOf="@id/customerEmailTitle"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customerEmailContainer"
+            android:id="@+id/customerAddressContainer"
+            >
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Address: "
+                android:id="@+id/customerAddressTitle"
+                />
+            <TextView
+                android:layout_centerVertical="true"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/customerAddress"
+                android:text="{id}"
+                android:layout_toRightOf="@id/customerAddressTitle"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_marginVertical="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/customerAddressContainer"
             android:id="@+id/itemsListContainer"
             >
             <TextView
