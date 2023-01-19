@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.myapplication.R;
@@ -21,6 +22,7 @@ import org.json.JSONObject;
 public class SignUpActivity extends BaseActivity {
 
     private Button button_signup;
+    private TextView text_signin;
     private EditText edittext_email, edittext_name, edittext_phone, edittext_address;
     private TextInputEditText edittext_password, edittext_confirmPassword;
     private TextInputLayout password, confirmPassword;
@@ -39,6 +41,16 @@ public class SignUpActivity extends BaseActivity {
         edittext_confirmPassword = (TextInputEditText) findViewById(R.id.edittext_confirmPassword);
         password = (TextInputLayout) findViewById(R.id.password);
         confirmPassword = (TextInputLayout) findViewById(R.id.confirmPassword);
+        text_signin = (TextView) findViewById(R.id.text_signin);
+
+        text_signin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(SignUpActivity.this, SignInActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         edittext_password.setOnClickListener(new View.OnClickListener() {
             @Override
